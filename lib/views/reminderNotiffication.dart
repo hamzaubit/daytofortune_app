@@ -1,3 +1,5 @@
+import 'package:daytofortune_app/views/allSetScreen.dart';
+import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +32,7 @@ class _reminderNotificationState extends State<reminderNotification> {
               height: SizeConfig.blockSizeVertical! * 17,
               width: MediaQuery.of(context).size.width * 100,
               decoration: BoxDecoration(
-                color: Color(0xff021524),
+                color: primaryThemeColor,
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20)),
@@ -43,7 +45,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   Icon(
                     Icons.notifications,
                     size: SizeConfig.blockSizeHorizontal! * 10,
-                    color: Colors.yellow,
+                    color: secondaryThemeColor,
                   ),
                   Text(
                     "Daily Notifications",
@@ -93,18 +95,22 @@ class _reminderNotificationState extends State<reminderNotification> {
                             height: SizeConfig.blockSizeVertical! * 6,
                             width: SizeConfig.blockSizeHorizontal! * 20,
                             decoration: BoxDecoration(
-                                color: Colors.yellow,
+                                color: primaryThemeColor,
                                 border:
                                     Border.all(color: Colors.black, width: 2.5),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            child: Center(
-                                child: Text("Hustle",
+                            child: Row(
+                              children: [
+                                Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                                Text("Hustle",
                                     style: GoogleFonts.poppins(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal! * 4,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600))),
+                                        SizeConfig.blockSizeHorizontal! * 3.5,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            )
                           )
                         : Container(
                             height: SizeConfig.blockSizeVertical! * 6,
@@ -135,18 +141,22 @@ class _reminderNotificationState extends State<reminderNotification> {
                             height: SizeConfig.blockSizeVertical! * 6,
                             width: SizeConfig.blockSizeHorizontal! * 20,
                             decoration: BoxDecoration(
-                                color: Colors.yellow,
+                                color: primaryThemeColor,
                                 border:
                                     Border.all(color: Colors.black, width: 2.5),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            child: Center(
-                                child: Text("Stress",
+                            child: Row(
+                              children: [
+                                Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                                Text("Stress",
                                     style: GoogleFonts.poppins(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal! * 4,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600))),
+                                        SizeConfig.blockSizeHorizontal! * 3.5,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            )
                           )
                         : Container(
                             height: SizeConfig.blockSizeVertical! * 6,
@@ -177,18 +187,22 @@ class _reminderNotificationState extends State<reminderNotification> {
                             height: SizeConfig.blockSizeVertical! * 6,
                             width: SizeConfig.blockSizeHorizontal! * 20,
                             decoration: BoxDecoration(
-                                color: Colors.yellow,
+                                color: primaryThemeColor,
                                 border:
                                     Border.all(color: Colors.black, width: 2.5),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            child: Center(
-                                child: Text("Love",
+                            child: Row(
+                              children: [
+                                Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                                Text("Love",
                                     style: GoogleFonts.poppins(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal! * 4,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600))),
+                                        SizeConfig.blockSizeHorizontal! * 3.5,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            )
                           )
                         : Container(
                             height: SizeConfig.blockSizeVertical! * 6,
@@ -217,20 +231,24 @@ class _reminderNotificationState extends State<reminderNotification> {
                     child: depression == true
                         ? Container(
                             height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 26,
+                            width: SizeConfig.blockSizeHorizontal! * 28,
                             decoration: BoxDecoration(
-                                color: Colors.yellow,
+                                color: primaryThemeColor,
                                 border:
                                     Border.all(color: Colors.black, width: 2.5),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            child: Center(
-                                child: Text("Depression",
+                            child: Row(
+                              children: [
+                                Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                                Text("Depression",
                                     style: GoogleFonts.poppins(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal! * 4,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600))),
+                                        SizeConfig.blockSizeHorizontal! * 3.5,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            )
                           )
                         : Container(
                             height: SizeConfig.blockSizeVertical! * 6,
@@ -269,18 +287,24 @@ class _reminderNotificationState extends State<reminderNotification> {
                     },
                     child: workout == true ? Container(
                       height: SizeConfig.blockSizeVertical! * 6,
-                      width: SizeConfig.blockSizeHorizontal! * 20,
+                      width: SizeConfig.blockSizeHorizontal! * 23,
                       decoration: BoxDecoration(
-                          color: Colors.yellow,
+                          color: primaryThemeColor,
                           border: Border.all(color: Colors.black, width: 2.5),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                          child: Text("Workout",
+                      child: Row(
+                        children: [
+                          Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor,),
+                          Text("Workout",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600))),
-                    ) : Container(
+                                  fontSize:
+                                  SizeConfig.blockSizeHorizontal! * 3.5,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600))
+                        ],
+                      )
+                    ) :
+                    Container(
                       height: SizeConfig.blockSizeVertical! * 6,
                       width: SizeConfig.blockSizeHorizontal! * 20,
                       decoration: BoxDecoration(
@@ -305,16 +329,22 @@ class _reminderNotificationState extends State<reminderNotification> {
                       height: SizeConfig.blockSizeVertical! * 6,
                       width: SizeConfig.blockSizeHorizontal! * 20,
                       decoration: BoxDecoration(
-                          color: Colors.yellow,
+                          color: primaryThemeColor,
                           border: Border.all(color: Colors.black, width: 2.5),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                          child: Text("Health",
+                      child: Row(
+                        children: [
+                          Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor,),
+                          Text("Health",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600))),
-                    ) : Container(
+                                  fontSize:
+                                  SizeConfig.blockSizeHorizontal! * 3.5,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600))
+                        ],
+                      )
+                    ) :
+                    Container(
                       height: SizeConfig.blockSizeVertical! * 6,
                       width: SizeConfig.blockSizeHorizontal! * 20,
                       decoration: BoxDecoration(
@@ -339,16 +369,22 @@ class _reminderNotificationState extends State<reminderNotification> {
                       height: SizeConfig.blockSizeVertical! * 6,
                       width: SizeConfig.blockSizeHorizontal! * 25,
                       decoration: BoxDecoration(
-                          color: Colors.yellow,
+                          color: primaryThemeColor,
                           border: Border.all(color: Colors.black, width: 2.5),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                          child: Text("Training",
+                      child: Row(
+                        children: [
+                          Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                          Text("Training",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600))),
-                    ) : Container(
+                                  fontSize:
+                                  SizeConfig.blockSizeHorizontal! * 3.5,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600))
+                        ],
+                      )
+                    ) :
+                    Container(
                       height: SizeConfig.blockSizeVertical! * 6,
                       width: SizeConfig.blockSizeHorizontal! * 25,
                       decoration: BoxDecoration(
@@ -373,15 +409,20 @@ class _reminderNotificationState extends State<reminderNotification> {
                       height: SizeConfig.blockSizeVertical! * 6,
                       width: SizeConfig.blockSizeHorizontal! * 20,
                       decoration: BoxDecoration(
-                          color: Colors.yellow,
+                          color: primaryThemeColor,
                           border: Border.all(color: Colors.black, width: 2.5),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                          child: Text("Gym",
+                      child: Row(
+                        children: [
+                          Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                          Text("Gym",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600))),
+                                  fontSize:
+                                  SizeConfig.blockSizeHorizontal! * 3.5,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600))
+                        ],
+                      )
                     ) : Container(
                       height: SizeConfig.blockSizeVertical! * 6,
                       width: SizeConfig.blockSizeHorizontal! * 20,
@@ -406,7 +447,7 @@ class _reminderNotificationState extends State<reminderNotification> {
             Container(
               width: MediaQuery.of(context).size.width - 20,
               height: SizeConfig.blockSizeVertical! * 10,
-              color: Color(0xff021524),
+              color: primaryThemeColor,
               child: Row(
                 children: [
                   SizedBox(
@@ -471,7 +512,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   Text("${counter}x",
                       style: GoogleFonts.poppins(
                           fontSize: SizeConfig.blockSizeHorizontal! * 4.5,
-                          color: Colors.yellow,
+                          color: secondaryThemeColor,
                           fontWeight: FontWeight.w500)),
                   SizedBox(
                     width: SizeConfig.blockSizeHorizontal! * 7,
@@ -509,7 +550,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    height: SizeConfig.blockSizeVertical! * 18,
+                    height: SizeConfig.blockSizeVertical! * 15,
                     width: SizeConfig.blockSizeHorizontal! * 30,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -533,7 +574,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                     )
                   ),
                   Container(
-                    height: SizeConfig.blockSizeVertical! * 18,
+                    height: SizeConfig.blockSizeVertical! * 15,
                     width: SizeConfig.blockSizeHorizontal! * 30,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -568,7 +609,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    height: SizeConfig.blockSizeVertical! * 18,
+                    height: SizeConfig.blockSizeVertical! * 15,
                     width: SizeConfig.blockSizeHorizontal! * 30,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -592,7 +633,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                     ),
                   ),
                   Container(
-                    height: SizeConfig.blockSizeVertical! * 18,
+                    height: SizeConfig.blockSizeVertical! * 15,
                     width: SizeConfig.blockSizeHorizontal! * 30,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -622,12 +663,14 @@ class _reminderNotificationState extends State<reminderNotification> {
               height: SizeConfig.blockSizeVertical! * 3,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => allSetScreen()));
+              },
               child: Container(
                   height: SizeConfig.blockSizeVertical! * 8,
                   width: MediaQuery.of(context).size.width - 80,
                   decoration: BoxDecoration(
-                      color: Colors.yellow,
+                      color: secondaryThemeColor,
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10),
                           topRight: Radius.circular(10),

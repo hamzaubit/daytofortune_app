@@ -1,4 +1,5 @@
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
+import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class onBoardingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: SizeConfig.blockSizeVertical! * 15,),
-                Text("─THEODORE ROOSEVELT",style: GoogleFonts.poppins(fontSize: SizeConfig.blockSizeHorizontal! * 6,color: Colors.yellow),),
+                Text("─THEODORE ROOSEVELT",style: GoogleFonts.poppins(fontSize: SizeConfig.blockSizeHorizontal! * 6,color: secondaryThemeColor,),),
               ],
             ),
           ),
@@ -33,7 +34,7 @@ class onBoardingScreen extends StatelessWidget {
               height: SizeConfig.blockSizeVertical! * 8,
               width: MediaQuery.of(context).size.width - 80,
               decoration: BoxDecoration(
-                  color: Colors.yellow,
+                  color: secondaryThemeColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topRight: Radius.circular(10),topLeft: Radius.circular(10),bottomRight: Radius.circular(10))
               ),
               child: Row(
