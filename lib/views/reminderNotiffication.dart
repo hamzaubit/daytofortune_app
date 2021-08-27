@@ -461,7 +461,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                         fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 20,
+                    width: SizeConfig.blockSizeHorizontal! * 16,
                   ),
                   counter == 1
                       ? Container(
@@ -509,7 +509,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   SizedBox(
                     width: SizeConfig.blockSizeHorizontal! * 7,
                   ),
-                  Text("${counter}x",
+                  Text("${counter}",
                       style: GoogleFonts.poppins(
                           fontSize: SizeConfig.blockSizeHorizontal! * 4.5,
                           color: secondaryThemeColor,

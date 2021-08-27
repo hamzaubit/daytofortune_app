@@ -56,26 +56,29 @@ class allSetScreen extends StatelessWidget {
             ],
           ),
           SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: SizeConfig.blockSizeVertical! * 2.2,
-                width: SizeConfig.blockSizeHorizontal! * 4.8,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/verify.png'),fit: BoxFit.fill
-                    )
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: SizeConfig.blockSizeVertical! * 2.2,
+                  width: SizeConfig.blockSizeHorizontal! * 4.8,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/verify.png'),fit: BoxFit.fill
+                      )
+                  ),
                 ),
-              ),
-              SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-              Text(
-                "Preferences can be changed in category\nsection",
-                style: GoogleFonts.poppins(
-                    fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                    color: Colors.white),
-              ),
-            ],
+                SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
+                Text(
+                  "Preferences can be changed in category\nsection",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                      color: Colors.white),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
           Row(

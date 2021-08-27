@@ -12,11 +12,16 @@ class premiumScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: SizeConfig.blockSizeVertical! * 7,),
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: Align(
-              alignment: Alignment.centerRight,
-                child: Icon(Icons.cancel_outlined,size: SizeConfig.blockSizeHorizontal! * 8,color: Colors.blueGrey,)),
+          GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: Align(
+                alignment: Alignment.centerRight,
+                  child: Icon(Icons.cancel_outlined,size: SizeConfig.blockSizeHorizontal! * 8,color: Colors.blueGrey,)),
+            ),
           ),
           SizedBox(height: SizeConfig.blockSizeVertical! * 7,),
           Container(

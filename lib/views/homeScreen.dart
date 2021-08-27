@@ -1,9 +1,13 @@
+import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
+import 'package:daytofortune_app/views/premiumScreen.dart';
+import 'package:daytofortune_app/views/reminderNotiffication.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'drawerMenu/categories.dart';
+import 'drawerMenu/fortuneAcademy.dart';
 
 class homeScreen extends StatefulWidget {
   @override
@@ -62,61 +66,66 @@ class _homeScreenState extends State<homeScreen> {
                   tileColor: drawerColor,
                   title: const Text('My Quotes',
                     style: TextStyle(color: textColor,fontSize: 14),),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: textColor,width: 0.5)
-                ),
-                child: ListTile(
-                  tileColor: drawerColor,
-                  title: const Text('Fortune Academy',
-                    style: TextStyle(color: textColor,fontSize: 14),),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: textColor,width: 0.5)
-                ),
-                child: ListTile(
-                  tileColor: drawerColor,
-                  title: const Text('Notifications',
-                    style: TextStyle(color: textColor,fontSize: 14),),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => fortuneAcademy()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: textColor,width: 0.5)
+                  ),
+                  child: ListTile(
+                    tileColor: drawerColor,
+                    title: const Text('Fortune Academy',
+                      style: TextStyle(color: textColor,fontSize: 14),),
+                  ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: textColor,width: 0.5)
-                ),
-                child: ListTile(
-                  tileColor: drawerColor,
-                  title: const Text('Get Membership',
-                    style: TextStyle(color: textColor,fontSize: 14),),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => reminderNotification()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: textColor,width: 0.5)
+                  ),
+                  child: ListTile(
+                    tileColor: drawerColor,
+                    title: const Text('Notifications',
+                      style: TextStyle(color: textColor,fontSize: 14),),
+                  ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: textColor,width: 0.5)
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: textColor,width: 0.5)
+                  ),
+                  child: ListTile(
+                    tileColor: drawerColor,
+                    title: const Text('Get Membership',
+                      style: TextStyle(color: textColor,fontSize: 14),),
+                  ),
                 ),
-                child: ListTile(
-                  tileColor: drawerColor,
-                  title: const Text('Sign In',
-                    style: TextStyle(color: textColor,fontSize: 14),),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => signInScreen()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: textColor,width: 0.5)
+                  ),
+                  child: ListTile(
+                    tileColor: drawerColor,
+                    title: const Text('Sign In',
+                      style: TextStyle(color: textColor,fontSize: 14),),
+                  ),
                 ),
               ),
               Container(
