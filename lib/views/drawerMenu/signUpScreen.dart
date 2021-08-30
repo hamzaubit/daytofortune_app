@@ -3,6 +3,8 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'membershipScreen.dart';
+
 class signUpScreen extends StatefulWidget {
   @override
   _signUpScreenState createState() => _signUpScreenState();
@@ -289,7 +291,7 @@ class _signUpScreenState extends State<signUpScreen> {
                   SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
                   GestureDetector(
                     onTap: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => membershipScreen()));
                     },
                     child: Container(
                         height: SizeConfig.blockSizeVertical! * 6,
