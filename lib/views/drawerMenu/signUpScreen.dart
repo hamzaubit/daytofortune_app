@@ -11,6 +11,8 @@ class signUpScreen extends StatefulWidget {
 class _signUpScreenState extends State<signUpScreen> {
 
   final _formKey = GlobalKey<FormState>();
+  bool _passwordVisible = false;
+  bool _confirmPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -97,24 +99,23 @@ class _signUpScreenState extends State<signUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
-                      style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
-                        /*hoverColor: Colors.white,
-                                  focusColor: Colors.white,
-                                  fillColor: Colors.white,*/
+                                  fillColor: drawerColor,
+                          filled: true,
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white,width: 1),
+                              borderSide: BorderSide(color: textColor,width: 0.5),
                               borderRadius: BorderRadius.all(Radius.circular(30))),
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white,width: 1),
+                              borderSide: BorderSide(color: textColor,width: 0.5),
                               borderRadius: BorderRadius.all(Radius.circular(30))
                           ),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white,width: 1),
+                              borderSide: BorderSide(color: textColor,width: 0.5),
                               borderRadius: BorderRadius.all(Radius.circular(30))),
                           hintText: 'First Name',
-                          hintStyle: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                          hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -127,24 +128,23 @@ class _signUpScreenState extends State<signUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
-                      style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
-                        /*hoverColor: Colors.white,
-                                  focusColor: Colors.white,
-                                  fillColor: Colors.white,*/
+                        fillColor: drawerColor,
+                        filled: true,
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))
                         ),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         hintText: 'Last Name',
-                        hintStyle: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                        hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -157,24 +157,23 @@ class _signUpScreenState extends State<signUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
-                      style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
-                        /*hoverColor: Colors.white,
-                                  focusColor: Colors.white,
-                                  fillColor: Colors.white,*/
+                        fillColor: drawerColor,
+                        filled: true,
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))
                         ),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         hintText: 'E-mail Address',
-                        hintStyle: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                        hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -187,24 +186,23 @@ class _signUpScreenState extends State<signUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
-                      style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
-                        /*hoverColor: Colors.white,
-                                  focusColor: Colors.white,
-                                  fillColor: Colors.white,*/
+                        fillColor: drawerColor,
+                        filled: true,
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))
                         ),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         hintText: 'Username',
-                        hintStyle: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                        hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -217,25 +215,31 @@ class _signUpScreenState extends State<signUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
-                      style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      obscureText: !_passwordVisible,
+                      style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
-                        /*hoverColor: Colors.white,
-                                  focusColor: Colors.white,
-                                  fillColor: Colors.white,*/
+                        fillColor: drawerColor,
+                        filled: true,
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))
                         ),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white,width: 1),
+                            borderSide: BorderSide(color: textColor,width: 0.5),
                             borderRadius: BorderRadius.all(Radius.circular(30))),
                         hintText: 'Password',
-                        hintStyle: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
-
+                        hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                        suffixIcon: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              _passwordVisible =! _passwordVisible;
+                            });
+                          },
+                            child: _passwordVisible ? Icon(Icons.visibility,color: textColor,) : Icon(Icons.visibility_off,color: textColor,)),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -243,6 +247,63 @@ class _signUpScreenState extends State<signUpScreen> {
                         }
                         return null;
                       },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
+                    child: TextFormField(
+                      obscureText: !_confirmPasswordVisible,
+                      style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                      cursorColor: Colors.white,
+                      decoration: InputDecoration(
+                        fillColor: drawerColor,
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: textColor,width: 0.5),
+                            borderRadius: BorderRadius.all(Radius.circular(30))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: textColor,width: 0.5),
+                            borderRadius: BorderRadius.all(Radius.circular(30))
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: textColor,width: 0.5),
+                            borderRadius: BorderRadius.all(Radius.circular(30))),
+                        hintText: 'Confirm Password',
+                        hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                        suffixIcon: GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                _confirmPasswordVisible =! _confirmPasswordVisible;
+                              });
+                            },
+                            child: _confirmPasswordVisible ? Icon(Icons.visibility,color: textColor,) : Icon(Icons.visibility_off,color: textColor,)),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
+                  GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                        height: SizeConfig.blockSizeVertical! * 6,
+                        width: SizeConfig.blockSizeHorizontal! * 40,
+                        decoration: BoxDecoration(
+                            color: secondaryThemeColor,
+                            borderRadius: BorderRadius.all(Radius.circular(30))
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Proceed",style: GoogleFonts.poppins(fontSize: SizeConfig.blockSizeHorizontal! * 4,color: Colors.black),),
+                          ],
+                        )
                     ),
                   ),
                 ],

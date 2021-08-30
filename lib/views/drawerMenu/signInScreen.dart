@@ -58,25 +58,25 @@ class _signInScreenState extends State<signInScreen> {
                           height: SizeConfig.blockSizeVertical! * 7,
                           width: SizeConfig.blockSizeHorizontal! * 80,
                           child: TextFormField(
-                            style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
-                            cursorColor: Colors.white,
+                            style: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                            cursorColor: primaryThemeColor,
+                            obscureText: true,
                             decoration: InputDecoration(
-                              /*hoverColor: Colors.white,
-                                focusColor: Colors.white,
-                                fillColor: Colors.white,*/
+                                fillColor: Colors.white,
+                                filled: true,
                                 border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white,width: 2),
+                                    borderSide: BorderSide(color: textColor,width: 0.5),
                                     borderRadius: BorderRadius.all(Radius.circular(20))),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white,width: 2),
+                                    borderSide: BorderSide(color: textColor,width: 0.5),
                                     borderRadius: BorderRadius.all(Radius.circular(20))
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white,width: 2),
+                                    borderSide: BorderSide(color: textColor,width: 0.5),
                                     borderRadius: BorderRadius.all(Radius.circular(20))),
-                                hintText: 'Username or Email',
-                                hintStyle: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
-                                prefixIcon: Icon(Icons.account_box_outlined,color: Colors.white,size: SizeConfig.blockSizeHorizontal! * 5.5,)
+                                hintText: 'Username or E-mail',
+                                hintStyle: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                                prefixIcon: Icon(Icons.account_box_outlined,color: primaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 5.5,)
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -110,26 +110,25 @@ class _signInScreenState extends State<signInScreen> {
                           height: SizeConfig.blockSizeVertical! * 7,
                           width: SizeConfig.blockSizeHorizontal! * 80,
                           child: TextFormField(
-                            style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
-                            cursorColor: Colors.white,
+                            style: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                            cursorColor: primaryThemeColor,
                             obscureText: true,
                             decoration: InputDecoration(
-                              /*hoverColor: Colors.white,
-                                focusColor: Colors.white,
-                                fillColor: Colors.white,*/
+                                fillColor: Colors.white,
+                                filled: true,
                                 border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white,width: 2),
+                                    borderSide: BorderSide(color: textColor,width: 0.5),
                                     borderRadius: BorderRadius.all(Radius.circular(20))),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white,width: 2),
+                                    borderSide: BorderSide(color: textColor,width: 0.5),
                                     borderRadius: BorderRadius.all(Radius.circular(20))
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white,width: 2),
+                                    borderSide: BorderSide(color: textColor,width: 0.5),
                                     borderRadius: BorderRadius.all(Radius.circular(20))),
                                 hintText: 'Password',
-                                hintStyle: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
-                                prefixIcon: Icon(Icons.account_box_outlined,color: Colors.white,size: SizeConfig.blockSizeHorizontal! * 5.5,)
+                                hintStyle: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
+                                prefixIcon: Icon(Icons.lock,color: primaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 5.5,)
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
