@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'drawerMenu/categories.dart';
 import 'drawerMenu/fortuneAcademy.dart';
+import 'drawerMenu/myQuotes.dart';
 
 class homeScreen extends StatefulWidget {
   @override
@@ -58,14 +59,19 @@ class _homeScreenState extends State<homeScreen> {
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: textColor,width: 0.5)
-                ),
-                child: ListTile(
-                  tileColor: drawerColor,
-                  title: const Text('My Quotes',
-                    style: TextStyle(color: textColor,fontSize: 14),),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => myQuotes()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: textColor,width: 0.5)
+                  ),
+                  child: ListTile(
+                    tileColor: drawerColor,
+                    title: const Text('My Quotes',
+                      style: TextStyle(color: textColor,fontSize: 14),),
+                  ),
                 ),
               ),
               GestureDetector(

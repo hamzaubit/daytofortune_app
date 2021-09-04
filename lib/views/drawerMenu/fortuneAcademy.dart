@@ -263,16 +263,27 @@ class _trendingState extends State<trending> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: SizeConfig.blockSizeVertical! * 13,
-        width: SizeConfig.blockSizeHorizontal! * 28,
-        decoration: BoxDecoration(
-            border: Border.all(color: drawerColor,width: 1),
-            image: DecorationImage(
-                image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-            )
-        ),
-      ),
+      child: Stack(
+        children: [
+          Container(
+            height: SizeConfig.blockSizeVertical! * 13,
+            width: SizeConfig.blockSizeHorizontal! * 28,
+            child: Center(
+              child: CircularProgressIndicator(color: secondaryThemeColor,),
+            ),
+          ),
+          Container(
+            height: SizeConfig.blockSizeVertical! * 13,
+            width: SizeConfig.blockSizeHorizontal! * 28,
+            decoration: BoxDecoration(
+                border: Border.all(color: drawerColor,width: 1),
+                image: DecorationImage(
+                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                )
+            ),
+          ),
+        ],
+      )
     );
   }
 }
@@ -287,16 +298,27 @@ class _topFavouritesState extends State<topFavourites> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: SizeConfig.blockSizeVertical! * 13,
-        width: SizeConfig.blockSizeHorizontal! * 28,
-        decoration: BoxDecoration(
-            border: Border.all(color: drawerColor,width: 1),
-            image: DecorationImage(
-                image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-            )
-        ),
-      ),
+      child:Stack(
+        children: [
+          Container(
+            height: SizeConfig.blockSizeVertical! * 13,
+            width: SizeConfig.blockSizeHorizontal! * 28,
+            child: Center(
+              child: CircularProgressIndicator(color: secondaryThemeColor,),
+            ),
+          ),
+          Container(
+            height: SizeConfig.blockSizeVertical! * 13,
+            width: SizeConfig.blockSizeHorizontal! * 28,
+            decoration: BoxDecoration(
+                border: Border.all(color: drawerColor,width: 1),
+                image: DecorationImage(
+                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                )
+            ),
+          ),
+        ],
+      )
     );
   }
 }
@@ -311,16 +333,27 @@ class _hot10State extends State<hot10> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: SizeConfig.blockSizeVertical! * 13,
-        width: SizeConfig.blockSizeHorizontal! * 28,
-        decoration: BoxDecoration(
-            border: Border.all(color: drawerColor,width: 1),
-            image: DecorationImage(
-                image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-            )
-        ),
-      ),
+      child: Stack(
+        children: [
+          Container(
+            height: SizeConfig.blockSizeVertical! * 13,
+            width: SizeConfig.blockSizeHorizontal! * 28,
+            child: Center(
+              child: CircularProgressIndicator(color: secondaryThemeColor,),
+            ),
+          ),
+          Container(
+            height: SizeConfig.blockSizeVertical! * 13,
+            width: SizeConfig.blockSizeHorizontal! * 28,
+            decoration: BoxDecoration(
+                border: Border.all(color: drawerColor,width: 1),
+                image: DecorationImage(
+                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                )
+            ),
+          ),
+        ],
+      )
     );
   }
 }
@@ -335,16 +368,27 @@ class _myCollectionState extends State<myCollection> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: SizeConfig.blockSizeVertical! * 19,
-        width: SizeConfig.blockSizeHorizontal! * 35,
-        decoration: BoxDecoration(
-            border: Border.all(color: drawerColor,width: 1),
-            image: DecorationImage(
-                image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-            )
-        ),
-      ),
+      child: Stack(
+        children: [
+          Container(
+            height: SizeConfig.blockSizeVertical! * 19,
+            width: SizeConfig.blockSizeHorizontal! * 35,
+            child: Center(
+              child: CircularProgressIndicator(color: secondaryThemeColor,),
+            ),
+          ),
+          Container(
+            height: SizeConfig.blockSizeVertical! * 19,
+            width: SizeConfig.blockSizeHorizontal! * 35,
+            decoration: BoxDecoration(
+                border: Border.all(color: drawerColor,width: 1),
+                image: DecorationImage(
+                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                )
+            ),
+          ),
+        ],
+      )
     );
   }
 }
