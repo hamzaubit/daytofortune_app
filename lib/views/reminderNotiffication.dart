@@ -42,10 +42,27 @@ class _reminderNotificationState extends State<reminderNotification> {
                   SizedBox(
                     height: SizeConfig.blockSizeVertical! * 5,
                   ),
-                  Icon(
-                    Icons.notifications,
-                    size: SizeConfig.blockSizeHorizontal! * 10,
-                    color: secondaryThemeColor,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(width: SizeConfig.blockSizeHorizontal! * 15,),
+                      Icon(
+                        Icons.notifications,
+                        size: SizeConfig.blockSizeHorizontal! * 10,
+                        color: secondaryThemeColor,
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(Icons.cancel_outlined,size: SizeConfig.blockSizeHorizontal! * 8,color: Colors.blueGrey,)),
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
                     "Daily Notifications",
