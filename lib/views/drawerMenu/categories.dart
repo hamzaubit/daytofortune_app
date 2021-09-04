@@ -1,3 +1,4 @@
+import 'package:daytofortune_app/views/drawerMenu/myQuotes.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
@@ -56,17 +57,19 @@ class _categoriesState extends State<categories> {
                   },
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: textColor,width: 0.5)
-                ),
-                child: ListTile(
-                  tileColor: drawerColor,
-                  title: const Text('My Quotes',
-                    style: TextStyle(color: textColor,fontSize: 14),),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => myQuotes()));;
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: textColor,width: 0.5)
+                  ),
+                  child: ListTile(
+                    tileColor: drawerColor,
+                    title: const Text('My Quotes',
+                      style: TextStyle(color: textColor,fontSize: 14),),
+                  ),
                 ),
               ),
               GestureDetector(
@@ -81,9 +84,6 @@ class _categoriesState extends State<categories> {
                     tileColor: drawerColor,
                     title: const Text('Fortune Academy',
                       style: TextStyle(color: textColor,fontSize: 14),),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
               ),
@@ -129,9 +129,6 @@ class _categoriesState extends State<categories> {
                     tileColor: drawerColor,
                     title: const Text('Sign In',
                       style: TextStyle(color: textColor,fontSize: 14),),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
               ),
