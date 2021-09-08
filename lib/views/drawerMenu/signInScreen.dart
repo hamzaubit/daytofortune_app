@@ -1,6 +1,7 @@
 import 'package:daytofortune_app/views/drawerMenu/signUpScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:daytofortune_app/widgets/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +12,8 @@ class signInScreen extends StatefulWidget {
 
 class _signInScreenState extends State<signInScreen> {
 
+  TextEditingController username_email = new TextEditingController();
+  TextEditingController password = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -58,9 +61,9 @@ class _signInScreenState extends State<signInScreen> {
                           height: SizeConfig.blockSizeVertical! * 7,
                           width: SizeConfig.blockSizeHorizontal! * 80,
                           child: TextFormField(
+                            controller: username_email,
                             style: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                             cursorColor: primaryThemeColor,
-                            obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -78,12 +81,6 @@ class _signInScreenState extends State<signInScreen> {
                                 hintStyle: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                                 prefixIcon: Icon(Icons.account_box_outlined,color: primaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 5.5,)
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
                           ),
                         ),),
                     ],
@@ -110,6 +107,7 @@ class _signInScreenState extends State<signInScreen> {
                           height: SizeConfig.blockSizeVertical! * 7,
                           width: SizeConfig.blockSizeHorizontal! * 80,
                           child: TextFormField(
+                            controller: password,
                             style: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                             cursorColor: primaryThemeColor,
                             obscureText: true,
@@ -130,12 +128,6 @@ class _signInScreenState extends State<signInScreen> {
                                 hintStyle: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                                 prefixIcon: Icon(Icons.lock,color: primaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 5.5,)
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
                           ),
                         ),),
                     ],
@@ -143,7 +135,31 @@ class _signInScreenState extends State<signInScreen> {
                   SizedBox(height: SizeConfig.blockSizeVertical! * 4,),
                   GestureDetector(
                     onTap: (){
+                      if (username_email.text.isEmpty || password.text.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Expanded(
+                              child: AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                                backgroundColor: Color(0xff021524),
+                                title: Text('Warning!',style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),),
+                                content: Text('Enter your Email or Password',style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.0)),
+                                actions: [
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK',style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.0)),
+                                  ),
+                                ],
+                              ),
 
+                            );
+                          },
+                        );
+                      }
                     },
                     child: Container(
                         height: SizeConfig.blockSizeVertical! * 6,
@@ -243,3 +259,4 @@ class _signInScreenState extends State<signInScreen> {
     );
   }
 }
+

@@ -15,6 +15,13 @@ class _signUpScreenState extends State<signUpScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
+  TextEditingController firstName = new TextEditingController();
+  TextEditingController lastName = new TextEditingController();
+  TextEditingController userName = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+  static final RegExp nameRegExp = RegExp(r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
+  static final RegExp emailRegExp = RegExp(r'[^\@]+\@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+');
+  static final RegExp passwordRegExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +108,7 @@ class _signUpScreenState extends State<signUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
+                      controller: firstName,
                       style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
@@ -119,17 +127,17 @@ class _signUpScreenState extends State<signUpScreen> {
                           hintText: 'First Name',
                           hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
+                        validator: (value) => value!.isEmpty
+                            ? 'Enter Your First Name'
+                            : (nameRegExp.hasMatch(value)
+                            ? null
+                            : 'Enter a Valid Name')
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
+                      controller: lastName,
                       style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
@@ -148,12 +156,11 @@ class _signUpScreenState extends State<signUpScreen> {
                         hintText: 'Last Name',
                         hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
+                        validator: (value) => value!.isEmpty
+                            ? 'Enter Your Last Name'
+                            : (nameRegExp.hasMatch(value)
+                            ? null
+                            : 'Enter a Valid Name')
                     ),
                   ),
                   Padding(
@@ -177,17 +184,17 @@ class _signUpScreenState extends State<signUpScreen> {
                         hintText: 'E-mail Address',
                         hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
+                        validator: (value) => value!.isEmpty
+                            ? 'Enter Your Email-Address'
+                            : (emailRegExp.hasMatch(value)
+                            ? null
+                            : 'Enter a Valid Email-Address')
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
+                      controller: userName,
                       style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
@@ -206,17 +213,17 @@ class _signUpScreenState extends State<signUpScreen> {
                         hintText: 'Username',
                         hintStyle: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
+                        validator: (value) => value!.isEmpty
+                            ? 'Enter Your Username'
+                            : (nameRegExp.hasMatch(value)
+                            ? null
+                            : 'Enter a Valid Username')
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
+                      controller: password,
                       obscureText: !_passwordVisible,
                       style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
@@ -243,12 +250,11 @@ class _signUpScreenState extends State<signUpScreen> {
                           },
                             child: _passwordVisible ? Icon(Icons.visibility,color: textColor,) : Icon(Icons.visibility_off,color: textColor,)),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
+                        validator: (value) => value!.isEmpty
+                            ? 'Enter Your Password'
+                            : (passwordRegExp.hasMatch(value)
+                            ? null
+                            : 'Password length must be between 8 and 13\nand must contain 1 Special Character and 1 \nnumber and atleast 1 upper case')
                     ),
                   ),
                   Padding(
@@ -280,18 +286,21 @@ class _signUpScreenState extends State<signUpScreen> {
                             },
                             child: _confirmPasswordVisible ? Icon(Icons.visibility,color: textColor,) : Icon(Icons.visibility_off,color: textColor,)),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                        validator: (val){
+                          if(val!.isEmpty)
+                            return 'Confirm Your Password';
+                          if(val != password.text)
+                            return 'Not Match';
+                          return null;
                         }
-                        return null;
-                      },
                     ),
                   ),
                   SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => membershipScreen()));
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => membershipScreen()));
+                      }
                     },
                     child: Container(
                         height: SizeConfig.blockSizeVertical! * 6,
