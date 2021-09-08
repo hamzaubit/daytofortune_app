@@ -142,6 +142,7 @@ class _signInScreenState extends State<signInScreen> {
                             return Expanded(
                               child: AlertDialog(
                                 shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: secondaryThemeColor,width: 2),
                                     borderRadius: BorderRadius.all(Radius.circular(32.0))),
                                 backgroundColor: Color(0xff021524),
                                 title: Text('Warning!',style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),),
