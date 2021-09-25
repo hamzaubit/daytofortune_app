@@ -153,13 +153,13 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       ),
                     ),
                     Container(
-                      height: SizeConfig.blockSizeVertical! * 15,
+                      height: SizeConfig.blockSizeVertical! * 20,
                       width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
                           itemBuilder: (context , index){
-                            return trending();
+                            return trendingVideo();
                           }),
                     ),
                     Align(
@@ -172,13 +172,13 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       ),
                     ),
                     Container(
-                      height: SizeConfig.blockSizeVertical! * 15,
+                      height: SizeConfig.blockSizeVertical! * 20,
                       width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
                           itemBuilder: (context , index){
-                            return topFavourites();
+                            return topFavouritesVideo();
                           }),
                     ),
                     Align(
@@ -191,13 +191,13 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       ),
                     ),
                     Container(
-                      height: SizeConfig.blockSizeVertical! * 15,
+                      height: SizeConfig.blockSizeVertical! * 20,
                       width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
                           itemBuilder: (context , index){
-                            return hot10();
+                            return hot10Video();
                           }),
                     ),
                     Align(
@@ -216,7 +216,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
                           itemBuilder: (context , index){
-                            return myCollection();
+                            return myCollectionVideo();
                           }
                       ),
                     ),
@@ -253,6 +253,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
   }
 }
 
+//for Audios
 class trending extends StatefulWidget {
   @override
   _trendingState createState() => _trendingState();
@@ -389,6 +390,149 @@ class _myCollectionState extends State<myCollection> {
           ),
         ],
       )
+    );
+  }
+}
+
+//for Videos
+
+class trendingVideo extends StatefulWidget {
+  @override
+  _trendingVideoState createState() => _trendingVideoState();
+}
+
+class _trendingVideoState extends State<trendingVideo> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            Container(
+              height: SizeConfig.blockSizeVertical! * 20,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              child: Center(
+                child: CircularProgressIndicator(color: secondaryThemeColor,),
+              ),
+            ),
+            Container(
+              height: SizeConfig.blockSizeVertical! * 20,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              decoration: BoxDecoration(
+                  border: Border.all(color: drawerColor,width: 1),
+                  image: DecorationImage(
+                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),
+                      fit: BoxFit.fill
+                  )
+              ),
+            ),
+          ],
+        )
+    );
+  }
+}
+
+class topFavouritesVideo extends StatefulWidget {
+  @override
+  _topFavouritesVideoState createState() => _topFavouritesVideoState();
+}
+
+class _topFavouritesVideoState extends State<topFavouritesVideo> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child:Stack(
+          children: [
+            Container(
+              height: SizeConfig.blockSizeVertical! * 20,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              child: Center(
+                child: CircularProgressIndicator(color: secondaryThemeColor,),
+              ),
+            ),
+            Container(
+              height: SizeConfig.blockSizeVertical! * 20,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              decoration: BoxDecoration(
+                  border: Border.all(color: drawerColor,width: 1),
+                  image: DecorationImage(
+                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                  )
+              ),
+            ),
+          ],
+        )
+    );
+  }
+}
+
+class hot10Video extends StatefulWidget {
+  @override
+  _hot10VideoState createState() => _hot10VideoState();
+}
+
+class _hot10VideoState extends State<hot10Video> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            Container(
+              height: SizeConfig.blockSizeVertical! * 20,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              child: Center(
+                child: CircularProgressIndicator(color: secondaryThemeColor,),
+              ),
+            ),
+            Container(
+              height: SizeConfig.blockSizeVertical! * 20,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              decoration: BoxDecoration(
+                  border: Border.all(color: drawerColor,width: 1),
+                  image: DecorationImage(
+                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                  )
+              ),
+            ),
+          ],
+        )
+    );
+  }
+}
+
+class myCollectionVideo extends StatefulWidget {
+  @override
+  _myCollectionVideoState createState() => _myCollectionVideoState();
+}
+
+class _myCollectionVideoState extends State<myCollectionVideo> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            Container(
+              height: SizeConfig.blockSizeVertical! * 19,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              child: Center(
+                child: CircularProgressIndicator(color: secondaryThemeColor,),
+              ),
+            ),
+            Container(
+              height: SizeConfig.blockSizeVertical! * 19,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              decoration: BoxDecoration(
+                  border: Border.all(color: drawerColor,width: 1),
+                  image: DecorationImage(
+                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                  )
+              ),
+            ),
+          ],
+        )
     );
   }
 }

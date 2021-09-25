@@ -1,4 +1,5 @@
 import 'package:daytofortune_app/views/allSetScreen.dart';
+import 'package:daytofortune_app/views/premiumScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,11 @@ class _reminderNotificationState extends State<reminderNotification> {
       workout = false,
       health = false,
       training = false,
-      gym = false;
+      gym = false,
+      morning = false,
+      noon = false,
+      evening = false,
+      night = false;
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +155,8 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        stress = !stress;
+                        //stress = !stress;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: stress == true
@@ -196,7 +202,8 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        love = !love;
+                        //love = !love;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: love == true
@@ -242,7 +249,8 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        depression = !depression;
+                        //depression = !depression;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: depression == true
@@ -299,7 +307,8 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        workout =! workout;
+                        //workout =! workout;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: workout == true ? Container(
@@ -339,7 +348,8 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        health =! health;
+                        //health =! health;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: health == true ? Container(
@@ -379,7 +389,8 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        training =! training;
+                        //training =! training;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: training == true ? Container(
@@ -419,7 +430,8 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        gym =! gym;
+                        //gym =! gym;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: gym == true ? Container(
@@ -566,52 +578,160 @@ class _reminderNotificationState extends State<reminderNotification> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: SizeConfig.blockSizeHorizontal! * 30,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: SizeConfig.blockSizeVertical! * 8,
-                          width: SizeConfig.blockSizeHorizontal! * 15,
-                          decoration: BoxDecoration(
+                  morning ?
+                  GestureDetector(
+                  onTap: (){
+            setState(() {
+            morning =! morning;
+            });
+            },
+              child: Container(
+                  height: SizeConfig.blockSizeVertical! * 15,
+                  width: SizeConfig.blockSizeHorizontal! * 30,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            height: SizeConfig.blockSizeVertical! * 2.2,
+                            width: SizeConfig.blockSizeHorizontal! * 4.8,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/selectedTick.png'),fit: BoxFit.fill
+                                )
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: SizeConfig.blockSizeVertical! * 8,
+                        width: SizeConfig.blockSizeHorizontal! * 15,
+                        decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage('assets/images/morning.gif')
+                                image: AssetImage('assets/images/morning.gif')
                             )
-                          ),
                         ),
-                        Text("Morning"),
-                        Text("06-12")
-                      ],
-                    )
-                  ),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: SizeConfig.blockSizeHorizontal! * 30,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: SizeConfig.blockSizeVertical! * 8,
-                          width: SizeConfig.blockSizeHorizontal! * 15,
-                          decoration: BoxDecoration(
+                      ),
+                      Text("Morning"),
+                      Text("06-12")
+                    ],
+                  )
+              ),
+            ) :
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        morning =! morning;
+                      });
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 15,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 8,
+                            width: SizeConfig.blockSizeHorizontal! * 15,
+                            decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/images/sun.gif')
+                                image: AssetImage('assets/images/morning.gif')
                               )
+                            ),
                           ),
-                        ),
-                        Text("Noon"),
-                        Text("12-18")
-                      ],
+                          Text("Morning"),
+                          Text("06-12")
+                        ],
+                      )
+                    ),
+                  ),
+                  noon ?
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        noon =! noon;
+                      });
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 15,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                height: SizeConfig.blockSizeVertical! * 2.2,
+                                width: SizeConfig.blockSizeHorizontal! * 4.8,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage('assets/images/selectedTick.png'),fit: BoxFit.fill
+                                    )
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 8,
+                            width: SizeConfig.blockSizeHorizontal! * 15,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/sun.gif')
+                                )
+                            ),
+                          ),
+                          Text("Noon"),
+                          Text("12-18")
+                        ],
+                      ),
+                    ),
+                  ) :
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        noon =! noon;
+                      });
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 15,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 8,
+                            width: SizeConfig.blockSizeHorizontal! * 15,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/sun.gif')
+                                )
+                            ),
+                          ),
+                          Text("Noon"),
+                          Text("12-18")
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -625,52 +745,160 @@ class _reminderNotificationState extends State<reminderNotification> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: SizeConfig.blockSizeHorizontal! * 30,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: SizeConfig.blockSizeVertical! * 8,
-                          width: SizeConfig.blockSizeHorizontal! * 15,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/evening.gif')
-                              )
+                  evening ?
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        evening =! evening;
+                      });
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 15,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                height: SizeConfig.blockSizeVertical! * 2.2,
+                                width: SizeConfig.blockSizeHorizontal! * 4.8,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage('assets/images/selectedTick.png'),fit: BoxFit.fill
+                                    )
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        Text("Evening"),
-                        Text("18-00")
-                      ],
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 8,
+                            width: SizeConfig.blockSizeHorizontal! * 15,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/evening.gif')
+                                )
+                            ),
+                          ),
+                          Text("Evening"),
+                          Text("18-00")
+                        ],
+                      ),
+                    ),
+                  ) :
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        evening =! evening;
+                      });
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 15,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 8,
+                            width: SizeConfig.blockSizeHorizontal! * 15,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/evening.gif')
+                                )
+                            ),
+                          ),
+                          Text("Evening"),
+                          Text("18-00")
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: SizeConfig.blockSizeHorizontal! * 30,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: SizeConfig.blockSizeVertical! * 8,
-                          width: SizeConfig.blockSizeHorizontal! * 15,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/night.gif')
-                              )
+                  night ?
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        night =! night;
+                      });
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 15,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                height: SizeConfig.blockSizeVertical! * 2.2,
+                                width: SizeConfig.blockSizeHorizontal! * 4.8,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage('assets/images/selectedTick.png'),fit: BoxFit.fill
+                                    )
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        Text("Night"),
-                        Text("00-06")
-                      ],
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 8,
+                            width: SizeConfig.blockSizeHorizontal! * 15,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/night.gif')
+                                )
+                            ),
+                          ),
+                          Text("Night"),
+                          Text("00-06")
+                        ],
+                      ),
+                    ),
+                  ) :
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        night =! night;
+                      });
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 15,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 8,
+                            width: SizeConfig.blockSizeHorizontal! * 15,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/night.gif')
+                                )
+                            ),
+                          ),
+                          Text("Night"),
+                          Text("00-06")
+                        ],
+                      ),
                     ),
                   ),
                 ],
