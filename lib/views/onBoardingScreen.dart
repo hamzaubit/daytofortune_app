@@ -21,7 +21,7 @@ class onBoardingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: SizeConfig.blockSizeVertical! * 15,),
-                Text("─THEODORE ROOSEVELT",style: GoogleFonts.poppins(fontSize: SizeConfig.blockSizeHorizontal! * 6,color: secondaryThemeColor,),),
+                Text("─THEODORE ROOSEVELT─",style: GoogleFonts.poppins(fontSize: SizeConfig.blockSizeHorizontal! * 6,color: secondaryThemeColor,),),
               ],
             ),
           ),

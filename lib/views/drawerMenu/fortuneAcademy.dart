@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
@@ -10,8 +11,41 @@ class fortuneAcademy extends StatefulWidget {
 }
 
 class _fortuneAcademyState extends State<fortuneAcademy> {
+
+  String? audioBackground;
+  String? videoBackground;
+
+  getAudioBackground() async {
+    final firestoreInstance = FirebaseFirestore.instance;
+    firestoreInstance.collection("video_Background").doc("video").get().then((value){
+      videoBackground = value.data()!["img"];
+      print(videoBackground);
+    });
+    firestoreInstance.collection("audio_Background").doc("audio").get().then((value){
+      audioBackground = value.data()!["img"];
+      print(audioBackground);
+    });
+  }
+
+  @override
+  void initState() {
+    getAudioBackground();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    Query trending_audio = FirebaseFirestore.instance.collection('trending_audio');
+    Query topFavourite_audio = FirebaseFirestore.instance.collection('topFavourite_audio');
+    Query hot10_audio = FirebaseFirestore.instance.collection('hot10_audio');
+    Query myCollection_audio = FirebaseFirestore.instance.collection('myCollection_audio');
+
+    Query trending_video = FirebaseFirestore.instance.collection('trending_video');
+    Query topFavourite_video = FirebaseFirestore.instance.collection('topFavourite_video');
+    Query hot10_video = FirebaseFirestore.instance.collection('hot10_video');
+    Query myCollection_video = FirebaseFirestore.instance.collection('myCollection_audio');
+
     SizeConfig().init(context);
     return DefaultTabController(
         length: 2,
@@ -37,16 +71,31 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 45,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: drawerColor,width: 1),
-                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                          image: DecorationImage(
-                              image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-                          )
-                      ),
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical! * 50,
+                          child: Center(
+                            child: Container(
+                              height: SizeConfig.blockSizeVertical! * 13,
+                              width: SizeConfig.blockSizeHorizontal! * 28,
+                              child: Center(
+                                child: CircularProgressIndicator(color: secondaryThemeColor,),
+                              ),
+                            ),
+                          ),
+                        ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: trending_video.snapshots(),
+                          builder: (context, stream){
+                            if(!stream.hasData){
+                              return Container();
+                            }
+                            QuerySnapshot? querySnapshot = stream.data;
+                            return backgroundWidget(audioBackground.toString());
+                          },
+                        ),
+                      ],
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -60,12 +109,21 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 15,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                          itemBuilder: (context , index){
-                          return trending();
-                      }),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: trending_audio.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
+                          }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return audioWidget(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -79,12 +137,21 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 15,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context , index){
-                            return topFavourites();
-                          }),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: topFavourite_audio.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
+                          }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return audioWidget(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -98,12 +165,21 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 15,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context , index){
-                            return hot10();
-                          }),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: hot10_audio.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
+                          }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return audioWidget(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -117,12 +193,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 21,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                          itemBuilder: (context , index){
-                          return myCollection();
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: myCollection_audio.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
                           }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return myCollectionAudio(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
                       ),
                     ),
                     SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
@@ -132,16 +216,31 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 50,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: drawerColor,width: 1),
-                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                          image: DecorationImage(
-                              image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-                          )
-                      ),
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical! * 50,
+                          child: Center(
+                            child: Container(
+                              height: SizeConfig.blockSizeVertical! * 13,
+                              width: SizeConfig.blockSizeHorizontal! * 28,
+                              child: Center(
+                                child: CircularProgressIndicator(color: secondaryThemeColor,),
+                              ),
+                            ),
+                          ),
+                        ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: trending_video.snapshots(),
+                          builder: (context, stream){
+                            if(!stream.hasData){
+                              return Container();
+                            }
+                            QuerySnapshot? querySnapshot = stream.data;
+                            return backgroundWidget(videoBackground.toString());
+                          },
+                        ),
+                      ],
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -155,12 +254,21 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 20,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context , index){
-                            return trendingVideo();
-                          }),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: trending_video.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
+                          }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return videoWidget(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -174,12 +282,21 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 20,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context , index){
-                            return topFavouritesVideo();
-                          }),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: topFavourite_video.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
+                          }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return videoWidget(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -193,12 +310,21 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 20,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context , index){
-                            return hot10Video();
-                          }),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: hot10_video.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
+                          }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return videoWidget(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -212,12 +338,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Container(
                       height: SizeConfig.blockSizeVertical! * 21,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context , index){
-                            return myCollectionVideo();
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: myCollection_video.snapshots(),
+                        builder: (context, stream){
+                          if(!stream.hasData){
+                            return Container();
                           }
+                          QuerySnapshot? querySnapshot = stream.data;
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: querySnapshot?.size,
+                              itemBuilder: (context , index){
+                                return myCollectionVideo(querySnapshot!.docs[index]['img'].toString());
+                              });
+                        },
                       ),
                     ),
                     SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
@@ -253,83 +387,49 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
   }
 }
 
+//for background
+
+class backgroundWidget extends StatefulWidget {
+
+  String img;
+
+  backgroundWidget(this.img);
+
+  @override
+  _backgroundWidgetState createState() => _backgroundWidgetState();
+}
+
+class _backgroundWidgetState extends State<backgroundWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: SizeConfig.blockSizeVertical! * 50,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          border: Border.all(color: drawerColor,width: 1),
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+          image: DecorationImage(
+              image: NetworkImage(widget.img),fit: BoxFit.fill
+          )
+      ),
+    );
+  }
+}
+
+
 //for Audios
-class trending extends StatefulWidget {
+
+class audioWidget extends StatefulWidget {
+
+  String img;
+
+  audioWidget(this.img);
+
   @override
-  _trendingState createState() => _trendingState();
+  _audioWidgetState createState() => _audioWidgetState();
 }
 
-class _trendingState extends State<trending> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Container(
-            height: SizeConfig.blockSizeVertical! * 13,
-            width: SizeConfig.blockSizeHorizontal! * 28,
-            child: Center(
-              child: CircularProgressIndicator(color: secondaryThemeColor,),
-            ),
-          ),
-          Container(
-            height: SizeConfig.blockSizeVertical! * 13,
-            width: SizeConfig.blockSizeHorizontal! * 28,
-            decoration: BoxDecoration(
-                border: Border.all(color: drawerColor,width: 1),
-                image: DecorationImage(
-                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-                )
-            ),
-          ),
-        ],
-      )
-    );
-  }
-}
-
-class topFavourites extends StatefulWidget {
-  @override
-  _topFavouritesState createState() => _topFavouritesState();
-}
-
-class _topFavouritesState extends State<topFavourites> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child:Stack(
-        children: [
-          Container(
-            height: SizeConfig.blockSizeVertical! * 13,
-            width: SizeConfig.blockSizeHorizontal! * 28,
-            child: Center(
-              child: CircularProgressIndicator(color: secondaryThemeColor,),
-            ),
-          ),
-          Container(
-            height: SizeConfig.blockSizeVertical! * 13,
-            width: SizeConfig.blockSizeHorizontal! * 28,
-            decoration: BoxDecoration(
-                border: Border.all(color: drawerColor,width: 1),
-                image: DecorationImage(
-                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-                )
-            ),
-          ),
-        ],
-      )
-    );
-  }
-}
-
-class hot10 extends StatefulWidget {
-  @override
-  _hot10State createState() => _hot10State();
-}
-
-class _hot10State extends State<hot10> {
+class _audioWidgetState extends State<audioWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -349,7 +449,7 @@ class _hot10State extends State<hot10> {
             decoration: BoxDecoration(
                 border: Border.all(color: drawerColor,width: 1),
                 image: DecorationImage(
-                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                    image: NetworkImage(widget.img),fit: BoxFit.fill
                 )
             ),
           ),
@@ -359,12 +459,17 @@ class _hot10State extends State<hot10> {
   }
 }
 
-class myCollection extends StatefulWidget {
+class myCollectionAudio extends StatefulWidget {
+
+  String img;
+
+  myCollectionAudio(this.img);
+
   @override
-  _myCollectionState createState() => _myCollectionState();
+  _myCollectionAudioState createState() => _myCollectionAudioState();
 }
 
-class _myCollectionState extends State<myCollection> {
+class _myCollectionAudioState extends State<myCollectionAudio> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -384,7 +489,7 @@ class _myCollectionState extends State<myCollection> {
             decoration: BoxDecoration(
                 border: Border.all(color: drawerColor,width: 1),
                 image: DecorationImage(
-                    image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                    image: NetworkImage(widget.img),fit: BoxFit.fill
                 )
             ),
           ),
@@ -396,12 +501,17 @@ class _myCollectionState extends State<myCollection> {
 
 //for Videos
 
-class trendingVideo extends StatefulWidget {
+class videoWidget extends StatefulWidget {
+
+  String img;
+
+  videoWidget(this.img);
+
   @override
-  _trendingVideoState createState() => _trendingVideoState();
+  _videoWidgetState createState() => _videoWidgetState();
 }
 
-class _trendingVideoState extends State<trendingVideo> {
+class _videoWidgetState extends State<videoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -421,7 +531,7 @@ class _trendingVideoState extends State<trendingVideo> {
               decoration: BoxDecoration(
                   border: Border.all(color: drawerColor,width: 1),
                   image: DecorationImage(
-                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),
+                      image: NetworkImage(widget.img),
                       fit: BoxFit.fill
                   )
               ),
@@ -432,77 +542,13 @@ class _trendingVideoState extends State<trendingVideo> {
   }
 }
 
-class topFavouritesVideo extends StatefulWidget {
-  @override
-  _topFavouritesVideoState createState() => _topFavouritesVideoState();
-}
-
-class _topFavouritesVideoState extends State<topFavouritesVideo> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child:Stack(
-          children: [
-            Container(
-              height: SizeConfig.blockSizeVertical! * 20,
-              width: SizeConfig.blockSizeHorizontal! * 35,
-              child: Center(
-                child: CircularProgressIndicator(color: secondaryThemeColor,),
-              ),
-            ),
-            Container(
-              height: SizeConfig.blockSizeVertical! * 20,
-              width: SizeConfig.blockSizeHorizontal! * 35,
-              decoration: BoxDecoration(
-                  border: Border.all(color: drawerColor,width: 1),
-                  image: DecorationImage(
-                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-                  )
-              ),
-            ),
-          ],
-        )
-    );
-  }
-}
-
-class hot10Video extends StatefulWidget {
-  @override
-  _hot10VideoState createState() => _hot10VideoState();
-}
-
-class _hot10VideoState extends State<hot10Video> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Stack(
-          children: [
-            Container(
-              height: SizeConfig.blockSizeVertical! * 20,
-              width: SizeConfig.blockSizeHorizontal! * 35,
-              child: Center(
-                child: CircularProgressIndicator(color: secondaryThemeColor,),
-              ),
-            ),
-            Container(
-              height: SizeConfig.blockSizeVertical! * 20,
-              width: SizeConfig.blockSizeHorizontal! * 35,
-              decoration: BoxDecoration(
-                  border: Border.all(color: drawerColor,width: 1),
-                  image: DecorationImage(
-                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
-                  )
-              ),
-            ),
-          ],
-        )
-    );
-  }
-}
 
 class myCollectionVideo extends StatefulWidget {
+
+  String img;
+
+  myCollectionVideo(this.img);
+
   @override
   _myCollectionVideoState createState() => _myCollectionVideoState();
 }
@@ -527,7 +573,7 @@ class _myCollectionVideoState extends State<myCollectionVideo> {
               decoration: BoxDecoration(
                   border: Border.all(color: drawerColor,width: 1),
                   image: DecorationImage(
-                      image: NetworkImage('https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/hand%20pointing%20to%20five%20gold%20stars-8213-48ea2ea0fbfdd487b0c019933dfb1604@1x.jpg'),fit: BoxFit.fill
+                      image: NetworkImage(widget.img),fit: BoxFit.fill
                   )
               ),
             ),
@@ -536,6 +582,4 @@ class _myCollectionVideoState extends State<myCollectionVideo> {
     );
   }
 }
-
-
 
