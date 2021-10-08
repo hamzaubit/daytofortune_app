@@ -16,6 +16,10 @@ class _signInScreenState extends State<signInScreen> {
   TextEditingController password = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  void _loginWithFacebook() async {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -216,29 +220,35 @@ class _signInScreenState extends State<signInScreen> {
                     ),
                   ),
                   SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 5,
-                    width: SizeConfig.blockSizeHorizontal! * 70,
-                    decoration: BoxDecoration(
-                      color: Colors.indigo,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: SizeConfig.blockSizeHorizontal! * 3,),
-                        Container(
-                          height: SizeConfig.blockSizeVertical! * 3.5,
-                          width: SizeConfig.blockSizeHorizontal! * 7.5,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/fb.png'),fit: BoxFit.cover
-                              )
-                          ),),
-                        SizedBox(width: SizeConfig.blockSizeHorizontal! * 8,),
-                        Text("Sign In with Facebook",style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                            fontWeight: FontWeight.w600),)
-                      ],
+                  GestureDetector(
+                    onTap: (){
+                      _loginWithFacebook();//
+                      print("FB Login");
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 5,
+                      width: SizeConfig.blockSizeHorizontal! * 70,
+                      decoration: BoxDecoration(
+                        color: Colors.indigo,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(width: SizeConfig.blockSizeHorizontal! * 3,),
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 3.5,
+                            width: SizeConfig.blockSizeHorizontal! * 7.5,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/fb.png'),fit: BoxFit.cover
+                                )
+                            ),),
+                          SizedBox(width: SizeConfig.blockSizeHorizontal! * 8,),
+                          Text("Sign In with Facebook",style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                              fontWeight: FontWeight.w600),)
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: SizeConfig.blockSizeVertical! * 4,),

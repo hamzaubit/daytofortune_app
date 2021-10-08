@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/views/premiumScreen.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
@@ -19,6 +20,53 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+
+  String? favourites;
+  String? general;
+  String? hustle;
+  String? stress;
+  String? love;
+  String? depression;
+  String? workout;
+  String? health;
+  String? training;
+  String? gym;
+
+
+  getImages() async {
+    final firestoreInstance = await FirebaseFirestore.instance;
+    firestoreInstance.collection("categories_Pictures").doc("Favourites").get().then((value){
+      favourites = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("General").get().then((value){
+      general = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("Depression").get().then((value){
+      depression = value.data()!["img"];
+    });
+
+    firestoreInstance.collection("categories_Pictures").doc("Gym").get().then((value){
+      gym = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("Health").get().then((value){
+      health = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("Hustle").get().then((value){
+      hustle = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("Love").get().then((value){
+      love = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("Stress").get().then((value){
+      stress = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("Training").get().then((value){
+      training = value.data()!["img"];
+    });
+    firestoreInstance.collection("categories_Pictures").doc("Work out").get().then((value){
+      workout = value.data()!["img"];
+    });
+  }
 
   Future<bool> showExitPopup(context) async {
     return await showDialog(
@@ -54,6 +102,12 @@ class _homeScreenState extends State<homeScreen> {
   }
 
   @override
+  void initState() {
+    getImages();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return WillPopScope(
@@ -85,7 +139,9 @@ class _homeScreenState extends State<homeScreen> {
                 ),
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => categories()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => categories(
+                      general.toString(),favourites.toString(),hustle.toString(),stress.toString(),love.toString(),depression.toString(),workout.toString(),health.toString(),training.toString(),gym.toString()
+                    )));
                   },
                   child: Container(
                     decoration: BoxDecoration(

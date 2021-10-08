@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/quoteScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
@@ -20,14 +21,33 @@ class _myQuotesState extends State<myQuotes> {
   //String formattedDate = DateFormat('h : mm : ss a EEE d MMM').format(DateTime.now());
   String formattedDate = DateFormat(' EEE d MMM').format(DateTime.now());
 
+  createQuotes(){
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc(input)..set(
+        {
+          "author" : input,
+          "quote" : input1,
+          "date" : formattedDate,
+        }).then((_){
+      print("success!");
+    });
+  }
+  deleteQuote(input){
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc(input)..delete().then((_){
+      print("success!");
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    author.add("Hamza");
-    quotes.add("Quote 1",);
+/*    author.add("Hamza");
+    quotes.add("Quote 1",);*/
   }
   @override
   Widget build(BuildContext context) {
+
+    Query myQuotes = FirebaseFirestore.instance.collection('myQuotes');
+
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: primaryThemeColor,
@@ -59,9 +79,10 @@ class _myQuotesState extends State<myQuotes> {
                   actions: [
                     GestureDetector(
                       onTap: (){
+                        createQuotes();
                         setState(() {
-                          author.add(input);
-                          quotes.add(input1);
+                         /*author.add(input);
+                          quotes.add(input1);*/
                           Navigator.pop(context);
                         });
                       },
@@ -89,33 +110,44 @@ class _myQuotesState extends State<myQuotes> {
           SizedBox(width: SizeConfig.blockSizeHorizontal! * 3,),
         ],
       ),
-      body: ListView.builder(
-        itemCount: quotes.length,
-          itemBuilder: (context , index){
-          return GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => quoteScreen(quote: quotes[index],author: author[index],)));
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Card(
-                color: drawerColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: ListTile(
-                  title: Text(author[index],style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4.5),),
-                  subtitle: Text("${quotes[index]}\n${formattedDate}",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),),
-                  isThreeLine: true,
-                  trailing: IconButton(icon: Icon(Icons.delete,color: secondaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 6,),
-                    onPressed: () {
-                    setState(() {
-                      quotes.removeAt(index);
-                    });
-                    },),
-                ),
-              ),
-            ),
-          );
-          }),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: myQuotes.snapshots(),
+        builder: (context , stream){
+          if(!stream.hasData){
+            return Container();
+          }
+          QuerySnapshot? querySnapshot = stream.data;
+          return ListView.builder(
+              itemCount: querySnapshot?.size,
+              itemBuilder: (context , index){
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => quoteScreen(quote: querySnapshot!.docs[index]['quote'].toString()
+                      ,author: querySnapshot!.docs[index]['author'].toString(),)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Card(
+                      color: drawerColor,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      child: ListTile(
+                        title: Text(querySnapshot!.docs[index]['author'].toString(),style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4.5),),
+                        subtitle: Text("${querySnapshot!.docs[index]['quote'].toString()}\n${querySnapshot!.docs[index]['date'].toString()}",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),),
+                        isThreeLine: true,
+                        trailing: IconButton(icon: Icon(Icons.delete,color: secondaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 6,),
+                          onPressed: () {
+                            deleteQuote(querySnapshot!.docs[index]['author']);
+                            /*setState(() {
+                              quotes.removeAt(index);
+                            });*/
+                          },),
+                      ),
+                    ),
+                  ),
+                );
+              });
+        },
+      ),
     );
   }
 }
