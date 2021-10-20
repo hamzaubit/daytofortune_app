@@ -2,8 +2,10 @@ import 'package:daytofortune_app/views/drawerMenu/signUpScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:daytofortune_app/widgets/validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class signInScreen extends StatefulWidget {
   @override
@@ -16,9 +18,6 @@ class _signInScreenState extends State<signInScreen> {
   TextEditingController password = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void _loginWithFacebook() async {
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -194,35 +193,39 @@ class _signInScreenState extends State<signInScreen> {
                     ],
                   ),
                   SizedBox(height: SizeConfig.blockSizeVertical! * 4,),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 5,
-                    width: SizeConfig.blockSizeHorizontal! * 70,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: SizeConfig.blockSizeHorizontal! * 3,),
-                        Container(
-                          height: SizeConfig.blockSizeVertical! * 3.5,
-                          width: SizeConfig.blockSizeHorizontal! * 7.5,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/googleLogo.jpg'),fit: BoxFit.cover
-                              )
-                          ),),
-                        SizedBox(width: SizeConfig.blockSizeHorizontal! * 8,),
-                        Text("Sign In with Google",style: GoogleFonts.poppins(color: Colors.black,fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                        fontWeight: FontWeight.w600),)
-                      ],
+                  GestureDetector(
+                    onTap: (){
+                      print("tapped");
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 5,
+                      width: SizeConfig.blockSizeHorizontal! * 70,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(width: SizeConfig.blockSizeHorizontal! * 3,),
+                          Container(
+                            height: SizeConfig.blockSizeVertical! * 3.5,
+                            width: SizeConfig.blockSizeHorizontal! * 7.5,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/googleLogo.jpg'),fit: BoxFit.cover
+                                )
+                            ),),
+                          SizedBox(width: SizeConfig.blockSizeHorizontal! * 8,),
+                          Text("Sign In with Google",style: GoogleFonts.poppins(color: Colors.black,fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                          fontWeight: FontWeight.w600),)
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
                   GestureDetector(
                     onTap: (){
-                      _loginWithFacebook();//
                       print("FB Login");
                     },
                     child: Container(
@@ -270,4 +273,7 @@ class _signInScreenState extends State<signInScreen> {
     );
   }
 }
+
+
+
 

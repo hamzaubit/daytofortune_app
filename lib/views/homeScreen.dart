@@ -109,6 +109,7 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Query adminQuotes = FirebaseFirestore.instance.collection('adminQuotes');
     SizeConfig().init(context);
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
@@ -302,11 +303,20 @@ class _homeScreenState extends State<homeScreen> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 3,
-              itemBuilder: (context , index){
-                return quotesGetter();
+            child: StreamBuilder<QuerySnapshot>(
+              stream: adminQuotes.snapshots(),
+              builder: (context , stream){
+                if(!stream.hasData){
+                  return Center(child: CircularProgressIndicator(color: secondaryThemeColor,));
+                }
+                QuerySnapshot? querySnapshot = stream.data;
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: querySnapshot?.size,
+                  itemBuilder: (context , index){
+                    return quotesGetter(querySnapshot!.docs[index]['author'].toString(),querySnapshot!.docs[index]['quote'].toString());
+                  },
+                );
               },
             ),
           ),
@@ -316,6 +326,9 @@ class _homeScreenState extends State<homeScreen> {
   }
 }
 class quotesGetter extends StatefulWidget {
+  String? author;
+  String? quote;
+  quotesGetter(this.author,this.quote);
   @override
   _quotesGetterState createState() => _quotesGetterState();
 }
@@ -340,13 +353,13 @@ class _quotesGetterState extends State<quotesGetter> {
           ),
           SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
           Padding(
-            padding: const EdgeInsets.only(left: 35),
-            child: Text("THE ONLY THING\nSTANDING BETWEEN YOU\nAND YOUR GOAL IS THE\nBULLSHIT STORY YOU KEEP\nTELLING YOURSELF\nAS TO WHY YOU CAN'T\nACHIEVE IT.",
+            padding: const EdgeInsets.only(left: 8,right: 8),
+            child: Text("${widget.quote}",
               style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 5.5),
             ),
           ),
           SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
-          Text("─JORDAN BELFORT─",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
+          Text("─${widget.author}─",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
           SizedBox(height: SizeConfig.blockSizeVertical! * 12,),
         ],
       ),

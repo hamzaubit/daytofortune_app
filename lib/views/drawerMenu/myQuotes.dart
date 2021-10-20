@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/quoteScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
@@ -17,16 +19,35 @@ class _myQuotesState extends State<myQuotes> {
   List<String> quotes = <String>[];
   String input = "";
   String input1 = "";
-
-  //String formattedDate = DateFormat('h : mm : ss a EEE d MMM').format(DateTime.now());
+  Timer? _timer;
+  int _start = 50000000;
   String formattedDate = DateFormat(' EEE d MMM').format(DateTime.now());
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+            print(_start);
+          });
+        }
+      },
+    );
+  }
 
   createQuotes(){
-    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc(input)..set(
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc(_start.toString())..set(
         {
           "author" : input,
           "quote" : input1,
           "date" : formattedDate,
+          "quoteID" : _start.toString(),
         }).then((_){
       print("success!");
     });
@@ -39,6 +60,7 @@ class _myQuotesState extends State<myQuotes> {
 
   @override
   void initState() {
+    startTimer();
     super.initState();
 /*    author.add("Hamza");
     quotes.add("Quote 1",);*/
@@ -64,11 +86,14 @@ class _myQuotesState extends State<myQuotes> {
                   title: Text("Add your Quote"),
                   content: Column(
                     children: [
+                      Text("Author Name",style: GoogleFonts.poppins(color: Colors.black,fontSize: SizeConfig.blockSizeHorizontal! * 5.5),),
                       TextField(
                         onChanged: (String value){
                           input = value;
                         },
                       ),
+                      SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
+                      Text("Quote",style: GoogleFonts.poppins(color: Colors.black,fontSize: SizeConfig.blockSizeHorizontal! * 5.5),),
                       TextField(
                         onChanged: (String value){
                           input1 = value;
@@ -136,7 +161,7 @@ class _myQuotesState extends State<myQuotes> {
                         isThreeLine: true,
                         trailing: IconButton(icon: Icon(Icons.delete,color: secondaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 6,),
                           onPressed: () {
-                            deleteQuote(querySnapshot!.docs[index]['author']);
+                            deleteQuote(querySnapshot!.docs[index]['quoteID']);
                             /*setState(() {
                               quotes.removeAt(index);
                             });*/

@@ -5,6 +5,8 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../videoPlayer.dart';
+
 class fortuneAcademy extends StatefulWidget {
   @override
   _fortuneAcademyState createState() => _fortuneAcademyState();
@@ -15,21 +17,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
   String? audioBackground;
   String? videoBackground;
 
-  getAudioBackground() async {
-    final firestoreInstance = FirebaseFirestore.instance;
-    firestoreInstance.collection("video_Background").doc("video").get().then((value){
-      videoBackground = value.data()!["img"];
-      print(videoBackground);
-    });
-    firestoreInstance.collection("audio_Background").doc("audio").get().then((value){
-      audioBackground = value.data()!["img"];
-      print(audioBackground);
-    });
-  }
-
   @override
   void initState() {
-    getAudioBackground();
     super.initState();
   }
 
@@ -120,7 +109,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return audioWidget(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    },
+                                    child: audioWidget(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),
@@ -265,7 +258,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return videoWidget(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                  },
+                                    child: videoWidget(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),
