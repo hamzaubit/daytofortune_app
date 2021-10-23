@@ -1,3 +1,4 @@
+import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _signUpScreenState extends State<signUpScreen> {
   bool _confirmPasswordVisible = false;
   TextEditingController firstName = new TextEditingController();
   TextEditingController lastName = new TextEditingController();
+  TextEditingController email = new TextEditingController();
   TextEditingController userName = new TextEditingController();
   TextEditingController password = new TextEditingController();
   static final RegExp nameRegExp = RegExp(r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
@@ -166,6 +168,7 @@ class _signUpScreenState extends State<signUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 35,right: 35,bottom: 20),
                     child: TextFormField(
+                      controller: email,
                       style: GoogleFonts.poppins(color: textColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
@@ -299,6 +302,7 @@ class _signUpScreenState extends State<signUpScreen> {
                   GestureDetector(
                     onTap: (){
                       if (_formKey.currentState!.validate()) {
+                        signUp(email.text , password.text);
                         Navigator.push(context, MaterialPageRoute(builder: (context) => membershipScreen()));
                       }
                     },

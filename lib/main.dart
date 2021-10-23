@@ -18,4 +18,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//google ads k liye IOS ka setup krna hoga
+
 

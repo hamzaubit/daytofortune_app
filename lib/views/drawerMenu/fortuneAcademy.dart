@@ -33,7 +33,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
     Query trending_video = FirebaseFirestore.instance.collection('trending_video');
     Query topFavourite_video = FirebaseFirestore.instance.collection('topFavourite_video');
     Query hot10_video = FirebaseFirestore.instance.collection('hot10_video');
-    Query myCollection_video = FirebaseFirestore.instance.collection('myCollection_audio');
+    Query myCollection_video = FirebaseFirestore.instance.collection('myCollection_video');
 
     SizeConfig().init(context);
     return DefaultTabController(
@@ -141,7 +141,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return audioWidget(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    },
+                                    child: audioWidget(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),
@@ -169,7 +173,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return audioWidget(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    },
+                                    child: audioWidget(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),
@@ -197,7 +205,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return myCollectionAudio(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    },
+                                    child: myCollectionAudio(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),
@@ -290,7 +302,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return videoWidget(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    },
+                                    child: videoWidget(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),
@@ -318,7 +334,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return videoWidget(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    },
+                                    child: videoWidget(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),
@@ -346,7 +366,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
                               itemBuilder: (context , index){
-                                return myCollectionVideo(querySnapshot!.docs[index]['img'].toString());
+                                return GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    },
+                                    child: myCollectionVideo(querySnapshot!.docs[index]['img'].toString()));
                               });
                         },
                       ),

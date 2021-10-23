@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/views/premiumScreen.dart';
@@ -9,7 +8,6 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'drawerMenu/categories.dart';
 import 'drawerMenu/fortuneAcademy.dart';
 import 'drawerMenu/myQuotes.dart';
@@ -31,6 +29,7 @@ class _homeScreenState extends State<homeScreen> {
   String? health;
   String? training;
   String? gym;
+
 
 
   getImages() async {
@@ -310,7 +309,7 @@ class _homeScreenState extends State<homeScreen> {
                   return Center(child: CircularProgressIndicator(color: secondaryThemeColor,));
                 }
                 QuerySnapshot? querySnapshot = stream.data;
-                return ListView.builder(
+                return PageView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: querySnapshot?.size,
                   itemBuilder: (context , index){
@@ -326,30 +325,31 @@ class _homeScreenState extends State<homeScreen> {
   }
 }
 class quotesGetter extends StatefulWidget {
+
   String? author;
   String? quote;
-  quotesGetter(this.author,this.quote);
+  quotesGetter(this.author,this.quote,);
   @override
   _quotesGetterState createState() => _quotesGetterState();
 }
 
 class _quotesGetterState extends State<quotesGetter> {
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              children: [
-                SizedBox(width: SizeConfig.blockSizeHorizontal! * 80),
-                Icon(Icons.logout,color: Colors.indigo[600],size: SizeConfig.blockSizeHorizontal! * 7,),
-                SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-                Icon(Icons.favorite_outlined,color: Colors.red,size: SizeConfig.blockSizeHorizontal! * 7,),
-                SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-              ],
-            ),
+          Row(
+            children: [
+              SizedBox(width: SizeConfig.blockSizeHorizontal! * 80),
+              Icon(Icons.share,color: secondaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 7,),
+              SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
+              Icon(Icons.favorite_outlined,color: Colors.red,size: SizeConfig.blockSizeHorizontal! * 7,),
+              SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
+            ],
           ),
           SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
           Padding(

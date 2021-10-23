@@ -1,3 +1,4 @@
+import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/views/drawerMenu/signUpScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
@@ -51,7 +52,7 @@ class _signInScreenState extends State<signInScreen> {
                       SizedBox(width: SizeConfig.blockSizeHorizontal! * 10,),
                       Align(
                           alignment: Alignment.topLeft,
-                          child: Text("Username:",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4.5))),
+                          child: Text("Email:",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4.5))),
                     ],
                   ),
                   SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
@@ -80,7 +81,7 @@ class _signInScreenState extends State<signInScreen> {
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: textColor,width: 0.5),
                                     borderRadius: BorderRadius.all(Radius.circular(20))),
-                                hintText: 'Username or E-mail',
+                                hintText: 'E-mail',
                                 hintStyle: GoogleFonts.poppins(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
                                 prefixIcon: Icon(Icons.account_box_outlined,color: primaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 5.5,)
                             ),
@@ -163,6 +164,9 @@ class _signInScreenState extends State<signInScreen> {
                             );
                           },
                         );
+                      }
+                      else{
+                        signIn(username_email.text,password.text);
                       }
                     },
                     child: Container(
