@@ -167,6 +167,12 @@ class _signInScreenState extends State<signInScreen> {
                       }
                       else{
                         signIn(username_email.text,password.text);
+                        final FirebaseAuth? auth = FirebaseAuth.instance;
+                        final User? user = auth!.currentUser;
+                        final uid = user!.uid;
+                        print("User ID : ${uid}");
+                        print("User Name ${user!.displayName.toString()}");
+                        print("User Email ${user!.email.toString()}");
                       }
                     },
                     child: Container(
@@ -185,6 +191,13 @@ class _signInScreenState extends State<signInScreen> {
                     ),
                   ),
                   SizedBox(height: SizeConfig.blockSizeVertical! * 2.5,),
+                  /*FlatButton(
+                    onPressed: (){
+                      signOut();
+                    },
+                    color: Colors.red,
+                    child: Text("Sign Out"),
+                  ),*/
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -199,7 +212,15 @@ class _signInScreenState extends State<signInScreen> {
                   SizedBox(height: SizeConfig.blockSizeVertical! * 4,),
                   GestureDetector(
                     onTap: (){
-                      print("tapped");
+                      signInWithGoogle();
+                      final user = FirebaseAuth.instance.currentUser;
+                      print("User Name ${user!.displayName.toString()}");
+                      print("User Email ${user!.email.toString()}");
+                      print("User ID : ${user.uid}");
+                      /*signInWithGoogle().then((UserCredential value) {
+                        final displayName = value.user!.displayName;
+                        print("My Name : ${displayName}");
+                      });*/
                     },
                     child: Container(
                       height: SizeConfig.blockSizeVertical! * 5,

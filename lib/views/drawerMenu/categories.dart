@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/myQuotes.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
+import 'package:daytofortune_app/views/drawerMenu/subCategories.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
@@ -297,7 +298,7 @@ class _categoriesState extends State<categories> {
                                   return Container();
                                 }
                                 QuerySnapshot? querySnapshot = stream.data;
-                                return ListView.builder(
+                                return PageView.builder(
                                     scrollDirection: Axis.horizontal,
                                     itemCount: querySnapshot?.size,
                                     itemBuilder: (context, index) {
@@ -361,51 +362,61 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Container(
-              height: SizeConfig.blockSizeVertical! * 15,
-              width: MediaQuery.of(context).size.width - 25,
-              decoration: BoxDecoration(
-                  border: Border.all(color: drawerColor, width: 1),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                  image: DecorationImage(
-                      image: NetworkImage(widget.favourites),
-                      fit: BoxFit.fill)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, top: 5),
-                child: Text(
-                  "Favourites",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                      color: Colors.white),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Favourites",'favourites')));
+              },
+              child: Container(
+                height: SizeConfig.blockSizeVertical! * 15,
+                width: MediaQuery.of(context).size.width - 25,
+                decoration: BoxDecoration(
+                    border: Border.all(color: drawerColor, width: 1),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                    image: DecorationImage(
+                        image: NetworkImage(widget.favourites),
+                        fit: BoxFit.fill)),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15, top: 5),
+                  child: Text(
+                    "Favourites",
+                    style: GoogleFonts.poppins(
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                        color: Colors.white),
+                  ),
                 ),
               ),
             ),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Container(
-              height: SizeConfig.blockSizeVertical! * 10,
-              width: MediaQuery.of(context).size.width - 25,
-              decoration: BoxDecoration(
-                  border: Border.all(color: drawerColor, width: 1),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                  image: DecorationImage(
-                      image: NetworkImage(widget.general), fit: BoxFit.fill)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, top: 5),
-                child: Text(
-                  "General",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                      color: Colors.white),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("General",'general')));
+              },
+              child: Container(
+                height: SizeConfig.blockSizeVertical! * 10,
+                width: MediaQuery.of(context).size.width - 25,
+                decoration: BoxDecoration(
+                    border: Border.all(color: drawerColor, width: 1),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                    image: DecorationImage(
+                        image: NetworkImage(widget.general), fit: BoxFit.fill)),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15, top: 5),
+                  child: Text(
+                    "General",
+                    style: GoogleFonts.poppins(
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                        color: Colors.white),
+                  ),
                 ),
               ),
             ),
@@ -430,52 +441,62 @@ class _categoriesState extends State<categories> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.hustle),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Hustle",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.white),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Hustle",'hustle')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.hustle),
+                            fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Hustle",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
                 ),
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.stress),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Stress",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.blueGrey),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Stress",'stress')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.stress),
+                            fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Stress",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.blueGrey),
+                      ),
                     ),
                   ),
                 ),
@@ -487,51 +508,61 @@ class _categoriesState extends State<categories> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.love), fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Love",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.blueGrey),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Love",'love')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.love), fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Love",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.blueGrey),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
                 ),
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.depression),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Depression",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.white),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Depression",'depression')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.depression),
+                            fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Depression",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -558,52 +589,62 @@ class _categoriesState extends State<categories> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.workout),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Workout",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.white),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Workout",'workout')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.workout),
+                            fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Workout",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
                 ),
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.health),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Health",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.white),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Health",'health')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.health),
+                            fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Health",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -615,51 +656,61 @@ class _categoriesState extends State<categories> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.training),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Training",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.blueGrey),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Training",'training')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.training),
+                            fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Training",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.blueGrey),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
                 ),
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 15,
-                  width: SizeConfig.blockSizeHorizontal! * 45,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.gym), fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      "Gym",
-                      style: GoogleFonts.poppins(
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                          color: Colors.white),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Gym",'gym')));
+                  },
+                  child: Container(
+                    height: SizeConfig.blockSizeVertical! * 15,
+                    width: SizeConfig.blockSizeHorizontal! * 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: drawerColor, width: 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.gym), fit: BoxFit.fill)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        "Gym",
+                        style: GoogleFonts.poppins(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
