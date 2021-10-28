@@ -88,7 +88,7 @@ class _membershipScreenState extends State<membershipScreen> {
                 ],
               ),
             ),
-            SizedBox(height: SizeConfig.blockSizeVertical! * 6,),
+            SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
             Container(
               height: SizeConfig.blockSizeVertical! * 8,
               width: SizeConfig.blockSizeHorizontal! * 20,
@@ -205,9 +205,9 @@ class _membershipScreenState extends State<membershipScreen> {
                 Text("Only Rs. 266.66/month, nilled annually.",style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4),)
               ],
             ),
-            SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
+            SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
             Text("30 days free, then just Rs. 3,200.00/year",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
-            SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
+            SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
             GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => confirmAccount()));
@@ -227,6 +227,8 @@ class _membershipScreenState extends State<membershipScreen> {
                   )
               ),
             ),
+            SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
+            Text("Make sure you are logged In before Proceed",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
           ],
         ),
       ),

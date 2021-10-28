@@ -8,6 +8,7 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'drawerMenu/categories.dart';
 import 'drawerMenu/fortuneAcademy.dart';
 import 'drawerMenu/myQuotes.dart';
@@ -29,8 +30,6 @@ class _homeScreenState extends State<homeScreen> {
   String? health;
   String? training;
   String? gym;
-
-
 
   getImages() async {
     final firestoreInstance = await FirebaseFirestore.instance;
@@ -100,9 +99,15 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
 
+  saveRandomId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('HomeScreen', "getToHome");
+  }
+
   @override
   void initState() {
     getImages();
+    saveRandomId();
     super.initState();
   }
 

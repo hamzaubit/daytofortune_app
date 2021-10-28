@@ -3,6 +3,8 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'drawerMenu/membershipScreen.dart';
+
 class premiumScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -144,7 +146,9 @@ class premiumScreen extends StatelessWidget {
           Text("30 days free, then just Rs. 3,200.00/year",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
           SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => membershipScreen()));
+            },
             child: Container(
                 height: SizeConfig.blockSizeVertical! * 8,
                 width: MediaQuery.of(context).size.width - 80,

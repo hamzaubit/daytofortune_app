@@ -65,15 +65,20 @@ class _signUpScreenState extends State<signUpScreen> {
                   ),
                   Column(
                     children: [
-                      Container(
-                        height: SizeConfig.blockSizeVertical! * 7,
-                        width: SizeConfig.blockSizeHorizontal! * 14,
-                        decoration: BoxDecoration(
-                            color: secondaryThemeColor.withOpacity(0.5),
-                            borderRadius: BorderRadius.all(Radius.circular(30))
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => membershipScreen()));
+                        },
+                        child: Container(
+                          height: SizeConfig.blockSizeVertical! * 7,
+                          width: SizeConfig.blockSizeHorizontal! * 14,
+                          decoration: BoxDecoration(
+                              color: secondaryThemeColor.withOpacity(0.5),
+                              borderRadius: BorderRadius.all(Radius.circular(30))
+                          ),
+                          child: Center(child: Text("2",style: GoogleFonts.poppins(color: Colors.black,fontSize: SizeConfig.blockSizeHorizontal! * 4.5,
+                              fontWeight: FontWeight.w700))),
                         ),
-                        child: Center(child: Text("2",style: GoogleFonts.poppins(color: Colors.black,fontSize: SizeConfig.blockSizeHorizontal! * 4.5,
-                            fontWeight: FontWeight.w700))),
                       ),
                       SizedBox(height: SizeConfig.blockSizeVertical! * 1,),
                       Text("Membership",style: GoogleFonts.poppins(color: secondaryThemeColor.withOpacity(0.5),fontSize: SizeConfig.blockSizeHorizontal! * 3.0))

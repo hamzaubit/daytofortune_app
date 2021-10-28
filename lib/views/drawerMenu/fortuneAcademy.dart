@@ -13,9 +13,20 @@ class fortuneAcademy extends StatefulWidget {
 }
 
 class _fortuneAcademyState extends State<fortuneAcademy> {
-
   String? audioBackground;
   String? videoBackground;
+  final firestoreInstance = FirebaseFirestore.instance;
+
+  getAudioBackGround() {
+    firestoreInstance
+        .collection("audio_Background")
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        print(result.data()['img']);
+      });
+    });
+  }
 
   @override
   void initState() {
@@ -24,16 +35,26 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
 
   @override
   Widget build(BuildContext context) {
-
-    Query trending_audio = FirebaseFirestore.instance.collection('trending_audio');
-    Query topFavourite_audio = FirebaseFirestore.instance.collection('topFavourite_audio');
+    Query trending_audio =
+        FirebaseFirestore.instance.collection('trending_audio');
+    Query topFavourite_audio =
+        FirebaseFirestore.instance.collection('topFavourite_audio');
     Query hot10_audio = FirebaseFirestore.instance.collection('hot10_audio');
-    Query myCollection_audio = FirebaseFirestore.instance.collection('myCollection_audio');
+    Query myCollection_audio =
+        FirebaseFirestore.instance.collection('myCollection_audio');
 
-    Query trending_video = FirebaseFirestore.instance.collection('trending_video');
-    Query topFavourite_video = FirebaseFirestore.instance.collection('topFavourite_video');
+    Query trending_video =
+        FirebaseFirestore.instance.collection('trending_video');
+    Query topFavourite_video =
+        FirebaseFirestore.instance.collection('topFavourite_video');
     Query hot10_video = FirebaseFirestore.instance.collection('hot10_video');
-    Query myCollection_video = FirebaseFirestore.instance.collection('myCollection_video');
+    Query myCollection_video =
+        FirebaseFirestore.instance.collection('myCollection_video');
+
+    CollectionReference users =
+        FirebaseFirestore.instance.collection('audio_Background');
+    CollectionReference users1 =
+    FirebaseFirestore.instance.collection('video_Background');
 
     SizeConfig().init(context);
     return DefaultTabController(
@@ -46,13 +67,19 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
             title: TabBar(
               indicatorColor: secondaryThemeColor,
               tabs: [
-              Text("Audios",style: GoogleFonts.poppins(
-            fontSize: SizeConfig.blockSizeHorizontal! * 4.7,
-            color: Colors.white),),
-                Text("Videos",style: GoogleFonts.poppins(
-                    fontSize: SizeConfig.blockSizeHorizontal! * 4.7,
-                    color: Colors.white),)
-            ],
+                Text(
+                  "Audios",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 4.7,
+                      color: Colors.white),
+                ),
+                Text(
+                  "Videos",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 4.7,
+                      color: Colors.white),
+                )
+              ],
             ),
           ),
           body: TabBarView(
@@ -69,19 +96,33 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               height: SizeConfig.blockSizeVertical! * 13,
                               width: SizeConfig.blockSizeHorizontal! * 28,
                               child: Center(
-                                child: CircularProgressIndicator(color: secondaryThemeColor,),
+                                child: CircularProgressIndicator(
+                                  color: secondaryThemeColor,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        StreamBuilder<QuerySnapshot>(
-                          stream: trending_video.snapshots(),
-                          builder: (context, stream){
-                            if(!stream.hasData){
-                              return Container();
+                        FutureBuilder<DocumentSnapshot>(
+                          future: users.doc('audio').get(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DocumentSnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Something went wrong");
                             }
-                            QuerySnapshot? querySnapshot = stream.data;
-                            return backgroundWidget(audioBackground.toString());
+
+                            if (snapshot.hasData && !snapshot.data!.exists) {
+                              return Text("Document does not exist");
+                            }
+
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              Map<String, dynamic> data =
+                                  snapshot.data!.data() as Map<String, dynamic>;
+                              return backgroundWidget(data['img']);
+                            }
+
+                            return Text("loading");
                           },
                         ),
                       ],
@@ -89,10 +130,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("Trending", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "Trending",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -100,20 +145,28 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: trending_audio.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
                                     },
-                                    child: audioWidget(querySnapshot!.docs[index]['img'].toString()));
+                                    child: audioWidget(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
@@ -121,10 +174,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("Top Favourites", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "Top Favourites",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -132,20 +189,28 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: topFavourite_audio.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
                                     },
-                                    child: audioWidget(querySnapshot!.docs[index]['img'].toString()));
+                                    child: audioWidget(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
@@ -153,10 +218,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("Hot 10", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "Hot 10",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -164,20 +233,28 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: hot10_audio.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
                                     },
-                                    child: audioWidget(querySnapshot!.docs[index]['img'].toString()));
+                                    child: audioWidget(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
@@ -185,10 +262,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("My Collection", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "My Collection",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -196,25 +277,35 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: myCollection_audio.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
                                     },
-                                    child: myCollectionAudio(querySnapshot!.docs[index]['img'].toString()));
+                                    child: myCollectionAudio(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
                     ),
-                    SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 2,
+                    ),
                   ],
                 ),
               ),
@@ -230,19 +321,33 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                               height: SizeConfig.blockSizeVertical! * 13,
                               width: SizeConfig.blockSizeHorizontal! * 28,
                               child: Center(
-                                child: CircularProgressIndicator(color: secondaryThemeColor,),
+                                child: CircularProgressIndicator(
+                                  color: secondaryThemeColor,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        StreamBuilder<QuerySnapshot>(
-                          stream: trending_video.snapshots(),
-                          builder: (context, stream){
-                            if(!stream.hasData){
-                              return Container();
+                        FutureBuilder<DocumentSnapshot>(
+                          future: users1.doc('video').get(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DocumentSnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Something went wrong");
                             }
-                            QuerySnapshot? querySnapshot = stream.data;
-                            return backgroundWidget(videoBackground.toString());
+
+                            if (snapshot.hasData && !snapshot.data!.exists) {
+                              return Text("Document does not exist");
+                            }
+
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              Map<String, dynamic> data =
+                              snapshot.data!.data() as Map<String, dynamic>;
+                              return backgroundWidget(data['img']);
+                            }
+
+                            return Text("loading");
                           },
                         ),
                       ],
@@ -250,10 +355,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("Trending", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "Trending",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -261,20 +370,28 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: trending_video.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
-                                  },
-                                    child: videoWidget(querySnapshot!.docs[index]['img'].toString()));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
+                                    },
+                                    child: videoWidget(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
@@ -282,10 +399,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("Top Favourites", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "Top Favourites",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -293,20 +414,28 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: topFavourite_video.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
                                     },
-                                    child: videoWidget(querySnapshot!.docs[index]['img'].toString()));
+                                    child: videoWidget(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
@@ -314,10 +443,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("Hot 10", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "Hot 10",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -325,20 +458,28 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: hot10_video.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
                                     },
-                                    child: videoWidget(querySnapshot!.docs[index]['img'].toString()));
+                                    child: videoWidget(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
@@ -346,10 +487,14 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                        child: Text("My Collection", style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                            color: secondaryThemeColor),),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10, bottom: 10),
+                        child: Text(
+                          "My Collection",
+                          style: GoogleFonts.poppins(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                              color: secondaryThemeColor),
+                        ),
                       ),
                     ),
                     Container(
@@ -357,25 +502,35 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       width: MediaQuery.of(context).size.width,
                       child: StreamBuilder<QuerySnapshot>(
                         stream: myCollection_video.snapshots(),
-                        builder: (context, stream){
-                          if(!stream.hasData){
+                        builder: (context, stream) {
+                          if (!stream.hasData) {
                             return Container();
                           }
                           QuerySnapshot? querySnapshot = stream.data;
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: querySnapshot?.size,
-                              itemBuilder: (context , index){
+                              itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => videoPlayer((querySnapshot!.docs[index]['url'].toString()))));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => videoPlayer(
+                                                  (querySnapshot!.docs[index]
+                                                          ['url']
+                                                      .toString()))));
                                     },
-                                    child: myCollectionVideo(querySnapshot!.docs[index]['img'].toString()));
+                                    child: myCollectionVideo(querySnapshot!
+                                        .docs[index]['img']
+                                        .toString()));
                               });
                         },
                       ),
                     ),
-                    SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 2,
+                    ),
                   ],
                 ),
               ),
@@ -387,31 +542,51 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
             items: [
               BottomNavigationBarItem(
                 icon: GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> homeScreen()));
-                  },
-                    child: new Icon(Icons.home,color: secondaryThemeColor,)),
-                title: new Text('Home',style: TextStyle(color: secondaryThemeColor,)),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => homeScreen()));
+                    },
+                    child: new Icon(
+                      Icons.home,
+                      color: secondaryThemeColor,
+                    )),
+                title: new Text('Home',
+                    style: TextStyle(
+                      color: secondaryThemeColor,
+                    )),
               ),
               BottomNavigationBarItem(
-                icon: new Icon(Icons.mail,color: secondaryThemeColor,),
-                title: new Text('Messages',style: TextStyle(color: secondaryThemeColor,)),
+                icon: new Icon(
+                  Icons.mail,
+                  color: secondaryThemeColor,
+                ),
+                title: new Text('Messages',
+                    style: TextStyle(
+                      color: secondaryThemeColor,
+                    )),
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person,color: secondaryThemeColor,),
-                  title: Text('Profile',style: TextStyle(color: secondaryThemeColor,),)
-              )
+                  icon: Icon(
+                    Icons.person,
+                    color: secondaryThemeColor,
+                  ),
+                  title: Text(
+                    'Profile',
+                    style: TextStyle(
+                      color: secondaryThemeColor,
+                    ),
+                  ))
             ],
           ),
-        )
-    );
+        ));
   }
 }
 
 //for background
 
 class backgroundWidget extends StatefulWidget {
-
   String img;
 
   backgroundWidget(this.img);
@@ -427,21 +602,21 @@ class _backgroundWidgetState extends State<backgroundWidget> {
       height: SizeConfig.blockSizeVertical! * 50,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          border: Border.all(color: drawerColor,width: 1),
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+          border: Border.all(color: drawerColor, width: 1),
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10)),
           image: DecorationImage(
-              image: NetworkImage(widget.img),fit: BoxFit.fill
-          )
-      ),
+              image: NetworkImage(widget.img), fit: BoxFit.fill)),
     );
   }
 }
 
-
 //for Audios
 
 class audioWidget extends StatefulWidget {
-
   String img;
 
   audioWidget(this.img);
@@ -454,34 +629,32 @@ class _audioWidgetState extends State<audioWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Container(
-            height: SizeConfig.blockSizeVertical! * 13,
-            width: SizeConfig.blockSizeHorizontal! * 28,
-            child: Center(
-              child: CircularProgressIndicator(color: secondaryThemeColor,),
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            Container(
+              height: SizeConfig.blockSizeVertical! * 13,
+              width: SizeConfig.blockSizeHorizontal! * 28,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: secondaryThemeColor,
+                ),
+              ),
             ),
-          ),
-          Container(
-            height: SizeConfig.blockSizeVertical! * 13,
-            width: SizeConfig.blockSizeHorizontal! * 28,
-            decoration: BoxDecoration(
-                border: Border.all(color: drawerColor,width: 1),
-                image: DecorationImage(
-                    image: NetworkImage(widget.img),fit: BoxFit.fill
-                )
+            Container(
+              height: SizeConfig.blockSizeVertical! * 13,
+              width: SizeConfig.blockSizeHorizontal! * 28,
+              decoration: BoxDecoration(
+                  border: Border.all(color: drawerColor, width: 1),
+                  image: DecorationImage(
+                      image: NetworkImage(widget.img), fit: BoxFit.fill)),
             ),
-          ),
-        ],
-      )
-    );
+          ],
+        ));
   }
 }
 
 class myCollectionAudio extends StatefulWidget {
-
   String img;
 
   myCollectionAudio(this.img);
@@ -494,36 +667,34 @@ class _myCollectionAudioState extends State<myCollectionAudio> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Container(
-            height: SizeConfig.blockSizeVertical! * 19,
-            width: SizeConfig.blockSizeHorizontal! * 35,
-            child: Center(
-              child: CircularProgressIndicator(color: secondaryThemeColor,),
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            Container(
+              height: SizeConfig.blockSizeVertical! * 19,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: secondaryThemeColor,
+                ),
+              ),
             ),
-          ),
-          Container(
-            height: SizeConfig.blockSizeVertical! * 19,
-            width: SizeConfig.blockSizeHorizontal! * 35,
-            decoration: BoxDecoration(
-                border: Border.all(color: drawerColor,width: 1),
-                image: DecorationImage(
-                    image: NetworkImage(widget.img),fit: BoxFit.fill
-                )
+            Container(
+              height: SizeConfig.blockSizeVertical! * 19,
+              width: SizeConfig.blockSizeHorizontal! * 35,
+              decoration: BoxDecoration(
+                  border: Border.all(color: drawerColor, width: 1),
+                  image: DecorationImage(
+                      image: NetworkImage(widget.img), fit: BoxFit.fill)),
             ),
-          ),
-        ],
-      )
-    );
+          ],
+        ));
   }
 }
 
 //for Videos
 
 class videoWidget extends StatefulWidget {
-
   String img;
 
   videoWidget(this.img);
@@ -543,29 +714,25 @@ class _videoWidgetState extends State<videoWidget> {
               height: SizeConfig.blockSizeVertical! * 20,
               width: SizeConfig.blockSizeHorizontal! * 35,
               child: Center(
-                child: CircularProgressIndicator(color: secondaryThemeColor,),
+                child: CircularProgressIndicator(
+                  color: secondaryThemeColor,
+                ),
               ),
             ),
             Container(
               height: SizeConfig.blockSizeVertical! * 20,
               width: SizeConfig.blockSizeHorizontal! * 35,
               decoration: BoxDecoration(
-                  border: Border.all(color: drawerColor,width: 1),
+                  border: Border.all(color: drawerColor, width: 1),
                   image: DecorationImage(
-                      image: NetworkImage(widget.img),
-                      fit: BoxFit.fill
-                  )
-              ),
+                      image: NetworkImage(widget.img), fit: BoxFit.fill)),
             ),
           ],
-        )
-    );
+        ));
   }
 }
 
-
 class myCollectionVideo extends StatefulWidget {
-
   String img;
 
   myCollectionVideo(this.img);
@@ -585,22 +752,20 @@ class _myCollectionVideoState extends State<myCollectionVideo> {
               height: SizeConfig.blockSizeVertical! * 19,
               width: SizeConfig.blockSizeHorizontal! * 35,
               child: Center(
-                child: CircularProgressIndicator(color: secondaryThemeColor,),
+                child: CircularProgressIndicator(
+                  color: secondaryThemeColor,
+                ),
               ),
             ),
             Container(
               height: SizeConfig.blockSizeVertical! * 19,
               width: SizeConfig.blockSizeHorizontal! * 35,
               decoration: BoxDecoration(
-                  border: Border.all(color: drawerColor,width: 1),
+                  border: Border.all(color: drawerColor, width: 1),
                   image: DecorationImage(
-                      image: NetworkImage(widget.img),fit: BoxFit.fill
-                  )
-              ),
+                      image: NetworkImage(widget.img), fit: BoxFit.fill)),
             ),
           ],
-        )
-    );
+        ));
   }
 }
-
