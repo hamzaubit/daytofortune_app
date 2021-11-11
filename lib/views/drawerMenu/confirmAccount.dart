@@ -1,5 +1,6 @@
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +10,21 @@ class confirmAccount extends StatefulWidget {
 }
 
 class _confirmAccountState extends State<confirmAccount> {
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  void inputData() {
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    print("My User ID ${uid!}");
+  }
+
+  @override
+  void initState() {
+    inputData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -16,7 +32,7 @@ class _confirmAccountState extends State<confirmAccount> {
       backgroundColor: primaryThemeColor,
       appBar: AppBar(
         backgroundColor: drawerColor,
-        title: Text("Sign Up",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 6.5),),
+        title: Text("Confirmation",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 6.5),),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -80,12 +96,14 @@ class _confirmAccountState extends State<confirmAccount> {
                             fontWeight: FontWeight.w700))),
                       ),
                       SizedBox(height: SizeConfig.blockSizeVertical! * 1,),
-                      Text("Confirm Account",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.0))
+                      Text("Confirm Account",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.0)),
                     ],
                   ),
                 ],
               ),
             ),
+            SizedBox(height: SizeConfig.blockSizeVertical! * 25,),
+            Text("Account Successfully Created",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 6.0)),
             SizedBox(height: SizeConfig.blockSizeVertical! * 6,),
           ],
         ),

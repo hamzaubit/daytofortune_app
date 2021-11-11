@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/functions/googleAdsService.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/views/premiumScreen.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
@@ -8,11 +9,13 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'drawerMenu/categories.dart';
 import 'drawerMenu/fortuneAcademy.dart';
 import 'drawerMenu/integrationTests.dart';
 import 'drawerMenu/myQuotes.dart';
+import 'dart:async';
 
 class homeScreen extends StatefulWidget {
   @override
@@ -30,6 +33,10 @@ class _homeScreenState extends State<homeScreen> {
   String? health;
   String? training;
   String? gym;
+  int count = 0;
+  AdMobHelper adMobHelper = new AdMobHelper();
+
+  //bool showAd = false;
 
   getImages() async {
     final firestoreInstance = await FirebaseFirestore.instance;
@@ -164,9 +171,14 @@ class _homeScreenState extends State<homeScreen> {
     super.initState();
   }
 
+  /*ad() async {
+    adMobHelper.createInterAd();
+  }*/
+
   @override
   Widget build(BuildContext context) {
     Query adminQuotes = FirebaseFirestore.instance.collection('adminQuotes');
+    Query addMyQuotes = FirebaseFirestore.instance.collection('myQuotes');
     SizeConfig().init(context);
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
@@ -429,9 +441,16 @@ class _homeScreenState extends State<homeScreen> {
                   scrollDirection: Axis.vertical,
                   itemCount: querySnapshot?.size,
                   itemBuilder: (context, index) {
-                    return quotesGetter(
-                        querySnapshot!.docs[index]['author'].toString(),
-                        querySnapshot!.docs[index]['quote'].toString());
+                    count = index+1;
+                    print(count);
+                    return Stack(
+                      children: [
+                        quotesGetter(
+                            querySnapshot!.docs[index]['author'].toString(),
+                            querySnapshot!.docs[index]['quote'].toString()),
+                        count % 5 == 0 ? adWidget() : Container(),
+                      ],
+                    );
                   },
                 );
               },
@@ -443,18 +462,88 @@ class _homeScreenState extends State<homeScreen> {
   }
 }
 
+class adWidget extends StatefulWidget {
+  @override
+  _adWidgetState createState() => _adWidgetState();
+}
+
+class _adWidgetState extends State<adWidget> {
+
+  AdMobHelper adMobHelper = new AdMobHelper();
+
+  ad() async {
+    adMobHelper.createInterAd();
+  }
+
+  @override
+  void initState() {
+    ad();
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+
 class quotesGetter extends StatefulWidget {
   String? author;
   String? quote;
+
   quotesGetter(
     this.author,
     this.quote,
   );
+
   @override
   _quotesGetterState createState() => _quotesGetterState();
 }
 
 class _quotesGetterState extends State<quotesGetter> {
+
+  Timer? _timer;
+  int _start = 1;
+  String formattedDate = DateFormat(' EEE d MMM').format(DateTime.now());
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start++;
+            print(_start);
+          });
+        }
+      },
+    );
+  }
+  bool changeColor = false;
+
+
+  createQuotes(){
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc("eNxDazU3FdU3UbYEmTGCECyZ8882").collection('My Quote').doc(_start.toString())..set(
+        {
+          "author" : widget.author,
+          "quote" : widget.quote,
+          "date" : formattedDate,
+          "quoteID" : _start.toString(),
+        }).then((_){
+      print("success!");
+    });
+  }
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -464,18 +553,31 @@ class _quotesGetterState extends State<quotesGetter> {
           Row(
             children: [
               SizedBox(width: SizeConfig.blockSizeHorizontal! * 80),
-              Icon(
+              /*Icon(
                 Icons.share,
                 color: secondaryThemeColor,
                 size: SizeConfig.blockSizeHorizontal! * 7,
-              ),
+              ),*/
               SizedBox(
-                width: SizeConfig.blockSizeHorizontal! * 2,
+                width: SizeConfig.blockSizeHorizontal! * 8,
               ),
-              Icon(
-                Icons.favorite_outlined,
-                color: Colors.red,
-                size: SizeConfig.blockSizeHorizontal! * 7,
+              GestureDetector(
+                onTap: (){
+                  createQuotes();
+                  setState(() {
+                    changeColor =! changeColor;
+                  });
+                  final snackBar = SnackBar(
+                    backgroundColor: primaryThemeColor,
+                    content: const Text('Successfully Added To My Quotes'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
+                child: Icon(
+                  Icons.favorite_outlined,
+                  color: changeColor ? secondaryThemeColor : Colors.red,
+                  size: SizeConfig.blockSizeHorizontal! * 7,
+                ),
               ),
               SizedBox(
                 width: SizeConfig.blockSizeHorizontal! * 2,
@@ -511,7 +613,6 @@ class _quotesGetterState extends State<quotesGetter> {
     );
   }
 }
-
 
 /*Icon(Icons.logout,color: Colors.indigo[600],size: SizeConfig.blockSizeHorizontal! * 7,),
 SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),

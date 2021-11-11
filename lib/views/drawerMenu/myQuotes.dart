@@ -20,7 +20,7 @@ class _myQuotesState extends State<myQuotes> {
   String input = "";
   String input1 = "";
   Timer? _timer;
-  int _start = 50000000;
+  int _start = 1;
   String formattedDate = DateFormat(' EEE d MMM').format(DateTime.now());
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -33,7 +33,7 @@ class _myQuotesState extends State<myQuotes> {
           });
         } else {
           setState(() {
-            _start--;
+            _start++;
             print(_start);
           });
         }
@@ -42,7 +42,7 @@ class _myQuotesState extends State<myQuotes> {
   }
 
   createQuotes(){
-    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc(_start.toString())..set(
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc("eNxDazU3FdU3UbYEmTGCECyZ8882").collection('My Quote').doc(_start.toString())..set(
         {
           "author" : input,
           "quote" : input1,
@@ -53,7 +53,7 @@ class _myQuotesState extends State<myQuotes> {
     });
   }
   deleteQuote(input){
-    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc(input)..delete().then((_){
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc("eNxDazU3FdU3UbYEmTGCECyZ8882").collection('My Quote').doc(input)..delete().then((_){
       print("success!");
     });
   }
@@ -67,9 +67,7 @@ class _myQuotesState extends State<myQuotes> {
   }
   @override
   Widget build(BuildContext context) {
-
-    Query myQuotes = FirebaseFirestore.instance.collection('myQuotes');
-
+    Query myQuotes = FirebaseFirestore.instance.collection('myQuotes').doc("eNxDazU3FdU3UbYEmTGCECyZ8882").collection('My Quote');
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: primaryThemeColor,
@@ -135,43 +133,53 @@ class _myQuotesState extends State<myQuotes> {
           SizedBox(width: SizeConfig.blockSizeHorizontal! * 3,),
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: myQuotes.snapshots(),
-        builder: (context , stream){
-          if(!stream.hasData){
-            return Container();
-          }
-          QuerySnapshot? querySnapshot = stream.data;
-          return ListView.builder(
-              itemCount: querySnapshot?.size,
-              itemBuilder: (context , index){
-                return GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => quoteScreen(quote: querySnapshot!.docs[index]['quote'].toString()
-                      ,author: querySnapshot!.docs[index]['author'].toString(),)));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Card(
-                      color: drawerColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      child: ListTile(
-                        title: Text(querySnapshot!.docs[index]['author'].toString(),style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4.5),),
-                        subtitle: Text("${querySnapshot!.docs[index]['quote'].toString()}\n${querySnapshot!.docs[index]['date'].toString()}",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),),
-                        isThreeLine: true,
-                        trailing: IconButton(icon: Icon(Icons.delete,color: secondaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 6,),
-                          onPressed: () {
-                            deleteQuote(querySnapshot!.docs[index]['quoteID']);
-                            /*setState(() {
-                              quotes.removeAt(index);
-                            });*/
-                          },),
+      body: Container(
+        height: SizeConfig.blockSizeVertical! * 100,
+        width: MediaQuery.of(context).size.width,
+        child: StreamBuilder<QuerySnapshot>(
+          stream: myQuotes.snapshots(),
+          builder: (context , stream){
+            if(!stream.hasData){
+              return Container();
+            }
+            QuerySnapshot? querySnapshot = stream.data;
+            return Container(
+              height: SizeConfig.blockSizeVertical! * 100,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                  itemCount: querySnapshot?.size,
+                  itemBuilder: (context , index){
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => quoteScreen(quote: querySnapshot!.docs[index]['quote'].toString()
+                          ,author: querySnapshot!.docs[index]['author'].toString(),)));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Card(
+                          color: drawerColor,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          child: ListTile(
+                            title: Text(querySnapshot!.docs[index]['author'].toString(),style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4.5),),
+                            subtitle: Text("${querySnapshot.docs[index]['quote'].toString()}\n${querySnapshot.docs[index]['date'].toString()}",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),),
+                            isThreeLine: true,
+                            trailing: IconButton(icon: Icon(Icons.delete,color: secondaryThemeColor,size: SizeConfig.blockSizeHorizontal! * 6,),
+                              onPressed: () {
+                                deleteQuote(querySnapshot.docs[index]['quoteID']);
+                                /*setState(() {
+                                  quotes.removeAt(index);
+                                });*/
+                              },),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              });
-        },
+                    );
+                  }),
+            );
+          },
+        ),
       ),
     );
   }

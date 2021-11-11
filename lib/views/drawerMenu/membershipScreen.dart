@@ -21,7 +21,7 @@ class _membershipScreenState extends State<membershipScreen> {
       appBar: AppBar(
         backgroundColor: drawerColor,
         title: Text(
-          "Sign Up",
+          "Membership",
           style: GoogleFonts.poppins(
               color: secondaryThemeColor,
               fontSize: SizeConfig.blockSizeHorizontal! * 6.5),
@@ -320,6 +320,7 @@ class _membershipScreenState extends State<membershipScreen> {
             ),
             GestureDetector(
               onTap: () async {
+                await makePayment(context, '200', 'USD');
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => confirmAccount()));
               },

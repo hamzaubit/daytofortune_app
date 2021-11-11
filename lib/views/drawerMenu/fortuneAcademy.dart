@@ -5,6 +5,7 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../premiumScreen.dart';
 import '../videoPlayer.dart';
 
 class fortuneAcademy extends StatefulWidget {
@@ -84,455 +85,485 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
           ),
           body: TabBarView(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(
+              Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
                       children: [
-                        SizedBox(
-                          height: SizeConfig.blockSizeVertical! * 50,
-                          child: Center(
-                            child: Container(
-                              height: SizeConfig.blockSizeVertical! * 13,
-                              width: SizeConfig.blockSizeHorizontal! * 28,
+                        Stack(
+                          children: [
+                            SizedBox(
+                              height: SizeConfig.blockSizeVertical! * 50,
                               child: Center(
-                                child: CircularProgressIndicator(
-                                  color: secondaryThemeColor,
+                                child: Container(
+                                  height: SizeConfig.blockSizeVertical! * 13,
+                                  width: SizeConfig.blockSizeHorizontal! * 28,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: secondaryThemeColor,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        FutureBuilder<DocumentSnapshot>(
-                          future: users.doc('audio').get(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<DocumentSnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return Text("Something went wrong");
-                            }
+                            FutureBuilder<DocumentSnapshot>(
+                              future: users.doc('audio').get(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text("Something went wrong");
+                                }
 
-                            if (snapshot.hasData && !snapshot.data!.exists) {
-                              return Text("Document does not exist");
-                            }
+                                if (snapshot.hasData && !snapshot.data!.exists) {
+                                  return Text("Document does not exist");
+                                }
 
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              Map<String, dynamic> data =
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  Map<String, dynamic> data =
                                   snapshot.data!.data() as Map<String, dynamic>;
-                              return backgroundWidget(data['img']);
-                            }
+                                  return backgroundWidget(data['img']);
+                                }
 
-                            return Text("loading");
-                          },
+                                return Text("loading");
+                              },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "Trending",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 15,
-                      width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: trending_audio.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: audioWidget(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "Top Favourites",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 15,
-                      width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: topFavourite_audio.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: audioWidget(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "Hot 10",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 15,
-                      width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: hot10_audio.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: audioWidget(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "My Collection",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 21,
-                      width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: myCollection_audio.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: myCollectionAudio(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.blockSizeVertical! * 2,
-                    ),
-                  ],
-                ),
-              ),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        SizedBox(
-                          height: SizeConfig.blockSizeVertical! * 50,
-                          child: Center(
-                            child: Container(
-                              height: SizeConfig.blockSizeVertical! * 13,
-                              width: SizeConfig.blockSizeHorizontal! * 28,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: secondaryThemeColor,
-                                ),
-                              ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "Trending",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
                             ),
                           ),
                         ),
-                        FutureBuilder<DocumentSnapshot>(
-                          future: users1.doc('video').get(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<DocumentSnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return Text("Something went wrong");
-                            }
-
-                            if (snapshot.hasData && !snapshot.data!.exists) {
-                              return Text("Document does not exist");
-                            }
-
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              Map<String, dynamic> data =
-                              snapshot.data!.data() as Map<String, dynamic>;
-                              return backgroundWidget(data['img']);
-                            }
-
-                            return Text("loading");
-                          },
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 15,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: trending_audio.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: audioWidget(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "Top Favourites",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 15,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: topFavourite_audio.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: audioWidget(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "Hot 10",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 15,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: hot10_audio.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: audioWidget(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "My Collection",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 21,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: myCollection_audio.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: myCollectionAudio(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical! * 2,
                         ),
                       ],
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "Trending",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 20,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: trending_video.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: videoWidget(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
+                      color: Colors.black.withOpacity(0.5),
+                      child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 10,color: secondaryThemeColor,),
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "Top Favourites",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            SizedBox(
+                              height: SizeConfig.blockSizeVertical! * 50,
+                              child: Center(
+                                child: Container(
+                                  height: SizeConfig.blockSizeVertical! * 13,
+                                  width: SizeConfig.blockSizeHorizontal! * 28,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: secondaryThemeColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            FutureBuilder<DocumentSnapshot>(
+                              future: users1.doc('video').get(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text("Something went wrong");
+                                }
+
+                                if (snapshot.hasData && !snapshot.data!.exists) {
+                                  return Text("Document does not exist");
+                                }
+
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  Map<String, dynamic> data =
+                                  snapshot.data!.data() as Map<String, dynamic>;
+                                  return backgroundWidget(data['img']);
+                                }
+
+                                return Text("loading");
+                              },
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 20,
-                      width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: topFavourite_video.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: videoWidget(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "Hot 10",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "Trending",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 20,
-                      width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: hot10_video.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: videoWidget(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, top: 10, bottom: 10),
-                        child: Text(
-                          "My Collection",
-                          style: GoogleFonts.poppins(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
-                              color: secondaryThemeColor),
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 20,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: trending_video.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: videoWidget(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
                         ),
-                      ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "Top Favourites",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 20,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: topFavourite_video.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: videoWidget(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "Hot 10",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 20,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: hot10_video.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: videoWidget(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 10, bottom: 10),
+                            child: Text(
+                              "My Collection",
+                              style: GoogleFonts.poppins(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  color: secondaryThemeColor),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: SizeConfig.blockSizeVertical! * 21,
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: myCollection_video.snapshots(),
+                            builder: (context, stream) {
+                              if (!stream.hasData) {
+                                return Container();
+                              }
+                              QuerySnapshot? querySnapshot = stream.data;
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: querySnapshot?.size,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => videoPlayer(
+                                                      (querySnapshot!.docs[index]
+                                                      ['url']
+                                                          .toString()))));
+                                        },
+                                        child: myCollectionVideo(querySnapshot!
+                                            .docs[index]['img']
+                                            .toString()));
+                                  });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical! * 2,
+                        ),
+                      ],
                     ),
-                    Container(
-                      height: SizeConfig.blockSizeVertical! * 21,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: myCollection_video.snapshots(),
-                        builder: (context, stream) {
-                          if (!stream.hasData) {
-                            return Container();
-                          }
-                          QuerySnapshot? querySnapshot = stream.data;
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: querySnapshot?.size,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => videoPlayer(
-                                                  (querySnapshot!.docs[index]
-                                                          ['url']
-                                                      .toString()))));
-                                    },
-                                    child: myCollectionVideo(querySnapshot!
-                                        .docs[index]['img']
-                                        .toString()));
-                              });
-                        },
-                      ),
+                      color: Colors.black.withOpacity(0.5),
+                      child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 10,color: secondaryThemeColor,),
                     ),
-                    SizedBox(
-                      height: SizeConfig.blockSizeVertical! * 2,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -558,22 +589,12 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                     )),
               ),
               BottomNavigationBarItem(
-                icon: new Icon(
-                  Icons.mail,
-                  color: secondaryThemeColor,
-                ),
-                title: new Text('Messages',
-                    style: TextStyle(
-                      color: secondaryThemeColor,
-                    )),
-              ),
-              BottomNavigationBarItem(
                   icon: Icon(
                     Icons.person,
                     color: secondaryThemeColor,
                   ),
                   title: Text(
-                    'Profile',
+                    'Sign Up',
                     style: TextStyle(
                       color: secondaryThemeColor,
                     ),
