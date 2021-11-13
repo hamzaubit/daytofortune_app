@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
@@ -6,6 +7,7 @@ import 'package:daytofortune_app/views/premiumScreen.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -526,16 +528,28 @@ class _quotesGetterState extends State<quotesGetter> {
   bool changeColor = false;
 
 
-  createQuotes(){
-    DocumentReference documentReference = FirebaseFirestore.instance.collection("myQuotes").doc("eNxDazU3FdU3UbYEmTGCECyZ8882").collection('My Quote').doc(_start.toString())..set(
-        {
-          "author" : widget.author,
-          "quote" : widget.quote,
-          "date" : formattedDate,
-          "quoteID" : _start.toString(),
-        }).then((_){
-      print("success!");
-    });
+  var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+  createQuotes() {
+    var id = getRandomString(25);
+
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection("myQuotes")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('My Quote')
+        .doc(id)
+      ..set({
+        "author": widget.author,
+        "quote": widget.quote,
+        "date": formattedDate,
+        "quoteID": id,
+      }).then((_) {
+        print("success!");
+      });
   }
 
   @override

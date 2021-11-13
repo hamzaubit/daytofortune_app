@@ -428,11 +428,7 @@ class _signUpScreenState extends State<signUpScreen> {
                   GestureDetector(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        signUp(email.text, password.text);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => membershipScreen()));
+                        _submit();
                       }
                     },
                     child: Container(
@@ -461,5 +457,16 @@ class _signUpScreenState extends State<signUpScreen> {
         ),
       ),
     );
+  }
+
+  _submit() async {
+    final response = await signUp(email.text, password.text);
+    if (response['error'] == 1) {
+      print(response['message']);
+    } else {
+      print(response['message']);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => membershipScreen()));
+    }
   }
 }

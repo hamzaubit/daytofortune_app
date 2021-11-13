@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../premiumScreen.dart';
+import 'addingSubCategories.dart';
 import 'fortuneAcademy.dart';
 
 class categories extends StatefulWidget {
@@ -46,6 +47,10 @@ class _categoriesState extends State<categories> {
         .collection('categories_Pictures')
         .doc("1")
         .collection("Popular_Quotes");
+    Query addingRandomQuotesCategories = FirebaseFirestore.instance
+        .collection('quotesCategories')
+        .doc("quotes")
+        .collection("addingNewCategories").doc("1").collection('Motivational');
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: primaryThemeColor,
@@ -925,7 +930,33 @@ class _categoriesState extends State<categories> {
               ],
             ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical! * 3,
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            StreamBuilder<QuerySnapshot>(
+                stream: addingRandomQuotesCategories.snapshots(),
+                builder: (context, stream){
+                  if (!stream.hasData) {
+                    return Center(
+                        child: CircularProgressIndicator(
+                          color: secondaryThemeColor,
+                        ));
+                  }
+                  QuerySnapshot? querySnapshot = stream.data;
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: querySnapshot?.size,
+                      itemBuilder: (context , index){
+                        return addingCategories(
+                          querySnapshot!.docs[index]['quoteCategory'].toString(),
+                          querySnapshot!.docs[index]['author'].toString(),
+                          querySnapshot!.docs[index]['quote'].toString(),
+                          querySnapshot!.docs[index]['url'].toString(),
+                        );
+                      });
+                }
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
             ),
           ],
         ),
@@ -972,3 +1003,80 @@ class _popularQuotesState extends State<popularQuotes> {
     ));
   }
 }
+
+class addingCategories extends StatefulWidget {
+
+  bool premium = true;
+  String? quoteCategory;
+  String? author;
+  String? quote;
+  String? url;
+  addingCategories(this.quoteCategory,this.author,this.quote,this.url);
+
+  @override
+  _addingCategoriesState createState() => _addingCategoriesState();
+}
+
+class _addingCategoriesState extends State<addingCategories> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15,bottom: 15),
+      child: Stack
+        (
+        children: [
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => addingSubCategories("${widget.quoteCategory}",'${widget.quoteCategory}')));
+            },
+            child: Container(
+              height: SizeConfig.blockSizeVertical! * 15,
+              width: MediaQuery.of(context).size.width - 25,
+              decoration: BoxDecoration(
+                  border: Border.all(color: drawerColor, width: 1),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                  image: DecorationImage(
+                      image: NetworkImage(widget.url.toString()),
+                      fit: BoxFit.fill)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15, top: 5),
+                child: Text(
+                  "${widget.quoteCategory}",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+          widget.premium ? SizedBox() :
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+            },
+            child: Container(
+              height: SizeConfig.blockSizeVertical! * 15,
+              width: MediaQuery.of(context).size.width - 25,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.5),
+                border: Border.all(color: drawerColor, width: 1),
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+              ),
+              child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

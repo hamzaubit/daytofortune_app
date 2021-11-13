@@ -13,6 +13,7 @@ class membershipScreen extends StatefulWidget {
 }
 
 class _membershipScreenState extends State<membershipScreen> {
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

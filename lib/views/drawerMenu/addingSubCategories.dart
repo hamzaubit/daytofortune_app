@@ -8,17 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class subCategories extends StatefulWidget {
+class addingSubCategories extends StatefulWidget {
   String? title;
   String? collectionName;
 
-  subCategories(this.title, this.collectionName);
+  addingSubCategories(this.title, this.collectionName);
 
   @override
-  _subCategoriesState createState() => _subCategoriesState();
+  _addingSubCategoriesState createState() => _addingSubCategoriesState();
 }
 
-class _subCategoriesState extends State<subCategories> {
+class _addingSubCategoriesState extends State<addingSubCategories> {
 
   int count = 0;
 
@@ -27,7 +27,8 @@ class _subCategoriesState extends State<subCategories> {
     Query adminQuotes = FirebaseFirestore.instance
         .collection('quotesCategories')
         .doc('quotes')
-        .collection(widget.collectionName!);
+        .collection('addingNewCategories')
+    .doc('1').collection(widget.collectionName!);
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: primaryThemeColor,
@@ -51,8 +52,8 @@ class _subCategoriesState extends State<subCategories> {
               if (!stream.hasData) {
                 return Center(
                     child: CircularProgressIndicator(
-                  color: secondaryThemeColor,
-                ));
+                      color: secondaryThemeColor,
+                    ));
               }
               QuerySnapshot? querySnapshot = stream.data;
               return PageView.builder(
@@ -108,9 +109,9 @@ class quotesGetter extends StatefulWidget {
   String? quote;
 
   quotesGetter(
-    this.author,
-    this.quote,
-  );
+      this.author,
+      this.quote,
+      );
 
   @override
   _quotesGetterState createState() => _quotesGetterState();
@@ -125,7 +126,7 @@ class _quotesGetterState extends State<quotesGetter> {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-      (Timer timer) {
+          (Timer timer) {
         if (_start == 0) {
           setState(() {
             timer.cancel();

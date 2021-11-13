@@ -1,15 +1,22 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 
 Map<String, dynamic>? paymentIntentData;
+
 Future<void> makePayment(
     BuildContext context, String amount, String currency) async {
+
+  print('Payment Made');
+
   try {
     paymentIntentData = await createPaymentIntent(
         amount, currency); //json.decode(response.body);
     // print('Response body==>${response.body.toString()}');
+
     await Stripe.instance
         .initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
@@ -20,7 +27,12 @@ Future<void> makePayment(
                 style: ThemeMode.dark,
                 merchantCountryCode: 'US',
                 merchantDisplayName: 'ANNIE'))
-        .then((value) {});
+        .then((value) {
+
+          FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
+            'isPremium':true
+          });
+    });
 
     ///now finally display payment sheeet
     displayPaymentSheet(context);

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,6 +19,10 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
   String? videoBackground;
   final firestoreInstance = FirebaseFirestore.instance;
 
+  var loading = true;
+
+  var isPremium;
+
   getAudioBackGround() {
     firestoreInstance
         .collection("audio_Background")
@@ -32,6 +37,31 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
   @override
   void initState() {
     super.initState();
+    isUserPremium();
+  }
+
+  isUserPremium() {
+    if (FirebaseAuth.instance.currentUser == null) {
+      print('Not logged in');
+      setState(() {
+        isPremium = false;
+        loading = false;
+      });
+    } else {
+//  fetch user data
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get()
+          .then((value) {
+        print('User');
+        setState(() {
+
+          loading = false;
+          isPremium = (value.data()?['isPremium']);
+        });
+      });
+    }
   }
 
   @override
@@ -55,7 +85,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
     CollectionReference users =
         FirebaseFirestore.instance.collection('audio_Background');
     CollectionReference users1 =
-    FirebaseFirestore.instance.collection('video_Background');
+        FirebaseFirestore.instance.collection('video_Background');
 
     SizeConfig().init(context);
     return DefaultTabController(
@@ -85,7 +115,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
           ),
           body: TabBarView(
             children: [
-              Stack(
+             loading?Center(child: CircularProgressIndicator()):  Stack(
                 children: [
                   SingleChildScrollView(
                     child: Column(
@@ -114,14 +144,15 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                   return Text("Something went wrong");
                                 }
 
-                                if (snapshot.hasData && !snapshot.data!.exists) {
+                                if (snapshot.hasData &&
+                                    !snapshot.data!.exists) {
                                   return Text("Document does not exist");
                                 }
 
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
-                                  Map<String, dynamic> data =
-                                  snapshot.data!.data() as Map<String, dynamic>;
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
                                   return backgroundWidget(data['img']);
                                 }
 
@@ -138,7 +169,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "Trending",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -162,10 +194,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: audioWidget(querySnapshot!
                                             .docs[index]['img']
@@ -182,7 +224,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "Top Favourites",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -206,10 +249,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: audioWidget(querySnapshot!
                                             .docs[index]['img']
@@ -226,7 +279,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "Hot 10",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -250,10 +304,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: audioWidget(querySnapshot!
                                             .docs[index]['img']
@@ -270,7 +334,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "My Collection",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -294,10 +359,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: myCollectionAudio(querySnapshot!
                                             .docs[index]['img']
@@ -312,15 +387,22 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                  isPremium? Container(): GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => premiumScreen()));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       color: Colors.black.withOpacity(0.5),
-                      child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 10,color: secondaryThemeColor,),
+                      child: Icon(
+                        Icons.lock,
+                        size: SizeConfig.blockSizeHorizontal! * 10,
+                        color: secondaryThemeColor,
+                      ),
                     ),
                   ),
                 ],
@@ -354,14 +436,15 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                   return Text("Something went wrong");
                                 }
 
-                                if (snapshot.hasData && !snapshot.data!.exists) {
+                                if (snapshot.hasData &&
+                                    !snapshot.data!.exists) {
                                   return Text("Document does not exist");
                                 }
 
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
-                                  Map<String, dynamic> data =
-                                  snapshot.data!.data() as Map<String, dynamic>;
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
                                   return backgroundWidget(data['img']);
                                 }
 
@@ -378,7 +461,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "Trending",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -402,10 +486,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: videoWidget(querySnapshot!
                                             .docs[index]['img']
@@ -422,7 +516,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "Top Favourites",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -446,10 +541,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: videoWidget(querySnapshot!
                                             .docs[index]['img']
@@ -466,7 +571,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "Hot 10",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -490,10 +596,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: videoWidget(querySnapshot!
                                             .docs[index]['img']
@@ -510,7 +626,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             child: Text(
                               "My Collection",
                               style: GoogleFonts.poppins(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 4.8,
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 4.8,
                                   color: secondaryThemeColor),
                             ),
                           ),
@@ -534,10 +651,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => videoPlayer(
-                                                      (querySnapshot!.docs[index]
-                                                      ['url']
-                                                          .toString()))));
+                                                  builder: (context) =>
+                                                      videoPlayer(
+                                                        (querySnapshot!
+                                                            .docs[index]['url']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['title']
+                                                            .toString()),
+                                                        (querySnapshot!
+                                                            .docs[index]
+                                                                ['thumbnail']
+                                                            .toString()),
+                                                      )));
                                         },
                                         child: myCollectionVideo(querySnapshot!
                                             .docs[index]['img']
@@ -552,7 +679,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  /*GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                     },
@@ -562,7 +689,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       color: Colors.black.withOpacity(0.5),
                       child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 10,color: secondaryThemeColor,),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ],

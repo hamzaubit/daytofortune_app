@@ -1,21 +1,43 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 signUp(String email, String password) async {
+  var response = {};
+
   try {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
-    print("Successfully Registered");
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) async {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .set({'email': email, 'isPremium': false}).then((value) {
+        response['error'] = 0;
+        response['message'] = ("Successfully Registered");
+      }).catchError((err) {
+        response['error'] = 1;
+        response['message'] = (err.toString());
+      });
+    }).catchError((err) {
+      response['error'] = 1;
+      response['message'] = (err.toString());
+    });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
-      print('The password provided is too weak.');
+      response['error'] = 1;
+      response['message'] = ('The password provided is too weak.');
     } else if (e.code == 'email-already-in-use') {
-      print('The account already exists for that email.');
+      response['error'] = 1;
+      response['message'] = ('The account already exists for that email.');
     }
   } catch (e) {
-    print(e);
+    response['error'] = 1;
+    response['message'] = (e.toString());
   }
+
+  return response;
 }
 
 signIn(String email, String password) async {
@@ -34,6 +56,15 @@ signIn(String email, String password) async {
       print('Wrong password provided for that user.');
     }
   }
+}
+
+
+checkLoggedIn()async{
+  final user = await FirebaseAuth.instance.currentUser;
+  if(user == null)
+    return false;
+  else
+    return true;
 }
 
 void signOut() {
