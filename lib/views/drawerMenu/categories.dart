@@ -5,6 +5,7 @@ import 'package:daytofortune_app/views/drawerMenu/subCategories.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,11 +35,38 @@ class categories extends StatefulWidget {
 
 class _categoriesState extends State<categories> {
 
-  bool premiuim = false;
+  var loading = true;
+
+  var isPremium;
+
+  isUserPremium() {
+    if (FirebaseAuth.instance.currentUser == null) {
+      print('Not logged in');
+      setState(() {
+        isPremium = false;
+        loading = false;
+      });
+    } else {
+//  fetch user data
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get()
+          .then((value) {
+        print('User');
+        setState(() {
+
+          loading = false;
+          isPremium = (value.data()?['isPremium']);
+        });
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    isUserPremium();
   }
 
   @override
@@ -256,7 +284,7 @@ class _categoriesState extends State<categories> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
+      body: loading ? Center(child: CircularProgressIndicator(color: secondaryThemeColor,)) : SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -397,7 +425,7 @@ class _categoriesState extends State<categories> {
                     ),
                   ),
                 ),
-                premiuim ? SizedBox() :
+                isPremium? SizedBox():
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
@@ -500,7 +528,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -554,7 +582,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -612,7 +640,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -666,7 +694,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -740,7 +768,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -794,7 +822,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -853,7 +881,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -906,7 +934,7 @@ class _categoriesState extends State<categories> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    isPremium? SizedBox(): GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       },
@@ -929,7 +957,7 @@ class _categoriesState extends State<categories> {
                 ),
               ],
             ),
-            SizedBox(
+            /*SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
             StreamBuilder<QuerySnapshot>(
@@ -954,7 +982,7 @@ class _categoriesState extends State<categories> {
                         );
                       });
                 }
-            ),
+            ),*/
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),

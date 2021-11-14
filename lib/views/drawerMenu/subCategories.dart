@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
+import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -117,42 +121,29 @@ class quotesGetter extends StatefulWidget {
 }
 
 class _quotesGetterState extends State<quotesGetter> {
-  Timer? _timer;
-  int _start = 1;
+
   String formattedDate = DateFormat(' EEE d MMM').format(DateTime.now());
-
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _start++;
-            print(_start);
-          });
-        }
-      },
-    );
-  }
-
   bool changeColor = false;
 
+  var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
   createQuotes() {
+    var id = getRandomString(25);
+
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection("myQuotes")
-        .doc("eNxDazU3FdU3UbYEmTGCECyZ8882")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection('My Quote')
-        .doc(_start.toString())
+        .doc(id)
       ..set({
         "author": widget.author,
         "quote": widget.quote,
         "date": formattedDate,
-        "quoteID": _start.toString(),
+        "quoteID": id,
       }).then((_) {
         print("success!");
       });
@@ -171,16 +162,26 @@ class _quotesGetterState extends State<quotesGetter> {
                 width: SizeConfig.blockSizeHorizontal! * 8,
               ),
               GestureDetector(
-                  onTap: () {
-                    createQuotes();
-                    setState(() {
-                      changeColor = !changeColor;
-                    });
-                    final snackBar = SnackBar(
-                      backgroundColor: primaryThemeColor,
-                      content: const Text('Successfully Added To My Quotes'),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  onTap: () async {
+                    if(await checkLoggedIn()){
+                      createQuotes();
+                      setState(() {
+                        changeColor = !changeColor;
+                      });
+                      final snackBar = SnackBar(
+                        backgroundColor: primaryThemeColor,
+                        content: const Text('Successfully Added To My Quotes'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    else{
+                      final snackBar = SnackBar(
+                        backgroundColor: primaryThemeColor,
+                        content: const Text('You have to Login first'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => signInScreen()));
+                    }
                   },
                   child: Icon(
                     Icons.favorite_outlined,

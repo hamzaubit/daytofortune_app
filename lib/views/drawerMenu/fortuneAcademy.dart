@@ -115,7 +115,8 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
           ),
           body: TabBarView(
             children: [
-             loading?Center(child: CircularProgressIndicator()):  Stack(
+             loading ? Center(child: CircularProgressIndicator(color: secondaryThemeColor,)) :
+             Stack(
                 children: [
                   SingleChildScrollView(
                     child: Column(
@@ -407,6 +408,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                   ),
                 ],
               ),
+              loading ? Center(child: CircularProgressIndicator(color: secondaryThemeColor,)) :
               Stack(
                 children: [
                   SingleChildScrollView(
@@ -679,17 +681,24 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       ],
                     ),
                   ),
-                  /*GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                  isPremium? Container(): GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => premiumScreen()));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       color: Colors.black.withOpacity(0.5),
-                      child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 10,color: secondaryThemeColor,),
+                      child: Icon(
+                        Icons.lock,
+                        size: SizeConfig.blockSizeHorizontal! * 10,
+                        color: secondaryThemeColor,
+                      ),
                     ),
-                  ),*/
+                  ),
                 ],
               ),
             ],

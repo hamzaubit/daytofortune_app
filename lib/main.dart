@@ -7,9 +7,12 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'functions/authFunctions.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  checkLoggedIn();
   Stripe.publishableKey =
       'pk_test_51HruewET4a7xYETw9hpwQQpvcmCQabz80kGUiyQxUaGbOHJnFLluEjnRDKRYxkB82jG6zcugGnAMJH0QK17ETxSp0047CQwaRD';
   MobileAds.instance.initialize();

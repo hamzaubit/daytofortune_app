@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/views/drawerMenu/quoteScreen.dart';
+import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,28 +22,7 @@ class _myQuotesState extends State<myQuotes> {
   List<String> quotes = <String>[];
   String input = "";
   String input1 = "";
-  Timer? _timer;
-  int _start = 1;
   String formattedDate = DateFormat(' EEE d MMM').format(DateTime.now());
-
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _start++;
-            print(_start);
-          });
-        }
-      },
-    );
-  }
 
   var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
@@ -80,7 +61,6 @@ class _myQuotesState extends State<myQuotes> {
 
   @override
   void initState() {
-    startTimer();
     super.initState();
 /*    author.add("Hamza");
     quotes.add("Quote 1",);*/
@@ -105,82 +85,92 @@ class _myQuotesState extends State<myQuotes> {
         ),
         actions: [
           GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        title: Text("Add your Quote"),
-                        content: Column(
-                          children: [
-                            Text(
-                              "Author Name",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal! * 5.5),
-                            ),
-                            TextField(
-                              onChanged: (String value) {
-                                input = value;
+              onTap: () async {
+                if (await checkLoggedIn()) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          title: Text("Add your Quote"),
+                          content: Column(
+                            children: [
+                              Text(
+                                "Author Name",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal! * 5.5),
+                              ),
+                              TextField(
+                                onChanged: (String value) {
+                                  input = value;
+                                },
+                              ),
+                              SizedBox(
+                                height: SizeConfig.blockSizeVertical! * 3,
+                              ),
+                              Text(
+                                "Quote",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal! * 5.5),
+                              ),
+                              TextField(
+                                onChanged: (String value) {
+                                  input1 = value;
+                                },
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            GestureDetector(
+                              onTap: () {
+                                createQuotes();
+                                setState(() {
+                                  /*author.add(input);
+                          quotes.add(input1);*/
+                                  Navigator.pop(context);
+                                });
                               },
-                            ),
-                            SizedBox(
-                              height: SizeConfig.blockSizeVertical! * 3,
-                            ),
-                            Text(
-                              "Quote",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal! * 5.5),
-                            ),
-                            TextField(
-                              onChanged: (String value) {
-                                input1 = value;
-                              },
+                              child: Container(
+                                  height: SizeConfig.blockSizeVertical! * 8,
+                                  width: MediaQuery.of(context).size.width - 80,
+                                  decoration: BoxDecoration(
+                                      color: secondaryThemeColor,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                          topLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10))),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Add",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: SizeConfig
+                                                    .blockSizeHorizontal! *
+                                                4,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  )),
                             ),
                           ],
-                        ),
-                        actions: [
-                          GestureDetector(
-                            onTap: () {
-                              createQuotes();
-                              setState(() {
-                                /*author.add(input);
-                          quotes.add(input1);*/
-                                Navigator.pop(context);
-                              });
-                            },
-                            child: Container(
-                                height: SizeConfig.blockSizeVertical! * 8,
-                                width: MediaQuery.of(context).size.width - 80,
-                                decoration: BoxDecoration(
-                                    color: secondaryThemeColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
-                                        topLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10))),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Add",
-                                      style: GoogleFonts.poppins(
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal! *
-                                                  4,
-                                          color: Colors.black),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ],
-                      );
-                    });
+                        );
+                      });
+                } else {
+                  final snackBar = SnackBar(
+                    backgroundColor: primaryThemeColor,
+                    content: const Text('You have to Login first'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => signInScreen()));
+                }
               },
               child: Icon(
                 Icons.add,

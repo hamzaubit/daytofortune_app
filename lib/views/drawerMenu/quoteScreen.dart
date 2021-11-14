@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/functions/authFunctions.dart';
+import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/views/drawerMenu/themesScreen.dart';
 import 'package:daytofortune_app/views/premiumScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +26,7 @@ class _quoteScreenState extends State<quoteScreen> {
   getTheme() async {
     final firestoreInstance = await FirebaseFirestore.instance;
     firestoreInstance
-        .collection('myQuotes').doc("eNxDazU3FdU3UbYEmTGCECyZ8882").collection('My Quote').doc("theme")
+        .collection('myQuotes').doc(FirebaseAuth.instance.currentUser?.uid).collection('My Quote').doc("theme")
         .get()
         .then((value) {
       imgUrl = value.data()!["url"];
@@ -39,7 +42,7 @@ class _quoteScreenState extends State<quoteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Query myTheme = FirebaseFirestore.instance.collection('myCustomTheme').doc('1').collection('eNxDazU3FdU3UbYEmTGCECyZ8882');
+    Query myTheme = FirebaseFirestore.instance.collection('myCustomTheme').doc('1').collection(FirebaseAuth.instance.currentUser!.uid);
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: primaryThemeColor,
@@ -79,7 +82,7 @@ class _quoteScreenState extends State<quoteScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(widget.author,style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 6.5),),
-                    ),
+                ),
                   ),
                   Center(
                     child: Padding(
@@ -101,8 +104,18 @@ class _quoteScreenState extends State<quoteScreen> {
             children: [
               SizedBox(width: SizeConfig.blockSizeHorizontal! * 3.0,),
               GestureDetector(
-                onTap: (){
+                onTap: () async {
+                  if(await checkLoggedIn()){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => themesScreen()));
+                  }
+                  else{
+                    final snackBar = SnackBar(
+                      backgroundColor: primaryThemeColor,
+                      content: const Text('You have to Login first'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => signInScreen()));
+                  }
                 },
                 child: Container(
                   height: SizeConfig.blockSizeVertical! * 4.5,

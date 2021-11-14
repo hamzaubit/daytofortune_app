@@ -1,5 +1,7 @@
+import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
 import 'package:daytofortune_app/functions/paymentService.dart';
+import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
@@ -321,9 +323,19 @@ class _membershipScreenState extends State<membershipScreen> {
             ),
             GestureDetector(
               onTap: () async {
-                await makePayment(context, '200', 'USD');
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => confirmAccount()));
+                if(await checkLoggedIn()){
+                  await makePayment(context, '200', 'USD');
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => confirmAccount()));
+                }
+               else{
+                  final snackBar = SnackBar(
+                    backgroundColor: primaryThemeColor,
+                    content: const Text('You have to Login first'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => signInScreen()));
+                }
               },
               child: Container(
                   height: SizeConfig.blockSizeVertical! * 6,

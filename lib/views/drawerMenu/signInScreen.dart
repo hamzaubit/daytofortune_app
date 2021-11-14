@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/views/drawerMenu/signUpScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
@@ -257,9 +258,14 @@ class _signInScreenState extends State<signInScreen> {
                         final FirebaseAuth? auth = FirebaseAuth.instance;
                         final User? user = auth!.currentUser;
                         final uid = user!.uid;
-                        print("User ID : ${uid}");
-                        print("User Name ${user!.displayName.toString()}");
-                        print("User Email ${user!.email.toString()}");
+                        /*print("User ID : ${uid}");
+                        print("User Name ${user.displayName.toString()}");
+                        print("User Email ${user.email.toString()}");*/
+                        final snackBar = SnackBar(
+                          backgroundColor: primaryThemeColor,
+                          content: Text("${user.email.toString()} Logged In"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -317,11 +323,19 @@ class _signInScreenState extends State<signInScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Don't have an account?",
-                        style: GoogleFonts.poppins(
-                            color: secondaryThemeColor,
-                            fontSize: SizeConfig.blockSizeHorizontal! * 3.3),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => signUpScreen()));
+                        },
+                        child: Text(
+                          "Don't have an account?",
+                          style: GoogleFonts.poppins(
+                              color: secondaryThemeColor,
+                              fontSize: SizeConfig.blockSizeHorizontal! * 3.3),
+                        ),
                       ),
                       GestureDetector(
                           onTap: () {
@@ -349,6 +363,10 @@ class _signInScreenState extends State<signInScreen> {
                       print("User Name ${user!.displayName.toString()}");
                       print("User Email ${user.email.toString()}");
                       print("User ID : ${user.uid}");
+                      FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(user.uid)
+                          .set({'name': user.displayName.toString(), 'isPremium': false});
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -419,8 +437,12 @@ class _signInScreenState extends State<signInScreen> {
                       await signInWithFacebook();
                       final user = FirebaseAuth.instance.currentUser;
                       print("User Name ${user!.displayName.toString()}");
-                      print("User Email ${user!.email.toString()}");
+                      print("User Email ${user.email.toString()}");
                       print("User ID : ${user.uid}");
+                      FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(user.uid)
+                          .set({'name': user.displayName.toString(), 'isPremium': false});
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-signUp(String email, String password) async {
+signUp(String email, String password, String name) async {
   var response = {};
 
   try {
@@ -13,7 +13,7 @@ signUp(String email, String password) async {
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .set({'email': email, 'isPremium': false}).then((value) {
+          .set({'email': name, 'isPremium': false}).then((value) {
         response['error'] = 0;
         response['message'] = ("Successfully Registered");
       }).catchError((err) {
@@ -64,6 +64,7 @@ checkLoggedIn()async{
   if(user == null)
     return false;
   else
+    print("My User ID : ${FirebaseAuth.instance.currentUser!.uid}");
     return true;
 }
 
@@ -82,7 +83,6 @@ Future<UserCredential> signInWithGoogle() async {
   final GoogleAuthCredential? credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken) as GoogleAuthCredential?;
-  //Fluttertoast.showToast(msg: "Account created");
   return await FirebaseAuth.instance.signInWithCredential(credential!);
 }
 

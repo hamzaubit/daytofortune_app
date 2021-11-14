@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/views/premiumScreen.dart';
@@ -504,27 +505,8 @@ class quotesGetter extends StatefulWidget {
 
 class _quotesGetterState extends State<quotesGetter> {
 
-  Timer? _timer;
-  int _start = 1;
   String formattedDate = DateFormat(' EEE d MMM').format(DateTime.now());
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-          (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _start++;
-            print(_start);
-          });
-        }
-      },
-    );
-  }
+
   bool changeColor = false;
 
 
@@ -554,7 +536,7 @@ class _quotesGetterState extends State<quotesGetter> {
 
   @override
   void initState() {
-    startTimer();
+    //startTimer();
     super.initState();
   }
 
@@ -576,16 +558,25 @@ class _quotesGetterState extends State<quotesGetter> {
                 width: SizeConfig.blockSizeHorizontal! * 8,
               ),
               GestureDetector(
-                onTap: (){
-                  createQuotes();
-                  setState(() {
-                    changeColor =! changeColor;
-                  });
-                  final snackBar = SnackBar(
-                    backgroundColor: primaryThemeColor,
-                    content: const Text('Successfully Added To My Quotes'),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                onTap: () async{
+                  if(await checkLoggedIn()) {
+                    createQuotes();
+                    setState(() {
+                      changeColor = !changeColor;
+                    });
+                    final snackBar = SnackBar(
+                      backgroundColor: primaryThemeColor,
+                      content: const Text('Successfully Added To My Quotes'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }else{
+                    final snackBar = SnackBar(
+                      backgroundColor: primaryThemeColor,
+                      content: const Text('You have to Login first'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => signInScreen()));
+                  }
                 },
                 child: Icon(
                   Icons.favorite_outlined,
