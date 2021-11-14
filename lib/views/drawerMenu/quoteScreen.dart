@@ -23,20 +23,8 @@ class _quoteScreenState extends State<quoteScreen> {
 
   String? imgUrl;
 
-  getTheme() async {
-    final firestoreInstance = await FirebaseFirestore.instance;
-    firestoreInstance
-        .collection('myQuotes').doc(FirebaseAuth.instance.currentUser?.uid).collection('My Quote').doc("theme")
-        .get()
-        .then((value) {
-      imgUrl = value.data()!["url"];
-      print("Get Data ${imgUrl!}");
-    });
-  }
-
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -70,6 +58,7 @@ class _quoteScreenState extends State<quoteScreen> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
+                color: primaryThemeColor,
                 image: DecorationImage(
                     image: NetworkImage(querySnapshot!.docs[index]['url'].toString()),
                     fit: BoxFit.fill

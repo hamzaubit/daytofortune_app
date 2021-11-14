@@ -19,6 +19,20 @@ class _signInScreenState extends State<signInScreen> {
   TextEditingController password = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  themeCheck(){
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection("myCustomTheme")
+        .doc("1")
+        .collection(FirebaseAuth.instance.currentUser!.uid)
+        .doc("1")
+      ..set({
+        "themeEnabled": false,
+        "url": null,
+      }).then((_) {
+        print("success!");
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -261,11 +275,13 @@ class _signInScreenState extends State<signInScreen> {
                         /*print("User ID : ${uid}");
                         print("User Name ${user.displayName.toString()}");
                         print("User Email ${user.email.toString()}");*/
+
                         final snackBar = SnackBar(
                           backgroundColor: primaryThemeColor,
                           content: Text("${user.email.toString()} Logged In"),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        themeCheck();
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -363,6 +379,7 @@ class _signInScreenState extends State<signInScreen> {
                       print("User Name ${user!.displayName.toString()}");
                       print("User Email ${user.email.toString()}");
                       print("User ID : ${user.uid}");
+                      themeCheck();
                       FirebaseFirestore.instance
                           .collection('Users')
                           .doc(user.uid)
@@ -439,6 +456,7 @@ class _signInScreenState extends State<signInScreen> {
                       print("User Name ${user!.displayName.toString()}");
                       print("User Email ${user.email.toString()}");
                       print("User ID : ${user.uid}");
+                      themeCheck();
                       FirebaseFirestore.instance
                           .collection('Users')
                           .doc(user.uid)

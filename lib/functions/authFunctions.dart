@@ -14,6 +14,17 @@ signUp(String email, String password, String name) async {
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .set({'email': name, 'isPremium': false}).then((value) {
+        DocumentReference documentReference = FirebaseFirestore.instance
+            .collection("myCustomTheme")
+            .doc("1")
+            .collection(FirebaseAuth.instance.currentUser!.uid)
+            .doc("1")
+          ..set({
+            "themeEnabled": false,
+            "url": null,
+          }).then((_) {
+            print("success!");
+          });
         response['error'] = 0;
         response['message'] = ("Successfully Registered");
       }).catchError((err) {
