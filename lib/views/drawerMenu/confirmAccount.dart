@@ -1,3 +1,4 @@
+import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -105,6 +106,12 @@ class _confirmAccountState extends State<confirmAccount> {
             SizedBox(height: SizeConfig.blockSizeVertical! * 25,),
             Text("Account Successfully Created",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 6.0)),
             SizedBox(height: SizeConfig.blockSizeVertical! * 6,),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => homeScreen()));
+              },
+                child: Text("Tap To Go Home Screen",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 6.0))),
           ],
         ),
       ),

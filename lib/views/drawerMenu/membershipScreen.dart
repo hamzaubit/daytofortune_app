@@ -325,8 +325,6 @@ class _membershipScreenState extends State<membershipScreen> {
               onTap: () async {
                 if(await checkLoggedIn()){
                   await makePayment(context, '200', 'USD');
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => confirmAccount()));
                 }
                else{
                   final snackBar = SnackBar(

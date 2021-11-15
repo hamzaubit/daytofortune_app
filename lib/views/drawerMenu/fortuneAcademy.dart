@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/views/drawerMenu/youtubeVideoPlayer.dart';
 import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
@@ -489,7 +490,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      videoPlayer(
+                                                      youtubeVideoPlayer(
                                                         (querySnapshot!
                                                             .docs[index]['url']
                                                             .toString()),
@@ -544,7 +545,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      videoPlayer(
+                                                      youtubeVideoPlayer(
                                                         (querySnapshot!
                                                             .docs[index]['url']
                                                             .toString()),
@@ -599,7 +600,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      videoPlayer(
+                                                      youtubeVideoPlayer(
                                                         (querySnapshot!
                                                             .docs[index]['url']
                                                             .toString()),
@@ -654,7 +655,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      videoPlayer(
+                                                      youtubeVideoPlayer(
                                                         (querySnapshot!
                                                             .docs[index]['url']
                                                             .toString()),

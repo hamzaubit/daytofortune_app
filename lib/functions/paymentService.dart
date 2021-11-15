@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/views/drawerMenu/confirmAccount.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -29,9 +30,6 @@ Future<void> makePayment(
                 merchantDisplayName: 'ANNIE'))
         .then((value) {
 
-          FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
-            'isPremium':true
-          });
     });
 
     ///now finally display payment sheeet
@@ -55,9 +53,13 @@ displayPaymentSheet(BuildContext context) async {
       print('payment intent' + paymentIntentData!['amount'].toString());
       print('payment intent' + paymentIntentData.toString());
       //orderPlaceApi(paymentIntentData!['id'].toString());
+      FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
+        'isPremium':true
+      });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("paid successfully")));
-
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => confirmAccount()));
       paymentIntentData = null;
     }).onError((error, stackTrace) {
       print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
