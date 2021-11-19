@@ -109,8 +109,8 @@ class _themesScreenState extends State<themesScreen> {
                           onTap: () async {
                             createQuotes(querySnapshot!.docs[index]['img'].toString());
                             final snackBar = SnackBar(
-                              backgroundColor: primaryThemeColor,
-                              content: const Text('Theme Successfully Updated'),
+                              backgroundColor: secondaryThemeColor,
+                              content: const Text('Theme Successfully Updated',style: TextStyle(color: primaryThemeColor),),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             //getTheme();

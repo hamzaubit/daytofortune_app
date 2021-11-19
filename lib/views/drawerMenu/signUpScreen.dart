@@ -2,6 +2,7 @@ import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'membershipScreen.dart';
@@ -429,6 +430,11 @@ class _signUpScreenState extends State<signUpScreen> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         _submit();
+                        final snackBar = SnackBar(
+                          backgroundColor: primaryThemeColor,
+                          content: Text("Successfully Registered"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                     },
                     child: Container(

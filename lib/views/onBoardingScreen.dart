@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'allSetScreen.dart';
+
 class onBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class onBoardingScreen extends StatelessWidget {
           SizedBox(height: SizeConfig.blockSizeVertical! * 10,),
           GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => reminderNotification()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => allSetScreen()));
             },
             child: Container(
               height: SizeConfig.blockSizeVertical! * 8,

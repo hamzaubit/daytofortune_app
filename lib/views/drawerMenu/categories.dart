@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/myQuotes.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
 import 'package:daytofortune_app/views/drawerMenu/subCategories.dart';
+import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
@@ -104,18 +105,22 @@ class _categoriesState extends State<categories> {
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: textColor, width: 0.5)),
-                child: ListTile(
-                  tileColor: drawerColor,
-                  title: const Text(
-                    'Categories',
-                    style: TextStyle(color: textColor, fontSize: 14),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => homeScreen()));
+                  ;
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: textColor, width: 0.5)),
+                  child: ListTile(
+                    tileColor: drawerColor,
+                    title: const Text(
+                      'Home',
+                      style: TextStyle(color: textColor, fontSize: 14),
+                    ),
                   ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
                 ),
               ),
               GestureDetector(
@@ -959,8 +964,8 @@ class _categoriesState extends State<categories> {
             ),
             /*SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
-            ),
-            StreamBuilder<QuerySnapshot>(
+            ),*/
+            /*StreamBuilder<QuerySnapshot>(
                 stream: addingRandomQuotesCategories.snapshots(),
                 builder: (context, stream){
                   if (!stream.hasData) {
@@ -982,6 +987,12 @@ class _categoriesState extends State<categories> {
                         );
                       });
                 }
+            ),*/
+           /* Text(
+              "More Categories",
+              style: GoogleFonts.poppins(
+                  fontSize: SizeConfig.blockSizeHorizontal! * 5.8,
+                  color: secondaryThemeColor),
             ),*/
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,

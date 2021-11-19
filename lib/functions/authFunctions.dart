@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -51,19 +54,22 @@ signUp(String email, String password, String name) async {
   return response;
 }
 
-signIn(String email, String password) async {
+signIn(String email, String password,) async {
+
+  var response = {};
+
   try {
     UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
     print("Successfully Logged In");
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser;
-    final uid = user!.uid;
-    print("My User Id Is : ${uid}");
+    response['error'] = 0;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
+      response['error'] = 1;
       print('No user found for that email.');
+
     } else if (e.code == 'wrong-password') {
+      response['error'] = 1;
       print('Wrong password provided for that user.');
     }
   }

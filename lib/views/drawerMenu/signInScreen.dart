@@ -6,6 +6,7 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:daytofortune_app/widgets/validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -103,6 +104,7 @@ class _signInScreenState extends State<signInScreen> {
                           height: SizeConfig.blockSizeVertical! * 7,
                           width: SizeConfig.blockSizeHorizontal! * 80,
                           child: TextFormField(
+                            keyboardType: TextInputType.text,
                             controller: username_email,
                             style: GoogleFonts.poppins(
                                 color: primaryThemeColor,
@@ -265,31 +267,26 @@ class _signInScreenState extends State<signInScreen> {
                             );
                           },
                         );
-                      } else {
-                        signIn(username_email.text, password.text);
+                      }
+                      else {
+                        signOut();
+                        signIn(username_email.text, password.text,);
                         username_email.clear();
                         password.clear();
-                        final FirebaseAuth? auth = FirebaseAuth.instance;
-                        final User? user = auth!.currentUser;
-                        final uid = user!.uid;
-                        /*print("User ID : ${uid}");
-                        print("User Name ${user.displayName.toString()}");
-                        print("User Email ${user.email.toString()}");*/
-
                         final snackBar = SnackBar(
-                          backgroundColor: primaryThemeColor,
-                          content: Text("${user.email.toString()} Logged In"),
+                          backgroundColor: secondaryThemeColor,
+                          content: Text("Logged In Successfully",style: TextStyle(color: primaryThemeColor),),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         themeCheck();
-                        showDialog(
+                        /*showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             // return object of type Dialog
                             return AlertDialog(
                               title: new Text("Success"),
                               content: new Text(
-                                  "Welcome, " + username_email.text.toString()),
+                                  "Welcome" + username_email.text.toString()),
                               actions: <Widget>[
                                 // usually buttons at the bottom of the dialog
                                 new FlatButton(
@@ -301,7 +298,7 @@ class _signInScreenState extends State<signInScreen> {
                               ],
                             );
                           },
-                        );
+                        );*/
                       }
                     },
                     child: Container(
@@ -374,11 +371,10 @@ class _signInScreenState extends State<signInScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      signOut();
                       await signInWithGoogle();
                       final user = FirebaseAuth.instance.currentUser;
-                      print("User Name ${user!.displayName.toString()}");
-                      print("User Email ${user.email.toString()}");
-                      print("User ID : ${user.uid}");
+                      print("User ID : ${user!.uid}");
                       themeCheck();
                       FirebaseFirestore.instance
                           .collection('Users')
@@ -453,9 +449,7 @@ class _signInScreenState extends State<signInScreen> {
                       signOut();
                       await signInWithFacebook();
                       final user = FirebaseAuth.instance.currentUser;
-                      print("User Name ${user!.displayName.toString()}");
-                      print("User Email ${user.email.toString()}");
-                      print("User ID : ${user.uid}");
+                      print("User ID : ${user!.uid}");
                       themeCheck();
                       FirebaseFirestore.instance
                           .collection('Users')
@@ -543,5 +537,15 @@ class _signInScreenState extends State<signInScreen> {
         ),
       ),
     );
+  }
+  submit() async {
+    final response = await signIn(username_email.text, password.text,);
+    if (response['error'] == 1) {
+      print(response['message']);
+
+    } else {
+      print(response['message']);
+      print("Successfully Registered");
+    }
   }
 }

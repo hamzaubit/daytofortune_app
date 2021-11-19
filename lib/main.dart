@@ -1,5 +1,6 @@
 import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/views/onBoardingScreen.dart';
+import 'package:daytofortune_app/views/splashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +24,7 @@ void main() async {
   print("Value : ${homeScreenVariable}");
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: homeScreenVariable == null ? onBoardingScreen() : homeScreen(),
+    home: homeScreenVariable == null ? onBoardingScreen() : splashScreen(),
     title: "Day To Fortune",
   ));
 }

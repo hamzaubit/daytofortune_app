@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/allSetScreen.dart';
+import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/views/premiumScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class reminderNotification extends StatefulWidget {
@@ -25,12 +29,46 @@ class _reminderNotificationState extends State<reminderNotification> {
       evening = false,
       night = false;
 
+  var loading = true;
+
+  var isPremium;
+
+  isUserPremium() {
+    if (FirebaseAuth.instance.currentUser == null) {
+      print('Not logged in');
+      setState(() {
+        isPremium = false;
+        loading = false;
+      });
+    } else {
+//  fetch user data
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get()
+          .then((value) {
+        print('User');
+        setState(() {
+
+          loading = false;
+          isPremium = (value.data()?['isPremium']);
+        });
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    isUserPremium();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body:  loading ? Center(child: CircularProgressIndicator(color: secondaryThemeColor,)) : SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -92,7 +130,7 @@ class _reminderNotificationState extends State<reminderNotification> {
               height: SizeConfig.blockSizeVertical! * 5,
             ),
             Text(
-              "What type of quotes would you like to\nred?",
+              "Which type of quotes would you like to\nread?",
               style: GoogleFonts.poppins(
                   fontSize: SizeConfig.blockSizeHorizontal! * 4.5,
                   color: Colors.black,
@@ -155,7 +193,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        //stress = !stress;
+                        isPremium? stress = !stress :
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
@@ -202,7 +240,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        //love = !love;
+                        isPremium? love = !love :
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
@@ -249,7 +287,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        //depression = !depression;
+                        isPremium? depression = !depression :
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
@@ -307,7 +345,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        //workout =! workout;
+                        isPremium? workout =! workout :
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
@@ -348,7 +386,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        //health =! health;
+                        isPremium? health =! health :
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
@@ -389,7 +427,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        //training =! training;
+                        isPremium? training =! training :
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
@@ -430,7 +468,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                   GestureDetector(
                     onTap: (){
                       setState(() {
-                        //gym =! gym;
+                        isPremium? gym =! gym :
                         Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
@@ -909,7 +947,12 @@ class _reminderNotificationState extends State<reminderNotification> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => allSetScreen()));
+                final snackBar = SnackBar(
+                  backgroundColor: secondaryThemeColor,
+                  content: Text("Updated Successfully",style: TextStyle(color: primaryThemeColor),),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
               },
               child: Container(
                   height: SizeConfig.blockSizeVertical! * 8,

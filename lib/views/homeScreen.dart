@@ -116,7 +116,7 @@ class _homeScreenState extends State<homeScreen> {
     });
   }
 
-  Future<bool> showExitPopup(context) async {
+  /*Future<bool> showExitPopup(context) async {
     return await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -160,7 +160,7 @@ class _homeScreenState extends State<homeScreen> {
         );
       },
     );
-  }
+  }*/
 
   saveRandomId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -180,11 +180,41 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    Future<bool> showExitPopup() async {
+      return await showDialog( //show confirm dialogue
+        //the return value will be from "Yes" or "No" options
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Color(0xff021524),
+          shape: RoundedRectangleBorder(
+              side: BorderSide(color: secondaryThemeColor, width: 2),
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          title: Text('Exit App',style: TextStyle(color: Colors.white),),
+          content: Text('Do you want to exit an App?',style: TextStyle(color: Colors.white)),
+          actions:[
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              //return false when click on "NO"
+              child:Text('No',style: TextStyle(color: Colors.white)),
+            ),
+
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              //return true when click on "Yes"
+              child:Text('Yes',style: TextStyle(color: Colors.white)),
+            ),
+            SizedBox(width: SizeConfig.blockSizeHorizontal! * 4,),
+          ],
+        ),
+      )??false; //if showDialouge had returned null, then return false
+    }
+
     Query adminQuotes = FirebaseFirestore.instance.collection('adminQuotes');
-    Query addMyQuotes = FirebaseFirestore.instance.collection('myQuotes');
+    //Query addMyQuotes = FirebaseFirestore.instance.collection('myQuotes');
     SizeConfig().init(context);
     return WillPopScope(
-      onWillPop: () => showExitPopup(context),
+      onWillPop: () => showExitPopup(),
       child: Scaffold(
         backgroundColor: primaryThemeColor,
         appBar: AppBar(
@@ -326,25 +356,6 @@ class _homeScreenState extends State<homeScreen> {
                       tileColor: drawerColor,
                       title: const Text(
                         'Sign In',
-                        style: TextStyle(color: textColor, fontSize: 14),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => integrationsTest()));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: textColor, width: 0.5)),
-                    child: ListTile(
-                      tileColor: drawerColor,
-                      title: const Text(
-                        'Integrations Test',
                         style: TextStyle(color: textColor, fontSize: 14),
                       ),
                     ),
@@ -565,8 +576,8 @@ class _quotesGetterState extends State<quotesGetter> {
                       changeColor = !changeColor;
                     });
                     final snackBar = SnackBar(
-                      backgroundColor: primaryThemeColor,
-                      content: const Text('Successfully Added To My Quotes'),
+                      backgroundColor: secondaryThemeColor,
+                      content: const Text('Successfully Added To My Quotes',style: TextStyle(color: primaryThemeColor),),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }else{
