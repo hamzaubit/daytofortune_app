@@ -16,7 +16,7 @@ signUp(String email, String password, String name) async {
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .set({'email': name, 'isPremium': false}).then((value) {
+          .set({'email': name, 'isPremium': false,'time': ''}).then((value) {
         DocumentReference documentReference = FirebaseFirestore.instance
             .collection("myCustomTheme")
             .doc("1")

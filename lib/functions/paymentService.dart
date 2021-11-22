@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/confirmAccount.dart';
+import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 Map<String, dynamic>? paymentIntentData;
 
@@ -52,12 +54,14 @@ displayPaymentSheet(BuildContext context) async {
       print('payment intent' + paymentIntentData!['client_secret'].toString());
       print('payment intent' + paymentIntentData!['amount'].toString());
       print('payment intent' + paymentIntentData.toString());
+      String formattedDate = DateFormat(' EEE d MMM yyyy').format(DateTime.now());
       //orderPlaceApi(paymentIntentData!['id'].toString());
       FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
-        'isPremium':true
+        'isPremium':true,
+        'time': formattedDate,
       });
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("paid successfully")));
+          .showSnackBar(SnackBar(content: Text("Paid successfully",style: TextStyle(color: secondaryThemeColor),)));
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => confirmAccount()));
       paymentIntentData = null;

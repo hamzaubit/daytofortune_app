@@ -1,13 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/reminderNotiffication.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'allSetScreen.dart';
 
-class onBoardingScreen extends StatelessWidget {
+class onBoardingScreen extends StatefulWidget {
+  @override
+  State<onBoardingScreen> createState() => _onBoardingScreenState();
+}
+
+class _onBoardingScreenState extends State<onBoardingScreen> {
+
+  String? stripeKey;
+
+  gettingStrpeKey() async {
+    await FirebaseFirestore.instance
+        .collection('imp_Key')
+        .doc('afVRxPxlAqLjiHuDGu56')
+        .get()
+        .then((value) {
+      print('Getting Key');
+      stripeKey = (value.data()?['Stripe']);
+      Stripe.publishableKey = stripeKey!;
+    });
+  }
+  @override
+  void initState() {
+    gettingStrpeKey();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

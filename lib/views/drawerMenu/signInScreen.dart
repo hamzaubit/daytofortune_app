@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 
 class signInScreen extends StatefulWidget {
   @override
@@ -16,6 +17,9 @@ class signInScreen extends StatefulWidget {
 }
 
 class _signInScreenState extends State<signInScreen> {
+
+  String formattedDate = DateFormat(' EEE d MMM yyyy').format(DateTime.now());
+
   TextEditingController username_email = new TextEditingController();
   TextEditingController password = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -379,7 +383,7 @@ class _signInScreenState extends State<signInScreen> {
                       FirebaseFirestore.instance
                           .collection('Users')
                           .doc(user.uid)
-                          .set({'name': user.displayName.toString(), 'isPremium': false});
+                          .set({'name': user.displayName.toString(), 'isPremium': false,'time': ''});
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -454,7 +458,7 @@ class _signInScreenState extends State<signInScreen> {
                       FirebaseFirestore.instance
                           .collection('Users')
                           .doc(user.uid)
-                          .set({'name': user.displayName.toString(), 'isPremium': false});
+                          .set({'name': user.displayName.toString(), 'isPremium': false,'time': ''});
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

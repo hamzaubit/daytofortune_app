@@ -49,7 +49,6 @@ class _reminderNotificationState extends State<reminderNotification> {
           .then((value) {
         print('User');
         setState(() {
-
           loading = false;
           isPremium = (value.data()?['isPremium']);
         });

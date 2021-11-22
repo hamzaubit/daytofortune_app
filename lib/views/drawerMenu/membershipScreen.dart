@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
 import 'package:daytofortune_app/functions/paymentService.dart';
@@ -15,6 +17,8 @@ class membershipScreen extends StatefulWidget {
 }
 
 class _membershipScreenState extends State<membershipScreen> {
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -323,13 +327,21 @@ class _membershipScreenState extends State<membershipScreen> {
             ),
             GestureDetector(
               onTap: () async {
+                setState(() {
+                  isLoading = true;
+                });
+                Timer(Duration(seconds: 4),(){
+                  setState(() {
+                    isLoading = false;
+                  });
+                });
                 if(await checkLoggedIn()){
                   await makePayment(context, '200', 'USD');
                 }
                else{
                   final snackBar = SnackBar(
-                    backgroundColor: primaryThemeColor,
-                    content: const Text('You have to Login first'),
+                    backgroundColor: secondaryThemeColor,
+                    content: const Text('You have to Login first',style: TextStyle(color: primaryThemeColor),),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => signInScreen()));
@@ -344,7 +356,7 @@ class _membershipScreenState extends State<membershipScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      isLoading ? CircularProgressIndicator(color: primaryThemeColor,) : Text(
                         "Proceed",
                         style: GoogleFonts.poppins(
                             fontSize: SizeConfig.blockSizeHorizontal! * 4,

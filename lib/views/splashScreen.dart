@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class splashScreen extends StatefulWidget {
@@ -12,9 +14,24 @@ class splashScreen extends StatefulWidget {
 }
 
 class _splashScreenState extends State<splashScreen> {
-  
+
+  String? stripeKey;
+
+  gettingStrpeKey() async {
+    await FirebaseFirestore.instance
+        .collection('imp_Key')
+        .doc('afVRxPxlAqLjiHuDGu56')
+        .get()
+        .then((value) {
+      print('Getting Key');
+      stripeKey = (value.data()?['Stripe']);
+      Stripe.publishableKey = stripeKey!;
+    });
+  }
+
   @override
   void initState() {
+    gettingStrpeKey();
     Timer(Duration(seconds: 3),(){
       Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
     });

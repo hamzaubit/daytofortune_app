@@ -36,6 +36,7 @@ class _homeScreenState extends State<homeScreen> {
   String? health;
   String? training;
   String? gym;
+  String? inspiration;
   int count = 0;
   AdMobHelper adMobHelper = new AdMobHelper();
 
@@ -113,6 +114,13 @@ class _homeScreenState extends State<homeScreen> {
         .get()
         .then((value) {
       workout = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Inspiration")
+        .get()
+        .then((value) {
+      inspiration = value.data()!["img"];
     });
   }
 
@@ -254,7 +262,9 @@ class _homeScreenState extends State<homeScreen> {
                                 workout.toString(),
                                 health.toString(),
                                 training.toString(),
-                                gym.toString())));
+                                gym.toString(),
+                                inspiration.toString(),
+                            )));
                   },
                   child: Container(
                     decoration: BoxDecoration(
