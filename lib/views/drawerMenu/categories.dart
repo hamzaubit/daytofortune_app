@@ -957,7 +957,7 @@ class _categoriesState extends State<categories> {
                 ),
               ],
             ),
-            SizedBox(
+            /*SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
             Padding(
@@ -1026,7 +1026,7 @@ class _categoriesState extends State<categories> {
                   ),
                 ),
               ],
-            ),
+            ),*/
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 3,
             ),

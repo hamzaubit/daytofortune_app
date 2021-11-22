@@ -208,7 +208,7 @@ class _homeScreenState extends State<homeScreen> {
             ),
 
             ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(true),
+              onPressed: () => exit(0),
               //return true when click on "Yes"
               child:Text('Yes',style: TextStyle(color: Colors.white)),
             ),

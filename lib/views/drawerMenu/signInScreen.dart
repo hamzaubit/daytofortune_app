@@ -274,7 +274,7 @@ class _signInScreenState extends State<signInScreen> {
                       }
                       else {
                         signOut();
-                        signIn(username_email.text, password.text,);
+                        signIn(username_email.text.trim() , password.text,);
                         username_email.clear();
                         password.clear();
                         final snackBar = SnackBar(

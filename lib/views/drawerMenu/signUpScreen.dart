@@ -313,7 +313,7 @@ class _signUpScreenState extends State<signUpScreen> {
                             ? 'Enter Your Username'
                             : (nameRegExp.hasMatch(value)
                                 ? null
-                                : 'Enter a Valid Username')),
+                                : 'Enter a Valid Username or Remove extra spaces')),
                   ),
                   Padding(
                     padding:
@@ -429,6 +429,11 @@ class _signUpScreenState extends State<signUpScreen> {
                   GestureDetector(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
+                        firstName.clear();
+                        lastName.clear();
+                        email.clear();
+                        userName.clear();
+                        password.clear();
                         _submit();
                         final snackBar = SnackBar(
                           backgroundColor: primaryThemeColor,
@@ -466,7 +471,7 @@ class _signUpScreenState extends State<signUpScreen> {
   }
 
   _submit() async {
-    final response = await signUp(email.text, password.text, userName.text);
+    final response = await signUp(email.text.trim() ,password.text, userName.text);
     if (response['error'] == 1) {
       print(response['message']);
     } else {
