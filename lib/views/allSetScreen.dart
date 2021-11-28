@@ -37,6 +37,7 @@ class allSetScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(width: SizeConfig.blockSizeHorizontal! * 6,),
               Container(
                 height: SizeConfig.blockSizeVertical! * 2.2,
                 width: SizeConfig.blockSizeHorizontal! * 4.8,
@@ -47,11 +48,13 @@ class allSetScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-              Text(
-                "You will periodically receive daily quotes\nnotification based on your preferences",
-                style: GoogleFonts.poppins(
-                    fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                    color: Colors.white),
+              Expanded(
+                child: Text(
+                  "You will periodically receive daily quotes notification based on your preferences",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                      color: Colors.white),
+                ),
               ),
             ],
           ),
@@ -61,6 +64,7 @@ class allSetScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(width: SizeConfig.blockSizeHorizontal! * 5,),
                 Container(
                   height: SizeConfig.blockSizeVertical! * 2.2,
                   width: SizeConfig.blockSizeHorizontal! * 4.8,
@@ -71,11 +75,13 @@ class allSetScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-                Text(
-                  "Preferences can be changed in category\nsection",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                      color: Colors.white),
+                Expanded(
+                  child: Text(
+                    "Preferences can be changed in category section",
+                    style: GoogleFonts.poppins(
+                        fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                        color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -84,6 +90,7 @@ class allSetScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(width: SizeConfig.blockSizeHorizontal! * 6.5),
               Container(
                 height: SizeConfig.blockSizeVertical! * 2.2,
                 width: SizeConfig.blockSizeHorizontal! * 4.8,
@@ -94,11 +101,13 @@ class allSetScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-              Text(
-                "Can disable daily notifications any time",
-                style: GoogleFonts.poppins(
-                    fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                    color: Colors.white),
+              Expanded(
+                child: Text(
+                  "Can disable daily notifications any time",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                      color: Colors.white),
+                ),
               ),
             ],
           ),

@@ -55,7 +55,6 @@ class _categoriesState extends State<categories> {
           .then((value) {
         print('User');
         setState(() {
-
           loading = false;
           isPremium = (value.data()?['isPremium']);
         });

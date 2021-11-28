@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,6 +17,32 @@ class splashScreen extends StatefulWidget {
 class _splashScreenState extends State<splashScreen> {
 
   String? stripeKey;
+  var isPremium;
+  var date = new DateTime.now();
+  var expiryDate;
+
+  isUserPremium() {
+    if (FirebaseAuth.instance.currentUser == null) {
+      print('Not logged in');
+      setState(() {
+        isPremium = false;
+      });
+    } else {
+//  fetch user data
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get()
+          .then((value) {
+        print('User');
+        setState(() {
+          isPremium = (value.data()?['isPremium']);
+          expiryDate = (value.data()?['expiryDate']);
+
+        });
+      });
+    }
+  }
 
   gettingStrpeKey() async {
     await FirebaseFirestore.instance
@@ -29,9 +56,23 @@ class _splashScreenState extends State<splashScreen> {
     });
   }
 
+  checkPremiumExpiry(){
+    if(expiryDate == DateTime.now()){
+      FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
+        'isPremium' : false,
+        'expiryDate' : '',
+      });
+    }
+    else{
+      return "Your Premium is not expire";
+    }
+  }
+
   @override
   void initState() {
     gettingStrpeKey();
+    //isUserPremium();
+    //checkPremiumExpiry();
     Timer(Duration(seconds: 3),(){
       Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
     });

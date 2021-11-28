@@ -383,7 +383,7 @@ class _signInScreenState extends State<signInScreen> {
                       FirebaseFirestore.instance
                           .collection('Users')
                           .doc(user.uid)
-                          .set({'name': user.displayName.toString(), 'isPremium': false,'time': ''});
+                          .set({'name': user.displayName.toString(), 'isPremium': false,'expiryDate' : '',});
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -458,7 +458,7 @@ class _signInScreenState extends State<signInScreen> {
                       FirebaseFirestore.instance
                           .collection('Users')
                           .doc(user.uid)
-                          .set({'name': user.displayName.toString(), 'isPremium': false,'time': ''});
+                          .set({'name': user.displayName.toString(), 'isPremium': false, 'expiryDate' : '',});
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

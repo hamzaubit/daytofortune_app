@@ -22,11 +22,11 @@ class _signUpScreenState extends State<signUpScreen> {
   TextEditingController userName = new TextEditingController();
   TextEditingController password = new TextEditingController();
   static final RegExp nameRegExp =
-      RegExp(r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
+  RegExp('[a-zA-Z]');
   static final RegExp emailRegExp =
-      RegExp(r'[^\@]+\@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+');
+  RegExp(r'[^\@]+\@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+');
   static final RegExp passwordRegExp =
-      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+  RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 
   @override
   Widget build(BuildContext context) {
@@ -429,17 +429,8 @@ class _signUpScreenState extends State<signUpScreen> {
                   GestureDetector(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        firstName.clear();
-                        lastName.clear();
-                        email.clear();
-                        userName.clear();
-                        password.clear();
+                        signOut();
                         _submit();
-                        final snackBar = SnackBar(
-                          backgroundColor: primaryThemeColor,
-                          content: Text("Successfully Registered"),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                     },
                     child: Container(
@@ -471,11 +462,21 @@ class _signUpScreenState extends State<signUpScreen> {
   }
 
   _submit() async {
-    final response = await signUp(email.text.trim() ,password.text, userName.text);
+    final response = await signUp(email.text ,password.text, userName.text);
     if (response['error'] == 1) {
       print(response['message']);
+      final snackBar = SnackBar(
+        backgroundColor: primaryThemeColor,
+        content: Text("Not Successfully Registered. Remove Extra Spaces"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       print(response['message']);
+      final snackBar = SnackBar(
+        backgroundColor: primaryThemeColor,
+        content: Text("Successfully Registered"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => membershipScreen()));
     }

@@ -88,7 +88,7 @@ class premiumScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-              Text("Quotes you can't find anywhere else..",style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4),)
+              Text("Quotes you can't find anywhere else.",style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4),)
             ],
           ),
           SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
@@ -142,7 +142,7 @@ class premiumScreen extends StatelessWidget {
               Text("Only Rs. 266.66/month, nilled annually.",style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4),)
             ],
           ),
-          SizedBox(height: SizeConfig.blockSizeVertical! * 10,),
+          SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
           Text("30 days free, then just Rs. 3,200.00/year",style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
           SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
           GestureDetector(
