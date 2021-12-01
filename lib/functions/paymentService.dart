@@ -56,12 +56,14 @@ displayPaymentSheet(BuildContext context) async {
       print('payment intent' + paymentIntentData.toString());
       //DateTime now = DateTime.now();
       //String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-      var date = new DateTime.now();
-      var expiryDate = new DateTime(date.year, date.month + 12, date.day);
+      //var date = new DateTime.now();
+
+      final expiry = DateTime.fromMicrosecondsSinceEpoch(1643322154);
+
       //orderPlaceApi(paymentIntentData!['id'].toString());
       FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
         'isPremium' : true,
-        'expiryDate' : expiryDate,
+        'expiryDate' : expiry,
       });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Paid successfully",style: TextStyle(color: secondaryThemeColor),)));

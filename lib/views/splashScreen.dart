@@ -18,8 +18,20 @@ class _splashScreenState extends State<splashScreen> {
 
   String? stripeKey;
   var isPremium;
-  var date = new DateTime.now();
   var expiryDate;
+  var validity;
+  var date = new DateTime.fromMicrosecondsSinceEpoch(1643322154);
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    validity = from.difference(to).inDays;
+    print("Difference : ${validity}");
+    return (to.difference(from).inDays);
+  }
+
+  //the birthday's date
+  final birthday = DateTime(2021, 12, 28);
+  final date2 = DateTime.now();
 
   isUserPremium() {
     if (FirebaseAuth.instance.currentUser == null) {
@@ -38,6 +50,7 @@ class _splashScreenState extends State<splashScreen> {
         setState(() {
           isPremium = (value.data()?['isPremium']);
           expiryDate = (value.data()?['expiryDate']);
+          print("Expiry Date : ${expiryDate}");
 
         });
       });
@@ -57,7 +70,7 @@ class _splashScreenState extends State<splashScreen> {
   }
 
   checkPremiumExpiry(){
-    if(expiryDate == DateTime.now()){
+    if(validity > 365){
       FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
         'isPremium' : false,
         'expiryDate' : '',
@@ -71,8 +84,11 @@ class _splashScreenState extends State<splashScreen> {
   @override
   void initState() {
     gettingStrpeKey();
-    //isUserPremium();
-    //checkPremiumExpiry();
+    isUserPremium();
+    var date = DateTime.fromMillisecondsSinceEpoch(1643322154 * 1000);
+    print("AAAAAAA ${date}");
+    daysBetween(date, date2);
+    checkPremiumExpiry();
     Timer(Duration(seconds: 3),(){
       Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
     });
