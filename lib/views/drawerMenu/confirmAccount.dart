@@ -17,7 +17,7 @@ class _confirmAccountState extends State<confirmAccount> {
   void inputData() {
     final User? user = auth.currentUser;
     final uid = user!.uid;
-    print("My User ID ${uid!}");
+    print("My User ID ${uid}");
   }
 
   @override

@@ -462,7 +462,7 @@ class _signUpScreenState extends State<signUpScreen> {
   }
 
   _submit() async {
-    final response = await signUp(email.text ,password.text, userName.text);
+    final response = await signUp(email.text.trim() ,password.text, userName.text);
     if (response['error'] == 1) {
       print(response['message']);
       final snackBar = SnackBar(

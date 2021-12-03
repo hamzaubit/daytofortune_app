@@ -141,18 +141,38 @@ class _reminderNotificationState extends State<reminderNotification> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  Container(
+                          height: SizeConfig.blockSizeVertical! * 6,
+                          width: SizeConfig.blockSizeHorizontal! * 25,
+                          decoration: BoxDecoration(
+                              color: primaryThemeColor,
+                              border:
+                                  Border.all(color: Colors.black, width: 2.5),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Row(
+                            children: [
+                              Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                              Text("General",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600))
+                            ],
+                          )
+                        ),
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        hustle = !hustle;
+                        isPremium? hustle = !hustle :
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
                       });
                     },
                     child: hustle == true
                         ? Container(
                             height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 20,
+                            width: SizeConfig.blockSizeHorizontal! * 25,
                             decoration: BoxDecoration(
                                 color: primaryThemeColor,
                                 border:
@@ -171,7 +191,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                           )
                         : Container(
                             height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 20,
+                            width: SizeConfig.blockSizeHorizontal! * 25,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 border:
@@ -195,7 +215,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                     child: stress == true
                         ? Container(
                             height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 20,
+                            width: SizeConfig.blockSizeHorizontal! * 25,
                             decoration: BoxDecoration(
                                 color: primaryThemeColor,
                                 border:
@@ -214,7 +234,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                           )
                         : Container(
                             height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 20,
+                            width: SizeConfig.blockSizeHorizontal! * 25,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 border:
@@ -223,92 +243,6 @@ class _reminderNotificationState extends State<reminderNotification> {
                                     BorderRadius.all(Radius.circular(10))),
                             child: Center(
                                 child: Text("Stress",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600))),
-                          ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isPremium? love = !love :
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      });
-                    },
-                    child: love == true
-                        ? Container(
-                            height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 18,
-                            decoration: BoxDecoration(
-                                color: primaryThemeColor,
-                                border:
-                                    Border.all(color: Colors.black, width: 2.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Row(
-                              children: [
-                                Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
-                                Text("Love",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600))
-                              ],
-                            )
-                          )
-                        : Container(
-                            height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 18,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border:
-                                    Border.all(color: Colors.black, width: 2.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Center(
-                                child: Text("Love",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600))),
-                          ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isPremium? depression = !depression :
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      });
-                    },
-                    child: depression == true
-                        ? Container(
-                            height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 30,
-                            decoration: BoxDecoration(
-                                color: primaryThemeColor,
-                                border:
-                                    Border.all(color: Colors.black, width: 2.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Row(
-                              children: [
-                                Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
-                                Text("Depression",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600))
-                              ],
-                            )
-                          )
-                        : Container(
-                            height: SizeConfig.blockSizeVertical! * 6,
-                            width: SizeConfig.blockSizeHorizontal! * 30,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border:
-                                    Border.all(color: Colors.black, width: 2.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Center(
-                                child: Text("Depression",
                                     style: GoogleFonts.poppins(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600))),
@@ -323,8 +257,51 @@ class _reminderNotificationState extends State<reminderNotification> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isPremium? depression = !depression :
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                      });
+                    },
+                    child: depression == true
+                        ? Container(
+                        height: SizeConfig.blockSizeVertical! * 6,
+                        width: SizeConfig.blockSizeHorizontal! * 30,
+                        decoration: BoxDecoration(
+                            color: primaryThemeColor,
+                            border:
+                            Border.all(color: Colors.black, width: 2.5),
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10))),
+                        child: Row(
+                          children: [
+                            Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                            Text("Depression",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600))
+                          ],
+                        )
+                    )
+                        : Container(
+                      height: SizeConfig.blockSizeVertical! * 6,
+                      width: SizeConfig.blockSizeHorizontal! * 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                          Border.all(color: Colors.black, width: 2.5),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(10))),
+                      child: Center(
+                          child: Text("Depression",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600))),
+                    ),
+                  ),
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -372,7 +349,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                     },
                     child: health == true ? Container(
                       height: SizeConfig.blockSizeVertical! * 6,
-                      width: SizeConfig.blockSizeHorizontal! * 20,
+                      width: SizeConfig.blockSizeHorizontal! * 25,
                       decoration: BoxDecoration(
                           color: primaryThemeColor,
                           border: Border.all(color: Colors.black, width: 2.5),
@@ -389,7 +366,7 @@ class _reminderNotificationState extends State<reminderNotification> {
                     ) :
                     Container(
                       height: SizeConfig.blockSizeVertical! * 6,
-                      width: SizeConfig.blockSizeHorizontal! * 20,
+                      width: SizeConfig.blockSizeHorizontal! * 25,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(color: Colors.black, width: 2.5),
@@ -401,6 +378,17 @@ class _reminderNotificationState extends State<reminderNotification> {
                                   fontWeight: FontWeight.w600))),
                     ),
                   ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
                   GestureDetector(
                     onTap: (){
                       setState(() {
@@ -409,21 +397,21 @@ class _reminderNotificationState extends State<reminderNotification> {
                       });
                     },
                     child: training == true ? Container(
-                      height: SizeConfig.blockSizeVertical! * 6,
-                      width: SizeConfig.blockSizeHorizontal! * 25,
-                      decoration: BoxDecoration(
-                          color: primaryThemeColor,
-                          border: Border.all(color: Colors.black, width: 2.5),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Row(
-                        children: [
-                          Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
-                          Text("Training",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600))
-                        ],
-                      )
+                        height: SizeConfig.blockSizeVertical! * 6,
+                        width: SizeConfig.blockSizeHorizontal! * 25,
+                        decoration: BoxDecoration(
+                            color: primaryThemeColor,
+                            border: Border.all(color: Colors.black, width: 2.5),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Row(
+                          children: [
+                            Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                            Text("Training",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600))
+                          ],
+                        )
                     ) :
                     Container(
                       height: SizeConfig.blockSizeVertical! * 6,
@@ -447,30 +435,67 @@ class _reminderNotificationState extends State<reminderNotification> {
                       });
                     },
                     child: gym == true ? Container(
-                      height: SizeConfig.blockSizeVertical! * 6,
-                      width: SizeConfig.blockSizeHorizontal! * 18,
-                      decoration: BoxDecoration(
-                          color: primaryThemeColor,
-                          border: Border.all(color: Colors.black, width: 2.5),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Row(
-                        children: [
-                          Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
-                          Text("Gym",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600))
-                        ],
-                      )
+                        height: SizeConfig.blockSizeVertical! * 6,
+                        width: SizeConfig.blockSizeHorizontal! * 25,
+                        decoration: BoxDecoration(
+                            color: primaryThemeColor,
+                            border: Border.all(color: Colors.black, width: 2.5),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Row(
+                          children: [
+                            Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                            Text("Gym",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600))
+                          ],
+                        )
                     ) : Container(
                       height: SizeConfig.blockSizeVertical! * 6,
-                      width: SizeConfig.blockSizeHorizontal! * 18,
+                      width: SizeConfig.blockSizeHorizontal! * 25,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(color: Colors.black, width: 2.5),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                           child: Text("Gym",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600))),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        isPremium? love =! love :
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                      });
+                    },
+                    child: love == true ? Container(
+                        height: SizeConfig.blockSizeVertical! * 6,
+                        width: SizeConfig.blockSizeHorizontal! * 25,
+                        decoration: BoxDecoration(
+                            color: primaryThemeColor,
+                            border: Border.all(color: Colors.black, width: 2.5),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Row(
+                          children: [
+                            Icon(Icons.cancel,size: SizeConfig.blockSizeVertical! * 3,color: secondaryThemeColor),
+                            Text("Love",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600))
+                          ],
+                        )
+                    ) : Container(
+                      height: SizeConfig.blockSizeVertical! * 6,
+                      width: SizeConfig.blockSizeHorizontal! * 25,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2.5),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Center(
+                          child: Text("Love",
                               style: GoogleFonts.poppins(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600))),

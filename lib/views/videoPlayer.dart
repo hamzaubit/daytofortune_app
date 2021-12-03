@@ -45,18 +45,27 @@ class _videoPlayerState extends State<videoPlayer> {
               },
             ),
             Container(
-              height: SizeConfig.blockSizeVertical! * 8.5,
+              height: SizeConfig.blockSizeVertical! * 55,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    "${widget.thumbnail}",
+                    style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5),
+                  ),
+                ),
+              ),
             ),
-            /*Align(
+            Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: SizeConfig.blockSizeVertical! * 11.4,
                 width: MediaQuery.of(context).size.width,
-                color: Colors.white,
+                color: Colors.white
               ),
-            ),*/
+            ),
           ],
         ),
       ),

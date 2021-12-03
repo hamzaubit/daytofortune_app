@@ -206,11 +206,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                    (querySnapshot!
                                                        .docs[index]['url']
                                                        .toString()),
-                                                   (querySnapshot!
+                                                   (querySnapshot
                                                        .docs[index]
                                                            ['title']
                                                        .toString()),
-                                                   (querySnapshot!
+                                                   (querySnapshot
                                                        .docs[index]
                                                            ['thumbnail']
                                                        .toString()),
@@ -218,7 +218,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                    },
                                    child: audioWidget(querySnapshot!
                                        .docs[index]['img']
-                                       .toString()));
+                                       .toString(),true));
                              });
                        },
                      ),
@@ -268,11 +268,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                        (querySnapshot!
                                                            .docs[index]['url']
                                                            .toString()),
-                                                       (querySnapshot!
+                                                       (querySnapshot
                                                            .docs[index]
                                                        ['title']
                                                            .toString()),
-                                                       (querySnapshot!
+                                                       (querySnapshot
                                                            .docs[index]
                                                        ['thumbnail']
                                                            .toString()),
@@ -280,27 +280,9 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                        },
                                        child: audioWidget(querySnapshot!
                                            .docs[index]['img']
-                                           .toString()));
+                                           .toString(),isPremium));
                                  });
                            },
-                         ),
-                       ),
-                       isPremium? Container(): GestureDetector(
-                         onTap: () {
-                           Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                   builder: (context) => premiumScreen()));
-                         },
-                         child: Container(
-                           height: SizeConfig.blockSizeVertical! * 15,
-                           width: MediaQuery.of(context).size.width,
-                           color: Colors.black.withOpacity(0.3),
-                           child: Icon(
-                             Icons.lock,
-                             size: SizeConfig.blockSizeHorizontal! * 10,
-                             color: secondaryThemeColor,
-                           ),
                          ),
                        ),
                      ],
@@ -350,11 +332,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                        (querySnapshot!
                                                            .docs[index]['url']
                                                            .toString()),
-                                                       (querySnapshot!
+                                                       (querySnapshot
                                                            .docs[index]
                                                        ['title']
                                                            .toString()),
-                                                       (querySnapshot!
+                                                       (querySnapshot
                                                            .docs[index]
                                                        ['thumbnail']
                                                            .toString()),
@@ -362,27 +344,9 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                        },
                                        child: audioWidget(querySnapshot!
                                            .docs[index]['img']
-                                           .toString()));
+                                           .toString(),isPremium));
                                  });
                            },
-                         ),
-                       ),
-                       isPremium? Container(): GestureDetector(
-                         onTap: () {
-                           Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                   builder: (context) => premiumScreen()));
-                         },
-                         child: Container(
-                           height: SizeConfig.blockSizeVertical! * 15,
-                           width: MediaQuery.of(context).size.width,
-                           color: Colors.black.withOpacity(0.3),
-                           child: Icon(
-                             Icons.lock,
-                             size: SizeConfig.blockSizeHorizontal! * 10,
-                             color: secondaryThemeColor,
-                           ),
                          ),
                        ),
                      ],
@@ -432,11 +396,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                        (querySnapshot!
                                                            .docs[index]['url']
                                                            .toString()),
-                                                       (querySnapshot!
+                                                       (querySnapshot
                                                            .docs[index]
                                                        ['title']
                                                            .toString()),
-                                                       (querySnapshot!
+                                                       (querySnapshot
                                                            .docs[index]
                                                        ['thumbnail']
                                                            .toString()),
@@ -444,27 +408,9 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                        },
                                        child: myCollectionAudio(querySnapshot!
                                            .docs[index]['img']
-                                           .toString()));
+                                           .toString(),isPremium));
                                  });
                            },
-                         ),
-                       ),
-                       isPremium? Container(): GestureDetector(
-                         onTap: () {
-                           Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                   builder: (context) => premiumScreen()));
-                         },
-                         child: Container(
-                           height: SizeConfig.blockSizeVertical! * 21,
-                           width: MediaQuery.of(context).size.width,
-                           color: Colors.black.withOpacity(0.3),
-                           child: Icon(
-                             Icons.lock,
-                             size: SizeConfig.blockSizeHorizontal! * 10,
-                             color: secondaryThemeColor,
-                           ),
                          ),
                        ),
                      ],
@@ -563,11 +509,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                     (querySnapshot!
                                                         .docs[index]['url']
                                                         .toString()),
-                                                    (querySnapshot!
+                                                    (querySnapshot
                                                         .docs[index]
                                                             ['title']
                                                         .toString()),
-                                                    (querySnapshot!
+                                                    (querySnapshot
                                                         .docs[index]
                                                             ['thumbnail']
                                                         .toString()),
@@ -575,7 +521,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                     },
                                     child: videoWidget(querySnapshot!
                                         .docs[index]['img']
-                                        .toString()));
+                                        .toString(),true));
                               });
                         },
                       ),
@@ -625,11 +571,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                         (querySnapshot!
                                                             .docs[index]['url']
                                                             .toString()),
-                                                        (querySnapshot!
+                                                        (querySnapshot
                                                             .docs[index]
                                                         ['title']
                                                             .toString()),
-                                                        (querySnapshot!
+                                                        (querySnapshot
                                                             .docs[index]
                                                         ['thumbnail']
                                                             .toString()),
@@ -637,27 +583,9 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                         },
                                         child: videoWidget(querySnapshot!
                                             .docs[index]['img']
-                                            .toString()));
+                                            .toString(),isPremium));
                                   });
                             },
-                          ),
-                        ),
-                        isPremium? Container(): GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => premiumScreen()));
-                          },
-                          child: Container(
-                            height: SizeConfig.blockSizeVertical! * 20,
-                            width: MediaQuery.of(context).size.width,
-                            color: Colors.black.withOpacity(0.3),
-                            child: Icon(
-                              Icons.lock,
-                              size: SizeConfig.blockSizeHorizontal! * 10,
-                              color: secondaryThemeColor,
-                            ),
                           ),
                         ),
                       ],
@@ -707,11 +635,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                         (querySnapshot!
                                                             .docs[index]['url']
                                                             .toString()),
-                                                        (querySnapshot!
+                                                        (querySnapshot
                                                             .docs[index]
                                                         ['title']
                                                             .toString()),
-                                                        (querySnapshot!
+                                                        (querySnapshot
                                                             .docs[index]
                                                         ['thumbnail']
                                                             .toString()),
@@ -719,27 +647,9 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                         },
                                         child: videoWidget(querySnapshot!
                                             .docs[index]['img']
-                                            .toString()));
+                                            .toString(),isPremium));
                                   });
                             },
-                          ),
-                        ),
-                        isPremium? Container(): GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => premiumScreen()));
-                          },
-                          child: Container(
-                            height: SizeConfig.blockSizeVertical! * 20,
-                            width: MediaQuery.of(context).size.width,
-                            color: Colors.black.withOpacity(0.3),
-                            child: Icon(
-                              Icons.lock,
-                              size: SizeConfig.blockSizeHorizontal! * 10,
-                              color: secondaryThemeColor,
-                            ),
                           ),
                         ),
                       ],
@@ -789,11 +699,11 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                                         (querySnapshot!
                                                             .docs[index]['url']
                                                             .toString()),
-                                                        (querySnapshot!
+                                                        (querySnapshot
                                                             .docs[index]
                                                         ['title']
                                                             .toString()),
-                                                        (querySnapshot!
+                                                        (querySnapshot
                                                             .docs[index]
                                                         ['thumbnail']
                                                             .toString()),
@@ -801,27 +711,9 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                                         },
                                         child: myCollectionVideo(querySnapshot!
                                             .docs[index]['img']
-                                            .toString()));
+                                            .toString(),isPremium));
                                   });
                             },
-                          ),
-                        ),
-                        isPremium? Container(): GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => premiumScreen()));
-                          },
-                          child: Container(
-                            height: SizeConfig.blockSizeVertical! * 21,
-                            width: MediaQuery.of(context).size.width,
-                            color: Colors.black.withOpacity(0.3),
-                            child: Icon(
-                              Icons.lock,
-                              size: SizeConfig.blockSizeHorizontal! * 10,
-                              color: secondaryThemeColor,
-                            ),
                           ),
                         ),
                       ],
@@ -930,8 +822,8 @@ class _backgroundWidgetState extends State<backgroundWidget> {
 
 class audioWidget extends StatefulWidget {
   String img;
-
-  audioWidget(this.img);
+  bool isLocked;
+  audioWidget(this.img,this.isLocked);
 
   @override
   _audioWidgetState createState() => _audioWidgetState();
@@ -961,6 +853,25 @@ class _audioWidgetState extends State<audioWidget> {
                   image: DecorationImage(
                       image: NetworkImage(widget.img), fit: BoxFit.fill)),
             ),
+            widget.isLocked? Container():
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => premiumScreen()));
+              },
+              child: Container(
+                height: SizeConfig.blockSizeVertical! * 13,
+                width: SizeConfig.blockSizeHorizontal! * 28,
+                color: Colors.black.withOpacity(0.3),
+                child: Icon(
+                  Icons.lock,
+                  size: SizeConfig.blockSizeHorizontal! * 10,
+                  color: secondaryThemeColor,
+                ),
+              ),
+            ),
           ],
         ));
   }
@@ -968,8 +879,8 @@ class _audioWidgetState extends State<audioWidget> {
 
 class myCollectionAudio extends StatefulWidget {
   String img;
-
-  myCollectionAudio(this.img);
+  bool isLocked;
+  myCollectionAudio(this.img,this.isLocked);
 
   @override
   _myCollectionAudioState createState() => _myCollectionAudioState();
@@ -999,6 +910,25 @@ class _myCollectionAudioState extends State<myCollectionAudio> {
                   image: DecorationImage(
                       image: NetworkImage(widget.img), fit: BoxFit.fill)),
             ),
+            widget.isLocked? Container():
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => premiumScreen()));
+              },
+              child: Container(
+                height: SizeConfig.blockSizeVertical! * 19,
+                width: SizeConfig.blockSizeHorizontal! * 35,
+                color: Colors.black.withOpacity(0.3),
+                child: Icon(
+                  Icons.lock,
+                  size: SizeConfig.blockSizeHorizontal! * 10,
+                  color: secondaryThemeColor,
+                ),
+              ),
+            ),
           ],
         ));
   }
@@ -1008,8 +938,8 @@ class _myCollectionAudioState extends State<myCollectionAudio> {
 
 class videoWidget extends StatefulWidget {
   String img;
-
-  videoWidget(this.img);
+  bool isLocked;
+  videoWidget(this.img,this.isLocked);
 
   @override
   _videoWidgetState createState() => _videoWidgetState();
@@ -1039,6 +969,24 @@ class _videoWidgetState extends State<videoWidget> {
                   image: DecorationImage(
                       image: NetworkImage(widget.img), fit: BoxFit.fill)),
             ),
+            widget.isLocked? Container(): GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => premiumScreen()));
+              },
+              child: Container(
+                height: SizeConfig.blockSizeVertical! * 20,
+                width: SizeConfig.blockSizeHorizontal! * 35,
+                color: Colors.black.withOpacity(0.3),
+                child: Icon(
+                  Icons.lock,
+                  size: SizeConfig.blockSizeHorizontal! * 10,
+                  color: secondaryThemeColor,
+                ),
+              ),
+            ),
           ],
         ));
   }
@@ -1046,8 +994,8 @@ class _videoWidgetState extends State<videoWidget> {
 
 class myCollectionVideo extends StatefulWidget {
   String img;
-
-  myCollectionVideo(this.img);
+  bool isLocked;
+  myCollectionVideo(this.img,this.isLocked);
 
   @override
   _myCollectionVideoState createState() => _myCollectionVideoState();
@@ -1076,6 +1024,24 @@ class _myCollectionVideoState extends State<myCollectionVideo> {
                   border: Border.all(color: drawerColor, width: 1),
                   image: DecorationImage(
                       image: NetworkImage(widget.img), fit: BoxFit.fill)),
+            ),
+            widget.isLocked? Container(): GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => premiumScreen()));
+              },
+              child: Container(
+                height: SizeConfig.blockSizeVertical! * 19,
+                width: SizeConfig.blockSizeHorizontal! * 35,
+                color: Colors.black.withOpacity(0.3),
+                child: Icon(
+                  Icons.lock,
+                  size: SizeConfig.blockSizeHorizontal! * 10,
+                  color: secondaryThemeColor,
+                ),
+              ),
             ),
           ],
         ));

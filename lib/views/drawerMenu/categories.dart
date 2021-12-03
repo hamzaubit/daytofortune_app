@@ -222,7 +222,7 @@ class _categoriesState extends State<categories> {
                 ),
               ),
               SizedBox(
-                height: SizeConfig.blockSizeVertical! * 18,
+                height: SizeConfig.blockSizeVertical! * 10,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -355,7 +355,7 @@ class _categoriesState extends State<categories> {
                                           SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
                                           Center(
                                             child: Text(
-                                              querySnapshot!.docs[index]['name']
+                                              querySnapshot.docs[index]['name']
                                                   .toString(),
                                               style: GoogleFonts.poppins(
                                                   fontSize: SizeConfig

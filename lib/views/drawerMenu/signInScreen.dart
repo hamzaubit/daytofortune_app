@@ -65,7 +65,7 @@ class _signInScreenState extends State<signInScreen> {
               ),
             ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical! * 3,
+              height: SizeConfig.blockSizeVertical! * 1,
             ),
             Text(
               "Log In",
@@ -74,7 +74,7 @@ class _signInScreenState extends State<signInScreen> {
                   fontSize: SizeConfig.blockSizeHorizontal! * 7.5),
             ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical! * 3,
+              height: SizeConfig.blockSizeVertical! * 1.5,
             ),
             Form(
               key: _formKey,
@@ -95,7 +95,7 @@ class _signInScreenState extends State<signInScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.blockSizeVertical! * 3,
+                    height: SizeConfig.blockSizeVertical! * 1.5,
                   ),
                   Row(
                     children: [
@@ -149,7 +149,7 @@ class _signInScreenState extends State<signInScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.blockSizeVertical! * 3,
+                    height: SizeConfig.blockSizeVertical! * 1.5,
                   ),
                   Row(
                     children: [
@@ -351,7 +351,7 @@ class _signInScreenState extends State<signInScreen> {
                           "Don't have an account?",
                           style: GoogleFonts.poppins(
                               color: secondaryThemeColor,
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.3),
+                              fontSize: SizeConfig.blockSizeHorizontal! * 4),
                         ),
                       ),
                       GestureDetector(
@@ -371,7 +371,7 @@ class _signInScreenState extends State<signInScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.blockSizeVertical! * 4,
+                    height: SizeConfig.blockSizeVertical! * 2
                   ),
                   GestureDetector(
                     onTap: () async {
@@ -525,14 +525,14 @@ class _signInScreenState extends State<signInScreen> {
                       "By signing up, you'll have access to hundreds of exclusive quotes, unique backgrounds , and can view unlimited media files.",
                       style: GoogleFonts.poppins(
                           color: secondaryThemeColor,
-                          fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3.8),
                     ),
                   ),
                   Text(
                     "No thanks, continue as guest.",
                     style: GoogleFonts.poppins(
                         color: textColor,
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3),
+                        fontSize: SizeConfig.blockSizeHorizontal! * 4),
                   ),
                 ],
               ),

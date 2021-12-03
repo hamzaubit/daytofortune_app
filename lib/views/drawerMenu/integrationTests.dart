@@ -45,7 +45,7 @@ class integrationsTestState extends State<integrationsTest> {
                       await signInWithFacebook();
                       final user = FirebaseAuth.instance.currentUser;
                       print("User Name ${user!.displayName.toString()}");
-                      print("User Email ${user!.email.toString()}");
+                      print("User Email ${user.email.toString()}");
                       print("User ID : ${user.uid}");
                       showDialog(
                         context: context,

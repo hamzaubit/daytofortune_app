@@ -386,7 +386,7 @@ class _homeScreenState extends State<homeScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical! * 18,
+                  height: SizeConfig.blockSizeVertical! * 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -471,7 +471,7 @@ class _homeScreenState extends State<homeScreen> {
                       children: [
                         quotesGetter(
                             querySnapshot!.docs[index]['author'].toString(),
-                            querySnapshot!.docs[index]['quote'].toString()),
+                            querySnapshot.docs[index]['quote'].toString()),
                         count % 5 == 0 ? adWidget() : Container(),
                       ],
                     );

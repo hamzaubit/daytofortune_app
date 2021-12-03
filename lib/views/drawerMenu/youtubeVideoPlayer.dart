@@ -51,6 +51,7 @@ class _youtubeVideoPlayerState extends State<youtubeVideoPlayer> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return YoutubePlayerBuilder(
+
       player: YoutubePlayer(
         controller: _controller!,
       ),

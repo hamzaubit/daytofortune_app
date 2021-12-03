@@ -63,11 +63,11 @@ class _mediaListState extends State<mediaList> {
                                       (querySnapshot!
                                           .docs[index]['url']
                                           .toString()),
-                                      (querySnapshot!
+                                      (querySnapshot
                                           .docs[index]
                                       ['title']
                                           .toString()),
-                                      (querySnapshot!
+                                      (querySnapshot
                                           .docs[index]
                                       ['thumbnail']
                                           .toString()),
@@ -75,7 +75,7 @@ class _mediaListState extends State<mediaList> {
                       },
                       child: cardWidget(
                         querySnapshot!.docs[index]['title'].toString(),
-                        querySnapshot!.docs[index]['img'].toString(),
+                        querySnapshot.docs[index]['img'].toString(),
                       ),
                     );
                   }),
@@ -142,11 +142,11 @@ class _mediaListForVideoState extends State<mediaListForVideo> {
                                       (querySnapshot!
                                           .docs[index]['url']
                                           .toString()),
-                                      (querySnapshot!
+                                      (querySnapshot
                                           .docs[index]
                                       ['title']
                                           .toString()),
-                                      (querySnapshot!
+                                      (querySnapshot
                                           .docs[index]
                                       ['thumbnail']
                                           .toString()),
@@ -154,7 +154,7 @@ class _mediaListForVideoState extends State<mediaListForVideo> {
                       },
                       child: cardWidget(
                         querySnapshot!.docs[index]['title'].toString(),
-                        querySnapshot!.docs[index]['img'].toString(),
+                        querySnapshot.docs[index]['img'].toString(),
                       ),
                     );
                   }),

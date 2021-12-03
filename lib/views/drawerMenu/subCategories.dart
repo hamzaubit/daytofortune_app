@@ -69,7 +69,7 @@ class _subCategoriesState extends State<subCategories> {
                     children: [
                       quotesGetter(
                           querySnapshot!.docs[index]['author'].toString(),
-                          querySnapshot!.docs[index]['quote'].toString()),
+                          querySnapshot.docs[index]['quote'].toString()),
                       count % 5 == 0 ? adWidget() : Container(),
                     ],
                   );

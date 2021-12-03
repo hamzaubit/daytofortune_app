@@ -208,7 +208,7 @@ class _myQuotesState extends State<myQuotes> {
                                 builder: (context) => quoteScreen(
                                       quote: querySnapshot!.docs[index]['quote']
                                           .toString(),
-                                      author: querySnapshot!.docs[index]
+                                      author: querySnapshot.docs[index]
                                               ['author']
                                           .toString(),
                                     )));
