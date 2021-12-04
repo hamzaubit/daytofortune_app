@@ -49,19 +49,31 @@ class _videoPlayerState extends State<videoPlayer> {
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Center(
-                  child: Text(
-                    "${widget.thumbnail}",
-                    style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5),
-                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Description",
+                        style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5.8),
+                      ),
+                      SizedBox(
+                        height: SizeConfig.blockSizeVertical! * 4,
+
+                      ),
+                      Text(
+                        "${widget.thumbnail}",
+                        style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5),
+                      ),
+                    ],
+                  )
                 ),
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: SizeConfig.blockSizeVertical! * 11.4,
+                height: SizeConfig.blockSizeVertical! * 7,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.white
               ),

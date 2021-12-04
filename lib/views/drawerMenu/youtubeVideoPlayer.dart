@@ -27,6 +27,7 @@ class _youtubeVideoPlayerState extends State<youtubeVideoPlayer> {
        enableCaption: false,
        isLive: false,
        autoPlay: false,
+
      )
    );
   }

@@ -199,7 +199,7 @@ class _homeScreenState extends State<homeScreen> {
               side: BorderSide(color: secondaryThemeColor, width: 2),
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
           title: Text('Exit App',style: TextStyle(color: Colors.white),),
-          content: Text('Do you want to exit an App?',style: TextStyle(color: Colors.white)),
+          content: Text('Are you sure you want to exit?',style: TextStyle(color: Colors.white)),
           actions:[
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(false),
@@ -592,9 +592,9 @@ class _quotesGetterState extends State<quotesGetter> {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }else{
                     final snackBar = SnackBar(
-                      backgroundColor: primaryThemeColor,
-                      content: const Text('You have to Login first'),
-                    );
+                      backgroundColor: secondaryThemeColor,
+                      content: const Text('You have to Login first',style: TextStyle(color: primaryThemeColor),
+                    ));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     Navigator.push(context, MaterialPageRoute(builder: (context) => signInScreen()));
                   }

@@ -8,6 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'onBoardingScreen.dart';
 
 class splashScreen extends StatefulWidget {
   @override
@@ -29,9 +32,12 @@ class _splashScreenState extends State<splashScreen> {
     return (to.difference(from).inDays);
   }
 
+  var homeScreenVariable;
+
   //the birthday's date
   final birthday = DateTime(2021, 12, 28);
   final date2 = DateTime.now();
+  var dateNow = new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   isUserPremium() {
     if (FirebaseAuth.instance.currentUser == null) {
@@ -81,16 +87,23 @@ class _splashScreenState extends State<splashScreen> {
     }
   }
 
+  goToHomeScreen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    homeScreenVariable = prefs.getString('HomeScreen');
+    homeScreenVariable == null ? Navigator.push(context, MaterialPageRoute(builder: (context) => onBoardingScreen())) :
+    Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
+    //homeScreenVariable == null ? onBoardingScreen() : homeScreen();
+  }
+
   @override
   void initState() {
     gettingStrpeKey();
     isUserPremium();
     var date = DateTime.fromMillisecondsSinceEpoch(1643322154 * 1000);
-    print("AAAAAAA ${date}");
-    daysBetween(date, date2);
+    daysBetween(birthday, dateNow); // yhnn pr kissi trhn birthday ki jaga expirydate rkhni hai
     checkPremiumExpiry();
     Timer(Duration(seconds: 3),(){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
+      goToHomeScreen();
     });
     super.initState();
   }

@@ -73,6 +73,7 @@ signIn(String email, String password,) async {
       print('Wrong password provided for that user.');
     }
   }
+  return response;
 }
 
 

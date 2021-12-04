@@ -274,15 +274,8 @@ class _signInScreenState extends State<signInScreen> {
                       }
                       else {
                         signOut();
-                        signIn(username_email.text.trim() , password.text,);
-                        username_email.clear();
-                        password.clear();
-                        final snackBar = SnackBar(
-                          backgroundColor: secondaryThemeColor,
-                          content: Text("Logged In Successfully",style: TextStyle(color: primaryThemeColor),),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        themeCheck();
+                        _submit();
+                        //signIn(username_email.text.trim() , password.text,);
                         /*showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -542,14 +535,27 @@ class _signInScreenState extends State<signInScreen> {
       ),
     );
   }
-  submit() async {
-    final response = await signIn(username_email.text, password.text,);
+  _submit() async {
+    final response = await signIn(username_email.text.trim(), password.text,);
     if (response['error'] == 1) {
       print(response['message']);
+      final snackBar = SnackBar(
+        backgroundColor: secondaryThemeColor,
+        content: Text("Logged In Failed! Invalid Email or Password",style: TextStyle(color: primaryThemeColor),),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     } else {
       print(response['message']);
       print("Successfully Registered");
+      themeCheck();
+      username_email.clear();
+      password.clear();
+      final snackBar = SnackBar(
+        backgroundColor: secondaryThemeColor,
+        content: Text("Logged In Successfully",style: TextStyle(color: primaryThemeColor),),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }

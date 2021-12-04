@@ -18,11 +18,11 @@ void main() async {
   MobileAds.instance.initialize();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var homeScreenVariable = prefs.getString('HomeScreen');
+ /* SharedPreferences prefs = await SharedPreferences.getInstance();
+  var homeScreenVariable = prefs.getString('HomeScreen');*/
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: homeScreenVariable == null ? onBoardingScreen() : splashScreen(),
+    home: splashScreen(),
     title: "Day To Fortune",
   ));
 }

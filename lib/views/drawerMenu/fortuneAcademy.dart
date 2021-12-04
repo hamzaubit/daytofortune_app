@@ -228,7 +228,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                      child: Padding(
                        padding: const EdgeInsets.only(
                            left: 10, top: 10, bottom: 10),
-                       child: GestureDetector(
+                       child: isPremium ? GestureDetector(
                          onTap: (){
                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Top Favourites","topFavourite_audio")));
                          },
@@ -236,7 +236,19 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                            "Top Favourites",
                            style: GoogleFonts.poppins(
                                fontSize:
-                                   SizeConfig.blockSizeHorizontal! * 4.8,
+                               SizeConfig.blockSizeHorizontal! * 4.8,
+                               color: secondaryThemeColor),
+                         ),
+                       ) :
+                       GestureDetector(
+                         onTap: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                         },
+                         child: Text(
+                           "Top Favourites",
+                           style: GoogleFonts.poppins(
+                               fontSize:
+                               SizeConfig.blockSizeHorizontal! * 4.8,
                                color: secondaryThemeColor),
                          ),
                        ),
@@ -292,7 +304,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                      child: Padding(
                        padding: const EdgeInsets.only(
                            left: 10, top: 10, bottom: 10),
-                       child: GestureDetector(
+                       child: isPremium ? GestureDetector(
                          onTap: (){
                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Hot 10","hot10_audio")));
                          },
@@ -300,7 +312,19 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                            "Hot 10",
                            style: GoogleFonts.poppins(
                                fontSize:
-                                   SizeConfig.blockSizeHorizontal! * 4.8,
+                               SizeConfig.blockSizeHorizontal! * 4.8,
+                               color: secondaryThemeColor),
+                         ),
+                       ) :
+                       GestureDetector(
+                         onTap: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                         },
+                         child: Text(
+                           "Hot 10",
+                           style: GoogleFonts.poppins(
+                               fontSize:
+                               SizeConfig.blockSizeHorizontal! * 4.8,
                                color: secondaryThemeColor),
                          ),
                        ),
@@ -356,7 +380,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                      child: Padding(
                        padding: const EdgeInsets.only(
                            left: 10, top: 10, bottom: 10),
-                       child: GestureDetector(
+                       child: isPremium ? GestureDetector(
                          onTap: (){
                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("My Collection","myCollection_audio")));
                          },
@@ -364,7 +388,19 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                            "My Collection",
                            style: GoogleFonts.poppins(
                                fontSize:
-                                   SizeConfig.blockSizeHorizontal! * 4.8,
+                               SizeConfig.blockSizeHorizontal! * 4.8,
+                               color: secondaryThemeColor),
+                         ),
+                       ) :
+                       GestureDetector(
+                         onTap: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                         },
+                         child: Text(
+                           "My Collection",
+                           style: GoogleFonts.poppins(
+                               fontSize:
+                               SizeConfig.blockSizeHorizontal! * 4.8,
                                color: secondaryThemeColor),
                          ),
                        ),
@@ -531,7 +567,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 10, top: 10, bottom: 10),
-                        child: GestureDetector(
+                        child: isPremium ? GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => mediaListForVideo("Top Favourites","topFavourite_video")));
                           },
@@ -539,7 +575,19 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             "Top Favourites",
                             style: GoogleFonts.poppins(
                                 fontSize:
-                                    SizeConfig.blockSizeHorizontal! * 4.8,
+                                SizeConfig.blockSizeHorizontal! * 4.8,
+                                color: secondaryThemeColor),
+                          ),
+                        ) :
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                          },
+                          child: Text(
+                            "Top Favourites",
+                            style: GoogleFonts.poppins(
+                                fontSize:
+                                SizeConfig.blockSizeHorizontal! * 4.8,
                                 color: secondaryThemeColor),
                           ),
                         ),
@@ -595,7 +643,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 10, top: 10, bottom: 10),
-                        child: GestureDetector(
+                        child: isPremium ? GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => mediaListForVideo("Hot 10","hot10_video")));
                           },
@@ -603,7 +651,19 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             "Hot 10",
                             style: GoogleFonts.poppins(
                                 fontSize:
-                                    SizeConfig.blockSizeHorizontal! * 4.8,
+                                SizeConfig.blockSizeHorizontal! * 4.8,
+                                color: secondaryThemeColor),
+                          ),
+                        ) :
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                          },
+                          child: Text(
+                            "Hot 10",
+                            style: GoogleFonts.poppins(
+                                fontSize:
+                                SizeConfig.blockSizeHorizontal! * 4.8,
                                 color: secondaryThemeColor),
                           ),
                         ),
@@ -659,7 +719,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 10, top: 10, bottom: 10),
-                        child: GestureDetector(
+                        child: isPremium ? GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => mediaListForVideo("My Collection","myCollection_video")));
                           },
@@ -667,7 +727,19 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             "My Collection",
                             style: GoogleFonts.poppins(
                                 fontSize:
-                                    SizeConfig.blockSizeHorizontal! * 4.8,
+                                SizeConfig.blockSizeHorizontal! * 4.8,
+                                color: secondaryThemeColor),
+                          ),
+                        ) :
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
+                          },
+                          child: Text(
+                            "My Collection",
+                            style: GoogleFonts.poppins(
+                                fontSize:
+                                SizeConfig.blockSizeHorizontal! * 4.8,
                                 color: secondaryThemeColor),
                           ),
                         ),
