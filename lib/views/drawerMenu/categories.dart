@@ -25,16 +25,42 @@ class categories extends StatefulWidget {
   String training;
   String gym;
   String inpirational;
+  String art;
+  String change;
+  String mom;
+  String women;
+  String? work;
+  String? business;
+  String? failure;
+  String? leadership;
+  String? movingOn;
 
-  categories(this.general, this.favourites, this.hustle, this.stress, this.love,
-      this.depression, this.workout, this.health, this.training, this.gym,this.inpirational);
+  categories(this.general,
+      this.favourites,
+      this.hustle,
+      this.stress,
+      this.love,
+      this.depression,
+      this.workout,
+      this.health,
+      this.training,
+      this.gym,
+      this.inpirational,
+      this.art,
+      this.change,
+      this.mom,
+      this.women,
+      this.work,
+      this.business,
+      this.failure,
+      this.leadership,
+      this.movingOn);
 
   @override
   _categoriesState createState() => _categoriesState();
 }
 
 class _categoriesState extends State<categories> {
-
   var loading = true;
 
   var isPremium;
@@ -56,7 +82,7 @@ class _categoriesState extends State<categories> {
         print('User');
         setState(() {
           loading = false;
-          isPremium = (value.data()?['isPremium']);
+          isPremium = (value.data() ? ['isPremium']);
         });
       });
     }
@@ -283,12 +309,20 @@ class _categoriesState extends State<categories> {
           ),
         ),
       ),
-      body: loading ? Center(child: CircularProgressIndicator(color: secondaryThemeColor,)) : SingleChildScrollView(
+      body: loading
+          ? Center(
+          child: CircularProgressIndicator(
+            color: secondaryThemeColor,
+          ))
+          : SingleChildScrollView(
         child: Column(
           children: [
             Container(
                 height: SizeConfig.blockSizeVertical! * 35,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 decoration: BoxDecoration(
                     color: drawerColor,
                     borderRadius: BorderRadius.only(
@@ -309,7 +343,8 @@ class _categoriesState extends State<categories> {
                           child: Text(
                             "Popular Quotes",
                             style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 6,
+                                fontSize:
+                                SizeConfig.blockSizeHorizontal! * 6,
                                 color: Colors.white),
                           ),
                         ),
@@ -320,9 +355,13 @@ class _categoriesState extends State<categories> {
                     ),
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10,right: 5),
+                        padding:
+                        const EdgeInsets.only(left: 10, right: 5),
                         child: Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: SizeConfig.blockSizeVertical! * 25,
                           child: StreamBuilder<QuerySnapshot>(
                             stream: categoriesPopularQuote.snapshots(),
@@ -336,35 +375,52 @@ class _categoriesState extends State<categories> {
                                   itemCount: querySnapshot?.size,
                                   itemBuilder: (context, index) {
                                     return Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: SizeConfig.blockSizeVertical! * 25,
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
+                                      height:
+                                      SizeConfig.blockSizeVertical! *
+                                          25,
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
                                         children: [
                                           Center(
                                             child: Text(
-                                              querySnapshot!.docs[index]['quote']
+                                              querySnapshot!.docs[index]
+                                              ['quote']
                                                   .toString(),
                                               style: GoogleFonts.poppins(
                                                   fontSize: SizeConfig
-                                                          .blockSizeHorizontal! *
+                                                      .blockSizeHorizontal! *
                                                       5,
                                                   color: Colors.white),
                                             ),
                                           ),
-                                          SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
+                                          SizedBox(
+                                            height: SizeConfig
+                                                .blockSizeVertical! *
+                                                2,
+                                          ),
                                           Center(
                                             child: Text(
-                                              querySnapshot.docs[index]['name']
+                                              querySnapshot.docs[index]
+                                              ['name']
                                                   .toString(),
                                               style: GoogleFonts.poppins(
                                                   fontSize: SizeConfig
-                                                          .blockSizeHorizontal! *
+                                                      .blockSizeHorizontal! *
                                                       5,
-                                                  color: secondaryThemeColor),
+                                                  color:
+                                                  secondaryThemeColor),
                                             ),
                                           ),
-                                          SizedBox(width: SizeConfig.blockSizeHorizontal! * 8,),
+                                          SizedBox(
+                                            width: SizeConfig
+                                                .blockSizeHorizontal! *
+                                                8,
+                                          ),
                                         ],
                                       ),
                                     );
@@ -397,52 +453,15 @@ class _categoriesState extends State<categories> {
             Stack(
               children: [
                 GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Favourites",'favourites')));
-                  },
-                  child: Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: MediaQuery.of(context).size.width - 25,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: drawerColor, width: 1),
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
-                        image: DecorationImage(
-                            image: NetworkImage(widget.favourites),
-                            fit: BoxFit.fill)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, top: 5),
-                      child: Text(
-                        "Favourites",
-                        style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-                isPremium? SizedBox():
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                  },
-                  child: Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: MediaQuery.of(context).size.width - 25,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
-                        border: Border.all(color: drawerColor, width: 1),
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
-                       ),
-                    child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                  ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories(
+                                      "Favourites", 'favourites')));
+                    },
+                    child: rectangularCategoriesBox(widget.favourites,"Favourites",isPremium),
                 ),
               ],
             ),
@@ -450,12 +469,19 @@ class _categoriesState extends State<categories> {
               height: SizeConfig.blockSizeVertical! * 2,
             ),
             GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("General",'general')));
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            subCategories("General", 'general')));
               },
               child: Container(
                 height: SizeConfig.blockSizeVertical! * 10,
-                width: MediaQuery.of(context).size.width - 25,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width - 25,
                 decoration: BoxDecoration(
                     border: Border.all(color: drawerColor, width: 1),
                     borderRadius: BorderRadius.only(
@@ -464,7 +490,8 @@ class _categoriesState extends State<categories> {
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10)),
                     image: DecorationImage(
-                        image: NetworkImage(widget.general), fit: BoxFit.fill)),
+                        image: NetworkImage(widget.general),
+                        fit: BoxFit.fill)),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15, top: 5),
                   child: Text(
@@ -500,51 +527,14 @@ class _categoriesState extends State<categories> {
                 Stack(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Hustle",'hustle')));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories("Hustle", 'hustle')));
                       },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.hustle),
-                                fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Hustle",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
+                      child: categoriesBox(widget.hustle, "Hustle", isPremium),
                     ),
                   ],
                 ),
@@ -554,51 +544,14 @@ class _categoriesState extends State<categories> {
                 Stack(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Stress",'stress')));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories("Stress", 'stress')));
                       },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.stress),
-                                fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Stress",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.blueGrey),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(color: drawerColor, width: 1),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                        ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
+                      child: categoriesBox(widget.stress, "Stress", isPremium),
                     ),
                   ],
                 ),
@@ -613,50 +566,14 @@ class _categoriesState extends State<categories> {
                 Stack(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Love",'love')));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories("Love", 'love')));
                       },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.love), fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Love",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.blueGrey),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(color: drawerColor, width: 1),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                        ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
+                      child: categoriesBox(widget.love, "Love", isPremium),
                     ),
                   ],
                 ),
@@ -666,51 +583,16 @@ class _categoriesState extends State<categories> {
                 Stack(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Depression",'depression')));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories(
+                                        "Depression", 'depression')));
                       },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.depression),
-                                fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Depression",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(color: drawerColor, width: 1),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                        ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
+                      child: categoriesBox(
+                          widget.depression, "Depression", isPremium),
                     ),
                   ],
                 ),
@@ -740,51 +622,15 @@ class _categoriesState extends State<categories> {
                 Stack(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Workout",'workout')));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories("Workout", 'workout')));
                       },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.workout),
-                                fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Workout",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(color: drawerColor, width: 1),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                        ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
+                      child: categoriesBox(
+                          widget.workout, "Workout", isPremium),
                     ),
                   ],
                 ),
@@ -794,51 +640,14 @@ class _categoriesState extends State<categories> {
                 Stack(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Health",'health')));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories("Health", 'health')));
                       },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.health),
-                                fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Health",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(color: drawerColor, width: 1),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                        ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
+                      child: categoriesBox(widget.health, "Health", isPremium),
                     ),
                   ],
                 ),
@@ -853,110 +662,34 @@ class _categoriesState extends State<categories> {
                 Stack(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Training",'training')));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories(
+                                        "Training", 'training')));
                       },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.training),
-                                fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Training",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.blueGrey),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(color: drawerColor, width: 1),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                        ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
+                      child: categoriesBox(
+                          widget.training, "Training", isPremium),
                     ),
                   ],
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
                 ),
-                Stack(
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Gym",'gym')));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: drawerColor, width: 1),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.gym), fit: BoxFit.fill)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 5),
-                          child: Text(
-                            "Gym",
-                            style: GoogleFonts.poppins(
-                                fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    isPremium? SizedBox(): GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                      },
-                      child: Container(
-                        height: SizeConfig.blockSizeVertical! * 15,
-                        width: SizeConfig.blockSizeHorizontal! * 45,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(color: drawerColor, width: 1),
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                        ),
-                        child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                      ),
-                    ),
-                  ],
-                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Gym", 'gym')));
+                    },
+                    child: categoriesBox(widget.gym, "Gym", isPremium)),
               ],
             ),
-            /*SizedBox(
+            SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
             Padding(
@@ -974,58 +707,196 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Stack(
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              subCategories(
+                                  "Inspirational", 'Inspirational')));
+                },
+                child: rectangularCategoriesBox(widget.inpirational,"Inspirational",isPremium)),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => subCategories("Inspiration",'inspirational')));
-                  },
-                  child: Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: MediaQuery.of(context).size.width - 25,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: drawerColor, width: 1),
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
-                        image: DecorationImage(
-                            image: NetworkImage(widget.inpirational),
-                            fit: BoxFit.fill)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, top: 5),
-                      child: Text(
-                        "Inspirational",
-                        style: GoogleFonts.poppins(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                            color: Colors.white),
-                      ),
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories("Art", 'Art')));
+                      },
+                      child: categoriesBox(
+                          widget.art, "Art", isPremium),
                     ),
-                  ),
+                  ],
                 ),
-                isPremium? SizedBox():
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => premiumScreen()));
-                  },
-                  child: Container(
-                    height: SizeConfig.blockSizeVertical! * 15,
-                    width: MediaQuery.of(context).size.width - 25,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
-                      border: Border.all(color: drawerColor, width: 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories("Change", 'Change')));
+                      },
+                      child: categoriesBox(widget.change, "Change", isPremium),
                     ),
-                    child: Icon(Icons.lock,size: SizeConfig.blockSizeHorizontal! * 8,color: secondaryThemeColor,),
-                  ),
+                  ],
                 ),
               ],
-            ),*/
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    subCategories(
+                                        "Mom", 'Mom')));
+                      },
+                      child:categoriesBox(widget.mom, "Mom", isPremium),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Women", 'Women')));
+                    },
+                    child: categoriesBox(widget.women, "Women", isPremium)),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Work and Productivity",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
+                      color: secondaryThemeColor),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                subCategories(
+                                    "Work", 'Work')));
+                  },
+                  child:categoriesBox(widget.work, "Work", isPremium),
+                ),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Business", 'Business')));
+                    },
+                    child: categoriesBox(widget.business, "Business", isPremium)),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Success",
+                  style: GoogleFonts.poppins(
+                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
+                      color: secondaryThemeColor),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              subCategories(
+                                  "Failure", 'Failure')));
+                },
+                child: rectangularCategoriesBox(widget.failure,"Failure",isPremium)),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                subCategories(
+                                    "Leadership", 'Leadership')));
+                  },
+                  child:categoriesBox(widget.leadership, "Leadership", isPremium),
+                ),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Moving On", 'MovingOn')));
+                    },
+                    child: categoriesBox(widget.movingOn, "Moving On", isPremium)),
+              ],
+            ),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 3,
             ),
@@ -1035,3 +906,153 @@ class _categoriesState extends State<categories> {
     );
   }
 }
+
+class categoriesBox extends StatefulWidget {
+  String? img;
+  String? title;
+  bool? isPremium;
+
+  categoriesBox(this.img, this.title, this.isPremium);
+
+  @override
+  _categoriesBoxState createState() => _categoriesBoxState();
+}
+
+class _categoriesBoxState extends State<categoriesBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: SizeConfig.blockSizeVertical! * 15,
+          width: SizeConfig.blockSizeHorizontal! * 45,
+          decoration: BoxDecoration(
+              border: Border.all(color: drawerColor, width: 1),
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10)),
+              image: DecorationImage(
+                  image: NetworkImage(widget.img!), fit: BoxFit.fill)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15, top: 5),
+            child: Text(
+              "${widget.title!}",
+              style: GoogleFonts.poppins(
+                  fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
+                  color: primaryThemeColor),
+            ),
+          ),
+        ),
+        widget.isPremium!
+            ? SizedBox()
+            : GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => premiumScreen()));
+          },
+          child: Container(
+            height: SizeConfig.blockSizeVertical! * 15,
+            width: SizeConfig.blockSizeHorizontal! * 45,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.3),
+              border: Border.all(color: drawerColor, width: 1),
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10)),
+            ),
+            child: Icon(
+              Icons.lock,
+              size: SizeConfig.blockSizeHorizontal! * 8,
+              color: secondaryThemeColor,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+class rectangularCategoriesBox extends StatefulWidget {
+
+  String? img;
+  String? title;
+  bool? isPremium;
+
+  rectangularCategoriesBox(this.img, this.title, this.isPremium);
+
+  @override
+  _rectangularCategoriesBoxState createState() =>
+      _rectangularCategoriesBoxState();
+}
+
+class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: SizeConfig.blockSizeVertical! * 15,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width - 25,
+          decoration: BoxDecoration(
+              border: Border.all(color: drawerColor, width: 1),
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10)),
+              image: DecorationImage(
+                  image: NetworkImage(widget.img!),
+                  fit: BoxFit.fill)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15, top: 5),
+            child: Text(
+              widget.title!,
+              style: GoogleFonts.poppins(
+                  fontSize:
+                  SizeConfig.blockSizeHorizontal! * 3.8,
+                  color: Colors.white),
+            ),
+          ),
+        ),
+        widget.isPremium!
+            ? SizedBox()
+            : GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => premiumScreen()));
+          },
+          child: Container(
+            height: SizeConfig.blockSizeVertical! * 15,
+            width: MediaQuery.of(context).size.width - 25,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.5),
+              border:
+              Border.all(color: drawerColor, width: 1),
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10)),
+            ),
+            child: Icon(
+              Icons.lock,
+              size: SizeConfig.blockSizeHorizontal! * 8,
+              color: secondaryThemeColor,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+

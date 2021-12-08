@@ -37,6 +37,15 @@ class _homeScreenState extends State<homeScreen> {
   String? training;
   String? gym;
   String? inspiration;
+  String? art;
+  String? change;
+  String? mom;
+  String? women;
+  String? work;
+  String? business;
+  String? failure;
+  String? leadership;
+  String? movingOn;
   int count = 0;
   AdMobHelper adMobHelper = new AdMobHelper();
 
@@ -117,59 +126,75 @@ class _homeScreenState extends State<homeScreen> {
     });
     firestoreInstance
         .collection("categories_Pictures")
-        .doc("Inspiration")
+        .doc("Inspirational")
         .get()
         .then((value) {
       inspiration = value.data()!["img"];
     });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Art")
+        .get()
+        .then((value) {
+      art = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Change")
+        .get()
+        .then((value) {
+      change = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Mom")
+        .get()
+        .then((value) {
+      mom = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Women")
+        .get()
+        .then((value) {
+      women = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Work")
+        .get()
+        .then((value) {
+      work = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Business")
+        .get()
+        .then((value) {
+      business = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Failure")
+        .get()
+        .then((value) {
+      failure = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Leadership")
+        .get()
+        .then((value) {
+      leadership = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("MovingOn")
+        .get()
+        .then((value) {
+      movingOn = value.data()!["img"];
+    });
   }
-
-  /*Future<bool> showExitPopup(context) async {
-    return await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Expanded(
-          child: AlertDialog(
-            shape: RoundedRectangleBorder(
-                side: BorderSide(color: secondaryThemeColor, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(32.0))),
-            backgroundColor: Color(0xff021524),
-            title: Text(
-              'Confirm!',
-              style: GoogleFonts.poppins(
-                  color: secondaryThemeColor,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
-            ),
-            content: Text('Are you sure you want to exit the app?',
-                style: GoogleFonts.poppins(
-                    color: secondaryThemeColor,
-                    fontSize: SizeConfig.blockSizeHorizontal! * 3.0)),
-            actions: [
-              FlatButton(
-                onPressed: () {
-                  exit(0);
-                },
-                child: Text('Yes',
-                    style: GoogleFonts.poppins(
-                        color: secondaryThemeColor,
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3.0)),
-              ),
-              FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('No',
-                    style: GoogleFonts.poppins(
-                        color: secondaryThemeColor,
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3.0)),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }*/
-
   saveRandomId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('HomeScreen', "getToHome");
@@ -264,6 +289,15 @@ class _homeScreenState extends State<homeScreen> {
                                 training.toString(),
                                 gym.toString(),
                                 inspiration.toString(),
+                                art.toString(),
+                              change.toString(),
+                              mom.toString(),
+                              women.toString(),
+                              work.toString(),
+                              business.toString(),
+                              failure.toString(),
+                              leadership.toString(),
+                              movingOn.toString(),
                             )));
                   },
                   child: Container(
