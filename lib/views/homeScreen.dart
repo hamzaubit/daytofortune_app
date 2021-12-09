@@ -46,6 +46,18 @@ class _homeScreenState extends State<homeScreen> {
   String? failure;
   String? leadership;
   String? movingOn;
+  String? alone;
+  String? death;
+  String? sad;
+  String? fear;
+  String? hope;
+  String? life;
+  String? wisdom;
+  String? imamAli;
+  String? motivational;
+  String? morning;
+  String? patience;
+
   int count = 0;
   AdMobHelper adMobHelper = new AdMobHelper();
 
@@ -194,6 +206,83 @@ class _homeScreenState extends State<homeScreen> {
         .then((value) {
       movingOn = value.data()!["img"];
     });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Alone")
+        .get()
+        .then((value) {
+      alone = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Death")
+        .get()
+        .then((value) {
+      death = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Sad")
+        .get()
+        .then((value) {
+      sad = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Fear")
+        .get()
+        .then((value) {
+      fear = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Hope")
+        .get()
+        .then((value) {
+      hope = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Life")
+        .get()
+        .then((value) {
+      life = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Wisdom")
+        .get()
+        .then((value) {
+      wisdom = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("ImamAli")
+        .get()
+        .then((value) {
+      imamAli = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Motivational")
+        .get()
+        .then((value) {
+      motivational = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Morning")
+        .get()
+        .then((value) {
+      morning = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Patience")
+        .get()
+        .then((value) {
+      patience = value.data()!["img"];
+    });
   }
   saveRandomId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -298,6 +387,17 @@ class _homeScreenState extends State<homeScreen> {
                               failure.toString(),
                               leadership.toString(),
                               movingOn.toString(),
+                              alone.toString(),
+                              death.toString(),
+                              sad.toString(),
+                              fear.toString(),
+                              hope.toString(),
+                              life.toString(),
+                              wisdom.toString(),
+                              imamAli.toString(),
+                              motivational.toString(),
+                              morning.toString(),
+                              patience.toString(),
                             )));
                   },
                   child: Container(
