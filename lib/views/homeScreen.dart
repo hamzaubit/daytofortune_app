@@ -57,6 +57,17 @@ class _homeScreenState extends State<homeScreen> {
   String? motivational;
   String? morning;
   String? patience;
+  String? dad;
+  String? family;
+  String? dating;
+  String? fathersDay;
+  String? friendship;
+  String? jealousy;
+  String? marriage;
+  String? mothersDay;
+  String? parenting;
+  String? relationship;
+  String? romantic;
 
   int count = 0;
   AdMobHelper adMobHelper = new AdMobHelper();
@@ -283,6 +294,83 @@ class _homeScreenState extends State<homeScreen> {
         .then((value) {
       patience = value.data()!["img"];
     });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Dad")
+        .get()
+        .then((value) {
+      dad = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Family")
+        .get()
+        .then((value) {
+      family = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Dating")
+        .get()
+        .then((value) {
+      dating = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("FathersDay")
+        .get()
+        .then((value) {
+      fathersDay = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Friendship")
+        .get()
+        .then((value) {
+      friendship = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Jealousy")
+        .get()
+        .then((value) {
+      jealousy = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Marriage")
+        .get()
+        .then((value) {
+      marriage = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("MothersDay")
+        .get()
+        .then((value) {
+      mothersDay = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Parenting")
+        .get()
+        .then((value) {
+      parenting = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Relationship")
+        .get()
+        .then((value) {
+      relationship = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Romantic")
+        .get()
+        .then((value) {
+      romantic = value.data()!["img"];
+    });
   }
   saveRandomId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -398,6 +486,17 @@ class _homeScreenState extends State<homeScreen> {
                               motivational.toString(),
                               morning.toString(),
                               patience.toString(),
+                              dad.toString(),
+                              family.toString(),
+                                dating.toString(),
+                              fathersDay.toString(),
+                              friendship.toString(),
+                              jealousy.toString(),
+                              marriage.toString(),
+                              mothersDay.toString(),
+                              parenting.toString(),
+                              relationship.toString(),
+                              romantic.toString(),
                             )));
                   },
                   child: Container(

@@ -45,6 +45,17 @@ class categories extends StatefulWidget {
   String? motivational;
   String? morning;
   String? patience;
+  String? dad;
+  String? family;
+  String? dating;
+  String? fathersDay;
+  String? friendship;
+  String? jealousy;
+  String? marriage;
+  String? mothersDay;
+  String? parenting;
+  String? relationship;
+  String? romantic;
 
   categories(this.general,
       this.favourites,
@@ -76,7 +87,18 @@ class categories extends StatefulWidget {
       this.imamAli,
       this.motivational,
       this.morning,
-      this.patience);
+      this.patience,
+      this.dad,
+      this.family,
+      this.dating,
+      this.fathersDay,
+      this.friendship,
+      this.jealousy,
+      this.marriage,
+      this.mothersDay,
+      this.parenting,
+      this.relationship,
+      this.romantic);
 
   @override
   _categoriesState createState() => _categoriesState();
@@ -423,7 +445,7 @@ class _categoriesState extends State<categories> {
                                               style: GoogleFonts.poppins(
                                                   fontSize: SizeConfig
                                                       .blockSizeHorizontal! *
-                                                      5,
+                                                      4.2,
                                                   color: Colors.white),
                                             ),
                                           ),
@@ -440,7 +462,7 @@ class _categoriesState extends State<categories> {
                                               style: GoogleFonts.poppins(
                                                   fontSize: SizeConfig
                                                       .blockSizeHorizontal! *
-                                                      5,
+                                                      4.3,
                                                   color:
                                                   secondaryThemeColor),
                                             ),
@@ -464,18 +486,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 3,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Categories",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Categories"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -510,8 +521,9 @@ class _categoriesState extends State<categories> {
                 width: MediaQuery
                     .of(context)
                     .size
-                    .width - 25,
+                    .width - 20,
                 decoration: BoxDecoration(
+                  color: Colors.blueGrey.withOpacity(0.5),
                     border: Border.all(color: drawerColor, width: 1),
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(10),
@@ -527,7 +539,7 @@ class _categoriesState extends State<categories> {
                     "General",
                     style: GoogleFonts.poppins(
                         fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                        color: primaryThemeColor),
+                        color: Colors.black),
                   ),
                 ),
               ),
@@ -535,18 +547,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Most Popular",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Most Popular"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -630,18 +631,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Health & Fitness",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Health & Fitness"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -721,18 +711,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Inspiration",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Inspiration"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -824,18 +803,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Work and Productivity",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Work and Productivity"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -870,18 +838,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Success",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Success"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -929,18 +886,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Hard Times",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Hard Times"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1006,18 +952,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Spirituality",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Spirituality"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1083,18 +1018,7 @@ class _categoriesState extends State<categories> {
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Motivation",
-                  style: GoogleFonts.poppins(
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5,
-                      color: secondaryThemeColor),
-                ),
-              ),
-            ),
+            myText("Motivation"),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1136,8 +1060,178 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Patience", 'Patience')));
                     },
-                    child: categoriesBox(widget.patience, "Patiencei", isPremium)),
+                    child: categoriesBox(widget.patience, "Patience", isPremium)),
               ],
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            myText("Relationship"),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                subCategories(
+                                    "Dad", 'Dad')));
+                  },
+                  child:categoriesBox(widget.dad, "Dad", isPremium),
+                ),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Family", 'Family')));
+                    },
+                    child: categoriesBox(widget.family, "Family", isPremium)),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              subCategories(
+                                  "Dating", 'Dating')));
+                },
+                child: rectangularCategoriesBox(widget.dating,"Dating",isPremium)),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                subCategories(
+                                    "FathersDay", 'Fathers Day')));
+                  },
+                  child:categoriesBox(widget.fathersDay, "Fathers Day", isPremium),
+                ),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Friendship", 'Friendship')));
+                    },
+                    child: categoriesBox(widget.friendship, "Friendship", isPremium)),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                subCategories(
+                                    "Jealousy", 'Jealousy')));
+                  },
+                  child:categoriesBox(widget.jealousy, "Jealousy", isPremium),
+                ),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Marriage", 'Marriage')));
+                    },
+                    child: categoriesBox(widget.marriage, "Marriage", isPremium)),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              subCategories(
+                                  "Romantic", 'Romantic')));
+                },
+                child: rectangularCategoriesBox(widget.romantic,"Romantic",isPremium)),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                subCategories(
+                                    "MothersDay", 'Mothers Day')));
+                  },
+                  child:categoriesBox(widget.mothersDay, "Mother sDay", isPremium),
+                ),
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal! * 3,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  subCategories("Parenting", 'Parenting')));
+                    },
+                    child: categoriesBox(widget.parenting, "Parenting", isPremium)),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
+            ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              subCategories(
+                                  "Relationship", 'Relationship')));
+                },
+                child: rectangularCategoriesBox(widget.relationship,"Relationship",isPremium)),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical! * 2,
             ),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 3,
@@ -1169,6 +1263,7 @@ class _categoriesBoxState extends State<categoriesBox> {
           height: SizeConfig.blockSizeVertical! * 15,
           width: SizeConfig.blockSizeHorizontal! * 45,
           decoration: BoxDecoration(
+            color: Colors.blueGrey.withOpacity(0.5),
               border: Border.all(color: drawerColor, width: 1),
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(10),
@@ -1183,7 +1278,7 @@ class _categoriesBoxState extends State<categoriesBox> {
               "${widget.title!}",
               style: GoogleFonts.poppins(
                   fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                  color: primaryThemeColor),
+                  color: Colors.black),
             ),
           ),
         ),
@@ -1198,7 +1293,7 @@ class _categoriesBoxState extends State<categoriesBox> {
             height: SizeConfig.blockSizeVertical! * 15,
             width: SizeConfig.blockSizeHorizontal! * 45,
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.transparent,
               border: Border.all(color: drawerColor, width: 1),
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(10),
@@ -1242,8 +1337,9 @@ class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
           width: MediaQuery
               .of(context)
               .size
-              .width - 25,
+              .width - 20,
           decoration: BoxDecoration(
+              color: Colors.blueGrey.withOpacity(0.5),
               border: Border.all(color: drawerColor, width: 1),
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(10),
@@ -1260,7 +1356,7 @@ class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
               style: GoogleFonts.poppins(
                   fontSize:
                   SizeConfig.blockSizeHorizontal! * 3.8,
-                  color: primaryThemeColor),
+                  color: Colors.black),
             ),
           ),
         ),
@@ -1275,9 +1371,9 @@ class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
           },
           child: Container(
             height: SizeConfig.blockSizeVertical! * 15,
-            width: MediaQuery.of(context).size.width - 25,
+            width: MediaQuery.of(context).size.width - 20,
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.transparent,
               border:
               Border.all(color: drawerColor, width: 1),
               borderRadius: BorderRadius.only(
@@ -1297,4 +1393,25 @@ class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
     );
   }
 }
+
+class myText extends StatelessWidget {
+  String titleText;
+  myText(this.titleText);
+  @override
+  Widget build(BuildContext context) {
+    return  Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          this.titleText,
+          style: GoogleFonts.poppins(
+              fontSize: SizeConfig.blockSizeHorizontal! * 5,
+              color: secondaryThemeColor),
+        ),
+      ),
+    );
+  }
+}
+
 
