@@ -202,7 +202,7 @@ class _quotesGetterState extends State<quotesGetter> {
               "${widget.quote}",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 5.5),
+                  fontSize: SizeConfig.blockSizeHorizontal! * 4),
             ),
           ),
           SizedBox(

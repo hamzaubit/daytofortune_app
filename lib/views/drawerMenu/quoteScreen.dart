@@ -69,16 +69,16 @@ class _quoteScreenState extends State<quoteScreen> {
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(widget.author,style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 6.5),),
-                ),
+                      padding: const EdgeInsets.only(top:8,left: 15,right: 15),
+                      child: Text(widget.quote,style: GoogleFonts.poppins(color: Colors.white,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
+                    ),
                   ),
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top:8,left: 15,right: 15),
-                      child: Text(widget.quote,style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4.5),),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(widget.author,style: GoogleFonts.poppins(color: secondaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 4),),
                     ),
-                  )
+                  ),
                 ],
               ),
             );

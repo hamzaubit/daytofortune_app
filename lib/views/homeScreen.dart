@@ -68,6 +68,19 @@ class _homeScreenState extends State<homeScreen> {
   String? parenting;
   String? relationship;
   String? romantic;
+  String? attitude;
+  String? beauty;
+  String? courage;
+  String? experience;
+  String? forgiveness;
+  String? happiness;
+  String? freedom;
+  String? respect;
+  String? strength;
+  String? teacher;
+  String? thankful;
+  String? time;
+  String? travel;
 
   int count = 0;
   AdMobHelper adMobHelper = new AdMobHelper();
@@ -366,10 +379,101 @@ class _homeScreenState extends State<homeScreen> {
     });
     firestoreInstance
         .collection("categories_Pictures")
+        .doc("Attitude")
+        .get()
+        .then((value) {
+      attitude = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Beauty")
+        .get()
+        .then((value) {
+      beauty = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
         .doc("Romantic")
         .get()
         .then((value) {
       romantic = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Courage")
+        .get()
+        .then((value) {
+      courage = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Experience")
+        .get()
+        .then((value) {
+      experience = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Forgiveness")
+        .get()
+        .then((value) {
+      forgiveness = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Happiness")
+        .get()
+        .then((value) {
+      happiness = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Freedom")
+        .get()
+        .then((value) {
+      freedom = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Respect")
+        .get()
+        .then((value) {
+      respect = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Strength")
+        .get()
+        .then((value) {
+      strength = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Teacher")
+        .get()
+        .then((value) {
+      teacher = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Thankful")
+        .get()
+        .then((value) {
+      thankful = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Time")
+        .get()
+        .then((value) {
+      time = value.data()!["img"];
+    });
+    firestoreInstance
+        .collection("categories_Pictures")
+        .doc("Travel")
+        .get()
+        .then((value) {
+      travel = value.data()!["img"];
     });
   }
   saveRandomId() async {
@@ -497,6 +601,19 @@ class _homeScreenState extends State<homeScreen> {
                               parenting.toString(),
                               relationship.toString(),
                               romantic.toString(),
+                              attitude.toString(),
+                              beauty.toString(),
+                              courage.toString(),
+                              experience.toString(),
+                              forgiveness.toString(),
+                              happiness.toString(),
+                              freedom.toString(),
+                              respect.toString(),
+                              strength.toString(),
+                              teacher.toString(),
+                              thankful.toString(),
+                              time.toString(),
+                              travel.toString(),
                             )));
                   },
                   child: Container(
@@ -852,7 +969,7 @@ class _quotesGetterState extends State<quotesGetter> {
               "${widget.quote}",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 5.5),
+                  fontSize: SizeConfig.blockSizeHorizontal! * 4),
             ),
           ),
           SizedBox(
