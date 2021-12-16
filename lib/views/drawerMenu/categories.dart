@@ -565,7 +565,7 @@ class _categoriesState extends State<categories> {
                     "General",
                     style: GoogleFonts.poppins(
                         fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                        color: Color(0xff00008B)),
+                        color:drawerColor),
                   ),
                 ),
               ),
@@ -627,7 +627,7 @@ class _categoriesState extends State<categories> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    subCategories("Love", 'love')));
+                                    subCategories("Love", 'Love')));
                       },
                       child: categoriesBox(widget.love, "Love", isPremium),
                     ),
@@ -1504,7 +1504,7 @@ class _categoriesBoxState extends State<categoriesBox> {
               "${widget.title!}",
               style: GoogleFonts.poppins(
                   fontSize: SizeConfig.blockSizeHorizontal! * 3.8,
-                  color: Color(0xff00008B)),
+                  color: drawerColor),
             ),
           ),
         ),
@@ -1582,7 +1582,7 @@ class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
               style: GoogleFonts.poppins(
                   fontSize:
                   SizeConfig.blockSizeHorizontal! * 3.8,
-                  color: Color(0xff00008B)),
+                  color: drawerColor),
             ),
           ),
         ),

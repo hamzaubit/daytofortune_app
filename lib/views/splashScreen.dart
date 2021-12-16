@@ -23,20 +23,8 @@ class _splashScreenState extends State<splashScreen> {
   var isPremium;
   var expiryDate;
   var validity;
-  var date = new DateTime.fromMicrosecondsSinceEpoch(1643322154);
-  int daysBetween(DateTime from, DateTime to) {
-    from = DateTime(from.year, from.month, from.day);
-    to = DateTime(to.year, to.month, to.day);
-    validity = from.difference(to).inDays;
-    print("Difference : ${validity}");
-    return (to.difference(from).inDays);
-  }
-
+  bool? valDate;
   var homeScreenVariable;
-
-  //the birthday's date
-  final birthday = DateTime(2021, 12, 28);
-  final date2 = DateTime.now();
   var dateNow = new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   isUserPremium() {
@@ -56,8 +44,21 @@ class _splashScreenState extends State<splashScreen> {
         setState(() {
           isPremium = (value.data()?['isPremium']);
           expiryDate = (value.data()?['expiryDate']);
+          var myDate = DateTime.tryParse((value.data()?['expiryDate']));
+          valDate = dateNow.isBefore(myDate!);
+          print("Date Condition : ${valDate}");
           print("Expiry Date : ${expiryDate}");
-
+          if(valDate == true){
+            print("Your Premium is not expire");
+          }
+          else{
+            var date = new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+            var newDate = new DateTime(date.year, date.month, date.day);
+            FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
+              'isPremium' : false,
+              'expiryDate' : newDate.toString(),
+            });
+          }
         });
       });
     }
@@ -76,15 +77,6 @@ class _splashScreenState extends State<splashScreen> {
   }
 
   checkPremiumExpiry(){
-    if(validity > 365){
-      FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update({
-        'isPremium' : false,
-        'expiryDate' : '',
-      });
-    }
-    else{
-      return "Your Premium is not expire";
-    }
   }
 
   goToHomeScreen() async {
@@ -99,8 +91,6 @@ class _splashScreenState extends State<splashScreen> {
   void initState() {
     gettingStrpeKey();
     isUserPremium();
-    var date = DateTime.fromMillisecondsSinceEpoch(1643322154 * 1000);
-    daysBetween(birthday, dateNow); // yhnn pr kissi trhn birthday ki jaga expirydate rkhni hai
     checkPremiumExpiry();
     Timer(Duration(seconds: 3),(){
       goToHomeScreen();
