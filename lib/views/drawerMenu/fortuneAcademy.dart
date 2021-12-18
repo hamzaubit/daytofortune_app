@@ -26,17 +26,6 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
 
   var isPremium;
 
-  getAudioBackGround() {
-    firestoreInstance
-        .collection("audio_Background")
-        .get()
-        .then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        print(result.data()['img']);
-      });
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -70,20 +59,20 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
   @override
   Widget build(BuildContext context) {
     Query trending_audio =
-        FirebaseFirestore.instance.collection('trending_audio');
+        FirebaseFirestore.instance.collection('Audios').doc("1").collection('trending_audio');
     Query topFavourite_audio =
-        FirebaseFirestore.instance.collection('topFavourite_audio');
-    Query hot10_audio = FirebaseFirestore.instance.collection('hot10_audio');
+        FirebaseFirestore.instance.collection('Audios').doc("1").collection('topFavourite_audio');
+    Query hot10_audio = FirebaseFirestore.instance.collection('Audios').doc("1").collection('hot10_audio');
     Query myCollection_audio =
-        FirebaseFirestore.instance.collection('myCollection_audio');
+        FirebaseFirestore.instance.collection('Audios').doc("1").collection('myCollection_audio');
 
     Query trending_video =
-        FirebaseFirestore.instance.collection('trending_video');
+        FirebaseFirestore.instance.collection('Videos').doc("1").collection('trending_video');
     Query topFavourite_video =
-        FirebaseFirestore.instance.collection('topFavourite_video');
-    Query hot10_video = FirebaseFirestore.instance.collection('hot10_video');
+        FirebaseFirestore.instance.collection('Videos').doc("1").collection('topFavourite_video');
+    Query hot10_video = FirebaseFirestore.instance.collection('Videos').doc("1").collection('hot10_video');
     Query myCollection_video =
-        FirebaseFirestore.instance.collection('myCollection_video');
+        FirebaseFirestore.instance.collection('Videos').doc("1").collection('myCollection_video');
 
     CollectionReference users =
         FirebaseFirestore.instance.collection('audio_Background');
@@ -170,7 +159,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                            left: 10, top: 10, bottom: 10),
                        child: GestureDetector(
                          onTap: (){
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Trending","trending_audio")));
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Trending","Audios","trending_audio")));
                          },
                          child: Text(
                            "Trending",
@@ -230,7 +219,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                            left: 10, top: 10, bottom: 10),
                        child: isPremium ? GestureDetector(
                          onTap: (){
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Top Favourites","topFavourite_audio")));
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Top Favourites","Audios","topFavourite_audio")));
                          },
                          child: Text(
                            "Top Favourites",
@@ -306,7 +295,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                            left: 10, top: 10, bottom: 10),
                        child: isPremium ? GestureDetector(
                          onTap: (){
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Hot 10","hot10_audio")));
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Hot 10","Audios","hot10_audio")));
                          },
                          child: Text(
                            "Hot 10",
@@ -382,7 +371,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                            left: 10, top: 10, bottom: 10),
                        child: isPremium ? GestureDetector(
                          onTap: (){
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("My Collection","myCollection_audio")));
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("My Collection","Audios","myCollection_audio")));
                          },
                          child: Text(
                            "My Collection",
@@ -509,7 +498,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             left: 10, top: 10, bottom: 10),
                         child: GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaListForVideo("Trending","trending_video")));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Trending","Videos","trending_video")));
                           },
                           child: Text(
                             "Trending",
@@ -569,7 +558,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             left: 10, top: 10, bottom: 10),
                         child: isPremium ? GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaListForVideo("Top Favourites","topFavourite_video")));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Top Favourites","Videos","topFavourite_video")));
                           },
                           child: Text(
                             "Top Favourites",
@@ -645,7 +634,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             left: 10, top: 10, bottom: 10),
                         child: isPremium ? GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaListForVideo("Hot 10","hot10_video")));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("Hot 10","Videos","hot10_video")));
                           },
                           child: Text(
                             "Hot 10",
@@ -721,7 +710,7 @@ class _fortuneAcademyState extends State<fortuneAcademy> {
                             left: 10, top: 10, bottom: 10),
                         child: isPremium ? GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaListForVideo("My Collection","myCollection_video")));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => mediaList("My Collection","Videos","myCollection_video")));
                           },
                           child: Text(
                             "My Collection",

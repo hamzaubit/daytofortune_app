@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'onBoardingScreen.dart';
 
 class splashScreen extends StatefulWidget {
@@ -34,7 +32,6 @@ class _splashScreenState extends State<splashScreen> {
         isPremium = false;
       });
     } else {
-//  fetch user data
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -76,22 +73,18 @@ class _splashScreenState extends State<splashScreen> {
     });
   }
 
-  checkPremiumExpiry(){
-  }
 
   goToHomeScreen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     homeScreenVariable = prefs.getString('HomeScreen');
     homeScreenVariable == null ? Navigator.push(context, MaterialPageRoute(builder: (context) => onBoardingScreen())) :
     Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
-    //homeScreenVariable == null ? onBoardingScreen() : homeScreen();
   }
 
   @override
   void initState() {
     gettingStrpeKey();
     isUserPremium();
-    checkPremiumExpiry();
     Timer(Duration(seconds: 3),(){
       goToHomeScreen();
     });

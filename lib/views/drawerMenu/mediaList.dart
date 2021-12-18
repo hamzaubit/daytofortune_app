@@ -11,8 +11,9 @@ import '../videoPlayer.dart';
 class mediaList extends StatefulWidget {
 
   String? categoryTitle;
+  String? mainCategory;
   String? categoryCollection;
-  mediaList(this.categoryTitle,this.categoryCollection);
+  mediaList(this.categoryTitle,this.mainCategory,this.categoryCollection,);
 
   @override
   _mediaListState createState() => _mediaListState();
@@ -21,7 +22,7 @@ class mediaList extends StatefulWidget {
 class _mediaListState extends State<mediaList> {
   @override
   Widget build(BuildContext context) {
-    Query mediaLis = FirebaseFirestore.instance
+    Query mediaLis = FirebaseFirestore.instance.collection(widget.mainCategory!).doc("1")
         .collection(widget.categoryCollection!);
     SizeConfig().init(context);
     return Scaffold(
@@ -86,86 +87,6 @@ class _mediaListState extends State<mediaList> {
     );
   }
 }
-
-class mediaListForVideo extends StatefulWidget {
-
-  String? categoryTitle;
-  String? categoryCollection;
-  mediaListForVideo(this.categoryTitle,this.categoryCollection);
-
-  @override
-  _mediaListForVideoState createState() => _mediaListForVideoState();
-}
-
-class _mediaListForVideoState extends State<mediaListForVideo> {
-  @override
-  Widget build(BuildContext context) {
-    Query mediaLis = FirebaseFirestore.instance
-        .collection(widget.categoryCollection!);
-    SizeConfig().init(context);
-    return Scaffold(
-      backgroundColor: primaryThemeColor,
-      appBar: AppBar(
-        backgroundColor: drawerColor,
-        title: Text(
-          widget.categoryTitle!,
-          style: GoogleFonts.poppins(
-              color: secondaryThemeColor,
-              fontSize: SizeConfig.blockSizeHorizontal! * 6.5),
-        ),
-      ),
-      body: Container(
-        height: SizeConfig.blockSizeVertical! * 100,
-        width: MediaQuery.of(context).size.width,
-        child: StreamBuilder<QuerySnapshot>(
-          stream: mediaLis.snapshots(),
-          builder: (context, stream){
-            if (!stream.hasData) {
-              return Container();
-            }
-            QuerySnapshot? querySnapshot = stream.data;
-            return Container(
-              height: SizeConfig.blockSizeVertical! * 100,
-              width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: querySnapshot?.size,
-                  itemBuilder: (context , index){
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    youtubeVideoPlayer(
-                                      (querySnapshot!
-                                          .docs[index]['url']
-                                          .toString()),
-                                      (querySnapshot
-                                          .docs[index]
-                                      ['title']
-                                          .toString()),
-                                      (querySnapshot
-                                          .docs[index]
-                                      ['thumbnail']
-                                          .toString()),
-                                    )));
-                      },
-                      child: cardWidget(
-                        querySnapshot!.docs[index]['title'].toString(),
-                        querySnapshot.docs[index]['img'].toString(),
-                      ),
-                    );
-                  }),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
 
 class cardWidget extends StatefulWidget {
 
