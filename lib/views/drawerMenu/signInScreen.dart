@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/views/drawerMenu/signUpScreen.dart';
+import 'package:daytofortune_app/views/homeScreen.dart';
 import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:daytofortune_app/widgets/validator.dart';
@@ -23,6 +24,7 @@ class _signInScreenState extends State<signInScreen> {
   TextEditingController username_email = new TextEditingController();
   TextEditingController password = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   themeCheck(){
     DocumentReference documentReference = FirebaseFirestore.instance
@@ -223,6 +225,30 @@ class _signInScreenState extends State<signInScreen> {
                     ],
                   ),
                   SizedBox(
+                    height: SizeConfig.blockSizeVertical! * 2,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      if(username_email.text.isEmpty){
+                        final snackBar = SnackBar(
+                          backgroundColor: secondaryThemeColor,
+                          content: Text("Enter your email then tap on forgot password",style: TextStyle(color: primaryThemeColor),),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                      else{
+                        resetBtn();
+                      }
+                    },
+                    child: Text(
+                      "Forgot Password?",
+                      style: GoogleFonts.poppins(
+                          color: secondaryThemeColor,
+                          fontSize:
+                          SizeConfig.blockSizeHorizontal! * 3.5),
+                    ),
+                  ),
+                  SizedBox(
                     height: SizeConfig.blockSizeVertical! * 4,
                   ),
                   GestureDetector(
@@ -275,6 +301,9 @@ class _signInScreenState extends State<signInScreen> {
                       else {
                         signOut();
                         _submit();
+                        setState(() {
+                          isLoading = true;
+                        });
                         //signIn(username_email.text.trim() , password.text,);
                         /*showDialog(
                           context: context,
@@ -311,7 +340,7 @@ class _signInScreenState extends State<signInScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            isLoading ? CircularProgressIndicator(color: primaryThemeColor,) : Text(
                               "Sign In",
                               style: GoogleFonts.poppins(
                                   fontSize: SizeConfig.blockSizeHorizontal! * 4,
@@ -521,11 +550,16 @@ class _signInScreenState extends State<signInScreen> {
                           fontSize: SizeConfig.blockSizeHorizontal! * 3.8),
                     ),
                   ),
-                  Text(
-                    "No thanks, continue as guest.",
-                    style: GoogleFonts.poppins(
-                        color: textColor,
-                        fontSize: SizeConfig.blockSizeHorizontal! * 4),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => homeScreen()));
+                    },
+                    child: Text(
+                      "No thanks, continue as guest.",
+                      style: GoogleFonts.poppins(
+                          color: textColor,
+                          fontSize: SizeConfig.blockSizeHorizontal! * 4),
+                    ),
                   ),
                 ],
               ),
@@ -544,6 +578,9 @@ class _signInScreenState extends State<signInScreen> {
         content: Text("Logged In Failed! Invalid Email or Password",style: TextStyle(color: primaryThemeColor),),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      setState(() {
+        isLoading = false;
+      });
 
     } else {
       print(response['message']);
@@ -556,6 +593,28 @@ class _signInScreenState extends State<signInScreen> {
         content: Text("Logged In Successfully",style: TextStyle(color: primaryThemeColor),),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+  resetBtn() async {
+    final response = await resetPassword(username_email.text.trim());
+    if(response['error'] == 1){
+      print(response['message']);
+      final snackBar = SnackBar(
+        backgroundColor: secondaryThemeColor,
+        content: Text("No user found for that email.",style: TextStyle(color: primaryThemeColor),),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    else{
+      final snackBar = SnackBar(
+        backgroundColor: secondaryThemeColor,
+        content: Text("Request sent to the email",style: TextStyle(color: primaryThemeColor),),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      username_email.clear();
     }
   }
 }

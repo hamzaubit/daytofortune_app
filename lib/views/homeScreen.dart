@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'drawerMenu/categories.dart';
@@ -485,6 +486,7 @@ class _homeScreenState extends State<homeScreen> {
   void initState() {
     getImages();
     saveRandomId();
+    adWidget();
     super.initState();
   }
 
@@ -989,8 +991,3 @@ class _quotesGetterState extends State<quotesGetter> {
     );
   }
 }
-
-/*Icon(Icons.logout,color: Colors.indigo[600],size: SizeConfig.blockSizeHorizontal! * 7,),
-SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),
-Icon(Icons.favorite_outlined,color: Colors.red,size: SizeConfig.blockSizeHorizontal! * 7,),
-SizedBox(width: SizeConfig.blockSizeHorizontal! * 2,),*/

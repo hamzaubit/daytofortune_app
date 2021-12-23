@@ -67,10 +67,25 @@ signIn(String email, String password,) async {
     if (e.code == 'user-not-found') {
       response['error'] = 1;
       print('No user found for that email.');
-
     } else if (e.code == 'wrong-password') {
       response['error'] = 1;
       print('Wrong password provided for that user.');
+    }
+  }
+  return response;
+}
+
+resetPassword(String email){
+
+  var response = {};
+  try{
+    FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    print("Successfully sent request to the email");
+    response['error'] = 0;
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      response['error'] = 1;
+      print('No user found for that email.');
     }
   }
   return response;

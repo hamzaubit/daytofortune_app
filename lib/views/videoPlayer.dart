@@ -33,59 +33,7 @@ class _videoPlayerState extends State<videoPlayer> {
           style: TextStyle(color: secondaryThemeColor),
         ),
       ),
-      body: GestureDetector(
-        onVerticalDragUpdate : (updateDetails) {},
-        child: Stack(
-          children: [
-            WebView(
-              initialUrl: widget.videoUrl,
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController webViewController) {
-                _webViewController = webViewController;
-              },
-            ),
-            Container(
-              height: SizeConfig.blockSizeVertical! * 55,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Description",
-                        style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5.8),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.blockSizeVertical! * 4,
-
-                      ),
-                      Text(
-                        "${widget.thumbnail}",
-                        style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5),
-                      ),
-                    ],
-                  )
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: SizeConfig.blockSizeVertical! * 7,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/*Column(
+      body: Column(
         children: [
           AspectRatio(
             aspectRatio: 16 / 9,
@@ -109,7 +57,60 @@ class _videoPlayerState extends State<videoPlayer> {
             ),
           ),
         ],
-      ),*/
+      ),
+    );
+  }
+}
+
+/*GestureDetector(
+onVerticalDragUpdate : (updateDetails) {},
+child: Stack(
+children: [
+WebView(
+initialUrl: widget.videoUrl,
+javascriptMode: JavascriptMode.unrestricted,
+onWebViewCreated: (WebViewController webViewController) {
+_webViewController = webViewController;
+},
+),
+Container(
+height: SizeConfig.blockSizeVertical! * 55,
+width: MediaQuery.of(context).size.width,
+color: Colors.white,
+child: Padding(
+padding: const EdgeInsets.all(12.0),
+child: Center(
+child: Column(
+children: [
+Text(
+"Description",
+style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5.8),
+),
+SizedBox(
+height: SizeConfig.blockSizeVertical! * 4,
+
+),
+Text(
+"${widget.thumbnail}",
+style: TextStyle(color: primaryThemeColor,fontSize: SizeConfig.blockSizeHorizontal! * 5),
+),
+],
+)
+),
+),
+),
+Align(
+alignment: Alignment.bottomCenter,
+child: Container(
+height: SizeConfig.blockSizeVertical! * 7,
+width: MediaQuery.of(context).size.width,
+color: Colors.white
+),
+),
+],
+),
+),*/
+
 
 
 /*Stack(

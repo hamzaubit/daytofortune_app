@@ -27,6 +27,7 @@ class _signUpScreenState extends State<signUpScreen> {
   RegExp(r'[^\@]+\@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+');
   static final RegExp passwordRegExp =
   RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -431,6 +432,9 @@ class _signUpScreenState extends State<signUpScreen> {
                       if (_formKey.currentState!.validate()) {
                         signOut();
                         _submit();
+                        setState(() {
+                          isLoading = true;
+                        });
                       }
                     },
                     child: Container(
@@ -443,7 +447,7 @@ class _signUpScreenState extends State<signUpScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            isLoading ? CircularProgressIndicator(color: primaryThemeColor,) : Text(
                               "Proceed",
                               style: GoogleFonts.poppins(
                                   fontSize: SizeConfig.blockSizeHorizontal! * 4,
@@ -470,6 +474,9 @@ class _signUpScreenState extends State<signUpScreen> {
         content: Text("Not Successfully Registered. Remove Extra Spaces"),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      setState(() {
+        isLoading = false;
+      });
     } else {
       print(response['message']);
       final snackBar = SnackBar(
@@ -479,6 +486,9 @@ class _signUpScreenState extends State<signUpScreen> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => membershipScreen()));
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 }
