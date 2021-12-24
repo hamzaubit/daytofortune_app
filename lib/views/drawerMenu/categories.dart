@@ -374,7 +374,7 @@ class _categoriesState extends State<categories> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.tiktok.com/daytofortune')));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.tiktok.com/@daytofortune?')));
                     },
                     child: Container(
                       height: SizeConfig.blockSizeVertical! * 3.5,
