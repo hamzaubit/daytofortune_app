@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../premiumScreen.dart';
+import '../socialPage.dart';
 import 'fortuneAcademy.dart';
 
 class categories extends StatefulWidget {
@@ -193,12 +194,12 @@ class _categoriesState extends State<categories> {
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
+              DrawerHeader(
                 decoration: BoxDecoration(color: drawerColor),
                 child: Center(
                   child: Text(
                     "Menu",
-                    style: TextStyle(color: textColor, fontSize: 25),
+                    style: TextStyle(color: textColor, fontSize: SizeConfig.blockSizeHorizontal! * 7),
                   ),
                 ),
               ),
@@ -339,46 +340,53 @@ class _categoriesState extends State<categories> {
                   SizedBox(
                     width: SizeConfig.blockSizeHorizontal! * 2,
                   ),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 3.5,
-                    width: SizeConfig.blockSizeHorizontal! * 7.2,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/fb.png'),
-                            fit: BoxFit.fill)),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.facebook.com/daytofortune/')));
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 4,
+                      width: SizeConfig.blockSizeHorizontal! * 8,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/fb.png'),
+                              fit: BoxFit.fill)),
+                    ),
+                  ),
+                  SizedBox(
+                    width: SizeConfig.blockSizeHorizontal! * 4,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.instagram.com/daytofortune/')));
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 3.5,
+                      width: SizeConfig.blockSizeHorizontal! * 7,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/insta.png'),
+                              fit: BoxFit.fill)),
+                    ),
+                  ),
+                  SizedBox(
+                    width: SizeConfig.blockSizeHorizontal! * 4,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.tiktok.com/daytofortune')));
+                    },
+                    child: Container(
+                      height: SizeConfig.blockSizeVertical! * 3.5,
+                      width: SizeConfig.blockSizeHorizontal! * 7.5,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/tiktok.png'),
+                              fit: BoxFit.fill)),
+                    ),
                   ),
                   SizedBox(
                     width: SizeConfig.blockSizeHorizontal! * 2,
-                  ),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 3,
-                    width: SizeConfig.blockSizeHorizontal! * 6.5,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/insta.png'),
-                            fit: BoxFit.fill)),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 2,
-                  ),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 3,
-                    width: SizeConfig.blockSizeHorizontal! * 6.5,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/tiktok.png'),
-                            fit: BoxFit.fill)),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 2,
-                  ),
-                  Container(
-                    height: SizeConfig.blockSizeVertical! * 3,
-                    width: SizeConfig.blockSizeHorizontal! * 6.5,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/twitter.png'),
-                            fit: BoxFit.fill)),
                   ),
                 ],
               ),
