@@ -2,7 +2,7 @@
     package="com.example.daytofortune_app">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="DaytoFortune"
+        android:label="Day2Fortune"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

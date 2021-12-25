@@ -4,7 +4,6 @@ import 'package:daytofortune_app/widgets/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class videoPlayer extends StatefulWidget {
   String? videoUrl;
@@ -19,7 +18,7 @@ class videoPlayer extends StatefulWidget {
 
 class _videoPlayerState extends State<videoPlayer> {
 
-  WebViewController? _webViewController;
+ //WebViewController? _webViewController;
 
   @override
   Widget build(BuildContext context) {

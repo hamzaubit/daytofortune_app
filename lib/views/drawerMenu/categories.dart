@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../premiumScreen.dart';
 import '../socialPage.dart';
 import 'fortuneAcademy.dart';
@@ -135,6 +136,18 @@ class _categoriesState extends State<categories> {
   var loading = true;
 
   var isPremium;
+
+  openUrl(String url) async {
+    if(await canLaunch(url)){
+      await launch(
+        url,
+        universalLinksOnly: true,
+      );
+    }
+    else{
+      throw 'There was a problem';
+    }
+  }
 
   isUserPremium() {
     if (FirebaseAuth.instance.currentUser == null) {
@@ -342,7 +355,8 @@ class _categoriesState extends State<categories> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.facebook.com/daytofortune/')));
+                      openUrl("https://www.facebook.com/daytofortune/");
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.facebook.com/daytofortune/')));
                     },
                     child: Container(
                       height: SizeConfig.blockSizeVertical! * 4,
@@ -358,7 +372,8 @@ class _categoriesState extends State<categories> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.instagram.com/daytofortune/')));
+                      openUrl("https://www.instagram.com/daytofortune/");
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.instagram.com/daytofortune/')));
                     },
                     child: Container(
                       height: SizeConfig.blockSizeVertical! * 3.5,
@@ -374,7 +389,8 @@ class _categoriesState extends State<categories> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.tiktok.com/@daytofortune?')));
+                      openUrl("https://www.tiktok.com/@daytofortune?");
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.tiktok.com/@daytofortune?')));
                     },
                     child: Container(
                       height: SizeConfig.blockSizeVertical! * 3.5,

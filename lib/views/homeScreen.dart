@@ -16,6 +16,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'drawerMenu/categories.dart';
 import 'drawerMenu/fortuneAcademy.dart';
 import 'drawerMenu/integrationTests.dart';
@@ -88,6 +89,8 @@ class _homeScreenState extends State<homeScreen> {
   AdMobHelper adMobHelper = new AdMobHelper();
 
   //bool showAd = false;
+
+
 
   getImages() async {
     final firestoreInstance = await FirebaseFirestore.instance;
@@ -491,6 +494,18 @@ class _homeScreenState extends State<homeScreen> {
     super.initState();
   }
 
+  openUrl(String url) async {
+    if(await canLaunch(url)){
+      await launch(
+        url,
+        universalLinksOnly: true,
+      );
+    }
+    else{
+      throw 'There was a problem';
+    }
+  }
+
   /*ad() async {
     adMobHelper.createInterAd();
   }*/
@@ -755,7 +770,8 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.facebook.com/daytofortune/')));
+                        openUrl("https://www.facebook.com/daytofortune/");
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.facebook.com/daytofortune/')));
                       },
                       child: Container(
                         height: SizeConfig.blockSizeVertical! * 4,
@@ -771,7 +787,8 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.instagram.com/daytofortune/')));
+                        openUrl("https://www.instagram.com/daytofortune/");
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.instagram.com/daytofortune/')));
                       },
                       child: Container(
                         height: SizeConfig.blockSizeVertical! * 3.5,
@@ -787,7 +804,8 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.tiktok.com/@daytofortune?')));
+                        openUrl("https://www.tiktok.com/@daytofortune?");
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => socialWebpage('https://www.tiktok.com/@daytofortune?')));
                       },
                       child: Container(
                         height: SizeConfig.blockSizeVertical! * 3.5,
@@ -979,7 +997,7 @@ class _quotesGetterState extends State<quotesGetter> {
               "${widget.quote}",
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 4),
+                  fontSize: SizeConfig.blockSizeHorizontal! * 4.5),
             ),
           ),
           SizedBox(

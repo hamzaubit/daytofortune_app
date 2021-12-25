@@ -2,6 +2,7 @@ import 'package:daytofortune_app/widgets/colorClass.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+
 class socialWebpage extends StatefulWidget {
 
   String? url;

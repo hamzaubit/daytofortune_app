@@ -111,7 +111,7 @@ class _splashScreenState extends State<splashScreen> {
             ),
             SizedBox(height: SizeConfig.blockSizeVertical! * 3.5,),
             Text(
-              "Day To Fortune",
+              "Day2Fortune",
               style: GoogleFonts.poppins(
                   color: secondaryThemeColor,
                   fontSize: SizeConfig.blockSizeHorizontal! * 5.5),
