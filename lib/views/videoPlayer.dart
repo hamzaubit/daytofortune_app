@@ -27,9 +27,11 @@ class _videoPlayerState extends State<videoPlayer> {
       backgroundColor: primaryThemeColor,
       appBar: AppBar(
         backgroundColor: primaryThemeColor,
-        title: Text(
-          "${widget.title}",
-          style: TextStyle(color: secondaryThemeColor),
+        title: FittedBox(
+          child: Text(
+            "${widget.title}",
+            style: TextStyle(color: secondaryThemeColor),
+          ),
         ),
       ),
       body: Column(
@@ -51,7 +53,7 @@ class _videoPlayerState extends State<videoPlayer> {
             child: Text(
               "${widget.thumbnail}",
               style: GoogleFonts.poppins(
-                  fontSize: SizeConfig.blockSizeHorizontal! * 5,
+                  fontSize: SizeConfig.blockSizeHorizontal! * 4.5,
                   color: secondaryThemeColor),
             ),
           ),

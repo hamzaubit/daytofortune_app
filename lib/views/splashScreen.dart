@@ -24,6 +24,7 @@ class _splashScreenState extends State<splashScreen> {
   bool? valDate;
   var homeScreenVariable;
   var dateNow = new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  //bool? freemiumVariable;
 
   isUserPremium() {
     if (FirebaseAuth.instance.currentUser == null) {
@@ -69,6 +70,7 @@ class _splashScreenState extends State<splashScreen> {
         .then((value) {
       print('Getting Key');
       stripeKey = (value.data()?['Stripe']);
+      //freemiumVariable = (value.data()?['freemium']);
       Stripe.publishableKey = stripeKey!;
     });
   }
@@ -97,24 +99,40 @@ class _splashScreenState extends State<splashScreen> {
     return Scaffold(
       backgroundColor: primaryThemeColor,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            Container(
-              height: SizeConfig.blockSizeVertical! * 25,
-              width: SizeConfig.blockSizeHorizontal! * 50,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/logo.png',),fit: BoxFit.cover
-                )
+            Center(
+              child: Container(
+                height: SizeConfig.blockSizeVertical! * 25,
+                width: SizeConfig.blockSizeHorizontal! * 50,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/logo.png',),fit: BoxFit.cover
+                  )
+                ),
               ),
             ),
             SizedBox(height: SizeConfig.blockSizeVertical! * 3.5,),
-            Text(
-              "Day2Fortune",
-              style: GoogleFonts.poppins(
-                  color: secondaryThemeColor,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 5.5),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: SizeConfig.blockSizeVertical! * 4.5,),
+                  Container(
+                    height: SizeConfig.blockSizeVertical! * 6,
+                    width: SizeConfig.blockSizeHorizontal! * 30,
+                    color: primaryThemeColor,
+                    child: Center(
+                      child: Text(
+                        "DaytoFortune",
+                        style: GoogleFonts.poppins(
+                            color: secondaryThemeColor,
+                            fontSize: SizeConfig.blockSizeHorizontal! * 4.3),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
@@ -87,7 +88,7 @@ class _homeScreenState extends State<homeScreen> {
 
   int count = 0;
   AdMobHelper adMobHelper = new AdMobHelper();
-
+  bool? freeMode;
   //bool showAd = false;
 
 
@@ -491,7 +492,20 @@ class _homeScreenState extends State<homeScreen> {
     getImages();
     saveRandomId();
     adWidget();
+    gettingFreemiumValue();
     super.initState();
+  }
+
+  gettingFreemiumValue() async {
+    await FirebaseFirestore.instance
+        .collection('imp_Key')
+        .doc('afVRxPxlAqLjiHuDGu56')
+        .get()
+        .then((value) {
+      print('Getting Free Key');
+      freeMode = (value.data()?['freemium']);
+      print("Free Mode Is : ${freeMode}");
+    });
   }
 
   openUrl(String url) async {
@@ -512,7 +526,7 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    gettingFreemiumValue();
     Future<bool> showExitPopup() async {
       return await showDialog( //show confirm dialogue
         //the return value will be from "Yes" or "No" options
@@ -577,6 +591,7 @@ class _homeScreenState extends State<homeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => categories(
+                                freeMode!,
                                 general.toString(),
                                 favourites.toString(),
                                 hustle.toString(),
@@ -739,7 +754,7 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                   ),
                 ),
-                Container(
+                /*Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: textColor, width: 0.5)),
                   child: ListTile(
@@ -752,9 +767,9 @@ class _homeScreenState extends State<homeScreen> {
                       Navigator.pop(context);
                     },
                   ),
-                ),
+                ),*/
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical! * 10,
+                  height: SizeConfig.blockSizeVertical! * 15,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -993,11 +1008,12 @@ class _quotesGetterState extends State<quotesGetter> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8),
-            child: Text(
+            child: AutoSizeText(
               "${widget.quote}",
+              maxLines: 24,
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 4.5),
+              fontSize: SizeConfig.blockSizeHorizontal! * 5),
             ),
           ),
           SizedBox(

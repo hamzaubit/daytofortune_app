@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
@@ -198,11 +199,12 @@ class _quotesGetterState extends State<quotesGetter> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 12, right: 8),
-            child: Text(
+            child: AutoSizeText(
               "${widget.quote}",
+              maxLines: 20,
               style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 4),
+                  fontSize: SizeConfig.blockSizeHorizontal! * 4.5),
             ),
           ),
           SizedBox(

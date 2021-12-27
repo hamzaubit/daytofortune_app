@@ -164,8 +164,8 @@ class _myQuotesState extends State<myQuotes> {
                       });
                 } else {
                   final snackBar = SnackBar(
-                    backgroundColor: primaryThemeColor,
-                    content: const Text('You have to Login first'),
+                    backgroundColor: secondaryThemeColor,
+                    content: const Text('You have to Login first',style: TextStyle(color: primaryThemeColor)),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.push(context,

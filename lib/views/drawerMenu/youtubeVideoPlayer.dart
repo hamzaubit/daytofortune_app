@@ -60,7 +60,7 @@ class _youtubeVideoPlayerState extends State<youtubeVideoPlayer> {
           backgroundColor: primaryThemeColor,
           appBar: AppBar(
             backgroundColor: primaryThemeColor,
-            title: Text("${widget.title}",style: TextStyle(color: secondaryThemeColor),),
+            title: FittedBox(child: Text("${widget.title}",style: TextStyle(color: secondaryThemeColor),)),
           ),
           body: Column(
             children: [
@@ -71,7 +71,7 @@ class _youtubeVideoPlayerState extends State<youtubeVideoPlayer> {
                   "${widget.thumbnail}",
                   style: GoogleFonts.poppins(
                       color: secondaryThemeColor,
-                      fontSize: SizeConfig.blockSizeHorizontal! * 5),
+                      fontSize: SizeConfig.blockSizeHorizontal! * 4.5),
                 ),
               ),
             ],

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daytofortune_app/views/drawerMenu/myQuotes.dart';
 import 'package:daytofortune_app/views/drawerMenu/signInScreen.dart';
@@ -16,6 +17,7 @@ import '../socialPage.dart';
 import 'fortuneAcademy.dart';
 
 class categories extends StatefulWidget {
+  bool free;
   String favourites;
   String general;
   String hustle;
@@ -72,7 +74,9 @@ class categories extends StatefulWidget {
   String? time;
   String? travel;
 
-  categories(this.general,
+  categories(
+      this.free,
+      this.general,
       this.favourites,
       this.hustle,
       this.stress,
@@ -137,6 +141,9 @@ class _categoriesState extends State<categories> {
 
   var isPremium;
 
+  bool? freemiumvariable;
+
+
   openUrl(String url) async {
     if(await canLaunch(url)){
       await launch(
@@ -155,6 +162,7 @@ class _categoriesState extends State<categories> {
       setState(() {
         isPremium = false;
         loading = false;
+        freemiumvariable = widget.free;
       });
     } else {
 //  fetch user data
@@ -167,10 +175,12 @@ class _categoriesState extends State<categories> {
         setState(() {
           loading = false;
           isPremium = (value.data() ? ['isPremium']);
+          freemiumvariable = widget.free;
         });
       });
     }
   }
+
 
   @override
   void initState() {
@@ -324,7 +334,7 @@ class _categoriesState extends State<categories> {
                   ),
                 ),
               ),
-              Container(
+              /*Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: textColor, width: 0.5)),
                 child: ListTile(
@@ -337,9 +347,9 @@ class _categoriesState extends State<categories> {
                     Navigator.pop(context);
                   },
                 ),
-              ),
+              ),*/
               SizedBox(
-                height: SizeConfig.blockSizeVertical! * 10,
+                height: SizeConfig.blockSizeVertical! * 15,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -488,10 +498,11 @@ class _categoriesState extends State<categories> {
                                         MainAxisAlignment.center,
                                         children: [
                                           Center(
-                                            child: Text(
+                                            child: AutoSizeText(
                                               querySnapshot!.docs[index]
                                               ['quote']
                                                   .toString(),
+                                              maxLines: 8,
                                               style: GoogleFonts.poppins(
                                                   fontSize: SizeConfig
                                                       .blockSizeHorizontal! *
@@ -551,7 +562,7 @@ class _categoriesState extends State<categories> {
                                   subCategories(
                                       "Favourites", 'favourites')));
                     },
-                    child: rectangularCategoriesBox(widget.favourites,"Favourites",isPremium),
+                    child: rectangularCategoriesBox(widget.favourites,"Favourites",isPremium,freemiumvariable),
                 ),
               ],
             ),
@@ -614,7 +625,7 @@ class _categoriesState extends State<categories> {
                                 builder: (context) =>
                                     subCategories("Hustle", 'hustle')));
                       },
-                      child: categoriesBox(widget.hustle, "Hustle", isPremium),
+                      child: categoriesBox(widget.hustle, "Hustle", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -631,7 +642,7 @@ class _categoriesState extends State<categories> {
                                 builder: (context) =>
                                     subCategories("Stress", 'stress')));
                       },
-                      child: categoriesBox(widget.stress, "Stress", isPremium),
+                      child: categoriesBox(widget.stress, "Stress", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -653,7 +664,7 @@ class _categoriesState extends State<categories> {
                                 builder: (context) =>
                                     subCategories("Love", 'Love')));
                       },
-                      child: categoriesBox(widget.love, "Love", isPremium),
+                      child: categoriesBox(widget.love, "Love", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -672,7 +683,7 @@ class _categoriesState extends State<categories> {
                                         "Depression", 'depression')));
                       },
                       child: categoriesBox(
-                          widget.depression, "Depression", isPremium),
+                          widget.depression, "Depression", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -699,7 +710,7 @@ class _categoriesState extends State<categories> {
                                     subCategories("Workout", 'workout')));
                       },
                       child: categoriesBox(
-                          widget.workout, "Workout", isPremium),
+                          widget.workout, "Workout", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -716,7 +727,7 @@ class _categoriesState extends State<categories> {
                                 builder: (context) =>
                                     subCategories("Health", 'health')));
                       },
-                      child: categoriesBox(widget.health, "Health", isPremium),
+                      child: categoriesBox(widget.health, "Health", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -740,7 +751,7 @@ class _categoriesState extends State<categories> {
                                         "Training", 'training')));
                       },
                       child: categoriesBox(
-                          widget.training, "Training", isPremium),
+                          widget.training, "Training", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -755,7 +766,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Gym", 'gym')));
                     },
-                    child: categoriesBox(widget.gym, "Gym", isPremium)),
+                    child: categoriesBox(widget.gym, "Gym", isPremium,freemiumvariable)),
               ],
             ),
             SizedBox(
@@ -774,7 +785,7 @@ class _categoriesState extends State<categories> {
                               subCategories(
                                   "Inspirational", 'Inspirational')));
                 },
-                child: rectangularCategoriesBox(widget.inpirational,"Inspirational",isPremium)),
+                child: rectangularCategoriesBox(widget.inpirational,"Inspirational",isPremium,freemiumvariable)),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -792,7 +803,7 @@ class _categoriesState extends State<categories> {
                                     subCategories("Art", 'Art')));
                       },
                       child: categoriesBox(
-                          widget.art, "Art", isPremium),
+                          widget.art, "Art", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -809,7 +820,7 @@ class _categoriesState extends State<categories> {
                                 builder: (context) =>
                                     subCategories("Change", 'Change')));
                       },
-                      child: categoriesBox(widget.change, "Change", isPremium),
+                      child: categoriesBox(widget.change, "Change", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -832,7 +843,7 @@ class _categoriesState extends State<categories> {
                                     subCategories(
                                         "Mom", 'Mom')));
                       },
-                      child:categoriesBox(widget.mom, "Mom", isPremium),
+                      child:categoriesBox(widget.mom, "Mom", isPremium,freemiumvariable),
                     ),
                   ],
                 ),
@@ -847,7 +858,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Women", 'Women')));
                     },
-                    child: categoriesBox(widget.women, "Women", isPremium)),
+                    child: categoriesBox(widget.women, "Women", isPremium,freemiumvariable)),
               ],
             ),
             SizedBox(
@@ -869,7 +880,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Work", 'Work')));
                   },
-                  child:categoriesBox(widget.work, "Work", isPremium),
+                  child:categoriesBox(widget.work, "Work", isPremium,freemiumvariable),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -882,7 +893,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Business", 'Business')));
                     },
-                    child: categoriesBox(widget.business, "Business", isPremium)),
+                    child: categoriesBox(widget.business, "Business", isPremium,freemiumvariable)),
               ],
             ),
             SizedBox(
@@ -901,7 +912,7 @@ class _categoriesState extends State<categories> {
                               subCategories(
                                   "Failure", 'Failure')));
                 },
-                child: rectangularCategoriesBox(widget.failure,"Failure",isPremium)),
+                child: rectangularCategoriesBox(widget.failure,"Failure",isPremium,freemiumvariable)),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -917,7 +928,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Leadership", 'Leadership')));
                   },
-                  child:categoriesBox(widget.leadership, "Leadership", isPremium),
+                  child:categoriesBox(widget.leadership, "Leadership", isPremium,freemiumvariable),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -930,7 +941,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Moving On", 'MovingOn')));
                     },
-                    child: categoriesBox(widget.movingOn, "Moving On", isPremium)),
+                    child: categoriesBox(widget.movingOn, "Moving On", isPremium,freemiumvariable)),
               ],
             ),
             SizedBox(
@@ -952,7 +963,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Alone", 'Alone')));
                   },
-                  child:categoriesBox(widget.alone, "Alone", isPremium),
+                  child:categoriesBox(widget.alone, "Alone", isPremium,freemiumvariable),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -965,7 +976,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Death", 'Death')));
                     },
-                    child: categoriesBox(widget.death, "Death", isPremium)),
+                    child: categoriesBox(widget.death, "Death", isPremium,freemiumvariable)),
               ],
             ),
             SizedBox(
@@ -983,7 +994,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Sad", 'Sad')));
                   },
-                  child:categoriesBox(widget.sad, "Sad", isPremium),
+                  child:categoriesBox(widget.sad, "Sad", isPremium,freemiumvariable),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -996,7 +1007,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Fear", 'Fear')));
                     },
-                    child: categoriesBox(widget.fear, "Fear", isPremium)),
+                    child: categoriesBox(widget.fear, "Fear", isPremium,freemiumvariable)),
               ],
             ),
             SizedBox(
@@ -1018,7 +1029,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Hope", 'Hope')));
                   },
-                  child:categoriesBox(widget.hope, "Hope", isPremium),
+                  child:categoriesBox(widget.hope, "Hope", isPremium,freemiumvariable),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1031,7 +1042,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Life", 'Life')));
                     },
-                    child: categoriesBox(widget.life, "Life", isPremium)),
+                    child: categoriesBox(widget.life, "Life", isPremium,freemiumvariable)),
               ],
             ),
             SizedBox(
@@ -1049,7 +1060,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Wisdom", 'Wisdom')));
                   },
-                  child:categoriesBox(widget.wisdom, "Wisdom", isPremium),
+                  child:categoriesBox(widget.wisdom, "Wisdom", isPremium,freemiumvariable),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1062,7 +1073,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Imam Ali", 'ImamAli')));
                     },
-                    child: categoriesBox(widget.imamAli, "Imam Ali", isPremium)),
+                    child: categoriesBox(widget.imamAli, "Imam Ali", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1081,7 +1092,7 @@ class _categoriesState extends State<categories> {
                               subCategories(
                                   "Motivational", 'Motivational')));
                 },
-                child: rectangularCategoriesBox(widget.motivational,"Motivational",isPremium)),
+                child: rectangularCategoriesBox(widget.motivational,"Motivational",isPremium,freemiumvariable!)),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1097,7 +1108,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Morning", 'Morning')));
                   },
-                  child:categoriesBox(widget.morning, "Morning", isPremium),
+                  child:categoriesBox(widget.morning, "Morning", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1110,7 +1121,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Patience", 'Patience')));
                     },
-                    child: categoriesBox(widget.patience, "Patience", isPremium)),
+                    child: categoriesBox(widget.patience, "Patience", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1132,7 +1143,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Dad", 'Dad')));
                   },
-                  child:categoriesBox(widget.dad, "Dad", isPremium),
+                  child:categoriesBox(widget.dad, "Dad", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1145,7 +1156,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Family", 'Family')));
                     },
-                    child: categoriesBox(widget.family, "Family", isPremium)),
+                    child: categoriesBox(widget.family, "Family", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1160,7 +1171,7 @@ class _categoriesState extends State<categories> {
                               subCategories(
                                   "Dating", 'Dating')));
                 },
-                child: rectangularCategoriesBox(widget.dating,"Dating",isPremium)),
+                child: rectangularCategoriesBox(widget.dating,"Dating",isPremium,freemiumvariable!)),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1176,7 +1187,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Fathers Day", 'FathersDay')));
                   },
-                  child:categoriesBox(widget.fathersDay, "Fathers Day", isPremium),
+                  child:categoriesBox(widget.fathersDay, "Fathers Day", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1189,7 +1200,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Friendship", 'Friendship')));
                     },
-                    child: categoriesBox(widget.friendship, "Friendship", isPremium)),
+                    child: categoriesBox(widget.friendship, "Friendship", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1207,7 +1218,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Jealousy", 'Jealousy')));
                   },
-                  child:categoriesBox(widget.jealousy, "Jealousy", isPremium),
+                  child:categoriesBox(widget.jealousy, "Jealousy", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1220,7 +1231,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Marriage", 'Marriage')));
                     },
-                    child: categoriesBox(widget.marriage, "Marriage", isPremium)),
+                    child: categoriesBox(widget.marriage, "Marriage", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1235,7 +1246,7 @@ class _categoriesState extends State<categories> {
                               subCategories(
                                   "Romantic", 'Romantic')));
                 },
-                child: rectangularCategoriesBox(widget.romantic,"Romantic",isPremium)),
+                child: rectangularCategoriesBox(widget.romantic,"Romantic",isPremium,freemiumvariable!)),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1251,7 +1262,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Mothers Day", 'MothersDay')));
                   },
-                  child:categoriesBox(widget.mothersDay, "Mothers Day", isPremium),
+                  child:categoriesBox(widget.mothersDay, "Mothers Day", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1264,7 +1275,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Parenting", 'Parenting')));
                     },
-                    child: categoriesBox(widget.parenting, "Parenting", isPremium)),
+                    child: categoriesBox(widget.parenting, "Parenting", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1279,7 +1290,7 @@ class _categoriesState extends State<categories> {
                               subCategories(
                                   "Relationship", 'Relationship')));
                 },
-                child: rectangularCategoriesBox(widget.relationship,"Relationship",isPremium)),
+                child: rectangularCategoriesBox(widget.relationship,"Relationship",isPremium,freemiumvariable!)),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1299,7 +1310,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Attitude", 'Attitude')));
                   },
-                  child:categoriesBox(widget.attitude, "Attitude", isPremium),
+                  child:categoriesBox(widget.attitude, "Attitude", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1312,7 +1323,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Beauty", 'Beauty')));
                     },
-                    child: categoriesBox(widget.beauty, "Beauty", isPremium)),
+                    child: categoriesBox(widget.beauty, "Beauty", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1330,7 +1341,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Courage", 'Courage')));
                   },
-                  child:categoriesBox(widget.courage, "Courage", isPremium),
+                  child:categoriesBox(widget.courage, "Courage", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1343,7 +1354,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Experience", 'Experience')));
                     },
-                    child: categoriesBox(widget.experience, "Experience", isPremium)),
+                    child: categoriesBox(widget.experience, "Experience", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1361,7 +1372,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Forgiveness", 'Forgiveness')));
                   },
-                  child:categoriesBox(widget.forgiveness, "Forgiveness", isPremium),
+                  child:categoriesBox(widget.forgiveness, "Forgiveness", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1374,7 +1385,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Happiness", 'Happiness')));
                     },
-                    child: categoriesBox(widget.happiness, "Happiness", isPremium)),
+                    child: categoriesBox(widget.happiness, "Happiness", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1389,7 +1400,7 @@ class _categoriesState extends State<categories> {
                               subCategories(
                                   "Freedom", 'Freedom')));
                 },
-                child: rectangularCategoriesBox(widget.freedom,"Freedom",isPremium)),
+                child: rectangularCategoriesBox(widget.freedom,"Freedom",isPremium,freemiumvariable!)),
             SizedBox(
               height: SizeConfig.blockSizeVertical! * 2,
             ),
@@ -1405,7 +1416,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Respect", 'Respect')));
                   },
-                  child:categoriesBox(widget.respect, "Respect", isPremium),
+                  child:categoriesBox(widget.respect, "Respect", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1418,7 +1429,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Strength", 'Strength')));
                     },
-                    child: categoriesBox(widget.strength, "Strength", isPremium)),
+                    child: categoriesBox(widget.strength, "Strength", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1436,7 +1447,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Teacher", 'Teacher')));
                   },
-                  child:categoriesBox(widget.teacher, "Teacher", isPremium),
+                  child:categoriesBox(widget.teacher, "Teacher", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1449,7 +1460,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Thankful", 'Thankful')));
                     },
-                    child: categoriesBox(widget.thankful, "Thankful", isPremium)),
+                    child: categoriesBox(widget.thankful, "Thankful", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1467,7 +1478,7 @@ class _categoriesState extends State<categories> {
                                 subCategories(
                                     "Time", 'Time')));
                   },
-                  child:categoriesBox(widget.time, "Time", isPremium),
+                  child:categoriesBox(widget.time, "Time", isPremium,freemiumvariable!),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 3,
@@ -1480,7 +1491,7 @@ class _categoriesState extends State<categories> {
                               builder: (context) =>
                                   subCategories("Travel", 'Travel')));
                     },
-                    child: categoriesBox(widget.travel, "Travel", isPremium)),
+                    child: categoriesBox(widget.travel, "Travel", isPremium,freemiumvariable!)),
               ],
             ),
             SizedBox(
@@ -1497,8 +1508,9 @@ class categoriesBox extends StatefulWidget {
   String? img;
   String? title;
   bool? isPremium;
+  bool? freemium;
 
-  categoriesBox(this.img, this.title, this.isPremium);
+  categoriesBox(this.img, this.title, this.isPremium,this.freemium);
 
   @override
   _categoriesBoxState createState() => _categoriesBoxState();
@@ -1532,7 +1544,7 @@ class _categoriesBoxState extends State<categoriesBox> {
             ),
           ),
         ),
-        widget.isPremium!
+        widget.isPremium! || widget.freemium!
             ? SizedBox()
             : GestureDetector(
           onTap: () {
@@ -1569,8 +1581,9 @@ class rectangularCategoriesBox extends StatefulWidget {
   String? img;
   String? title;
   bool? isPremium;
+  bool? freemium;
 
-  rectangularCategoriesBox(this.img, this.title, this.isPremium);
+  rectangularCategoriesBox(this.img, this.title, this.isPremium,this.freemium);
 
   @override
   _rectangularCategoriesBoxState createState() =>
@@ -1578,6 +1591,7 @@ class rectangularCategoriesBox extends StatefulWidget {
 }
 
 class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -1610,7 +1624,7 @@ class _rectangularCategoriesBoxState extends State<rectangularCategoriesBox> {
             ),
           ),
         ),
-        widget.isPremium!
+        widget.isPremium! || widget.freemium!
             ? SizedBox()
             : GestureDetector(
           onTap: () {
