@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:daytofortune_app/functions/authFunctions.dart';
 import 'package:daytofortune_app/functions/googleAdsService.dart';
 import 'package:daytofortune_app/functions/paymentService.dart';
@@ -336,7 +335,7 @@ class _membershipScreenState extends State<membershipScreen> {
                   });
                 });
                 if(await checkLoggedIn()){
-                  await makePayment(context, '200', 'USD');
+                  await makePayment(context, '1799', 'USD');
                 }
                else{
                   final snackBar = SnackBar(

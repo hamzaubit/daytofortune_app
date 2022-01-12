@@ -15,8 +15,8 @@ class AdMobHelper {
   void createInterAd() {
     print('Creating ad intent...');
     InterstitialAd.load(
-        //adUnitId: 'ca-app-pub-9302748777408830/7926104868', USE IN PRODUCTION
-        adUnitId: 'ca-app-pub-3940256099942544/1033173712',
+        adUnitId: 'ca-app-pub-9302748777408830/7926104868', //USE IN PRODUCTION
+        //adUnitId: 'ca-app-pub-3940256099942544/1033173712',
         request: AdRequest(),
         adLoadCallback:
             //ad successfully loaded...
